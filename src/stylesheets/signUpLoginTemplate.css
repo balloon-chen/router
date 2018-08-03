@@ -1,0 +1,76 @@
+.background {
+    font-family: 微軟正黑體;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../images/signUpLoginBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    top: 40px;
+}
+
+.card {
+    transform: translate(-50%, 0%);
+    position: relative;
+    left: 50%;
+    top: 60px;
+    width: 92vw;
+    height: 78vh;
+    border-radius: 33px;
+    box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.1);
+    background-color: white;
+    padding-top: 20px;
+}
+
+.shortLine {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.hrShortLine_left {
+    width: 37%;
+    margin-left: 5%;
+    float: left;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.textOr {
+    transform: translate(-50%, -15%);
+    position: absolute;
+    left: 50%;
+    color: rgba(0,0,0,0.3);
+}
+
+.hrShortLine_right {
+    width: 37%;
+    margin-right: 5%;
+    float: right;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.hrLine {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 12px 1px rgba(0,0,0,0.1);
+}
+
+.textAlreadyHaveAccountOrNot {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 8%;
+    color: #818181;
+    font-weight: 200;
+}
+
+.textAlreadyHaveAccountOrNot_loginOrSignUp {
+    color: #4982F5;
+}

@@ -1,0 +1,45 @@
+.articleCard {
+    margin: 5% 3%;
+    border-radius: 33px;
+    box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.1);
+    background-color: white;
+    padding: 24px 14px;
+}
+
+.articleCategory {
+    display: block;
+    font-size: 120%;
+}
+
+.articleTitle {
+    display: block;
+    font-size: 280%;
+}
+
+.userPhoto {
+    height: 60px;
+    width: 60px;
+    background-image: url("../images/userPhoto.jpg");
+    background-size: cover;
+    border-radius: 100%;
+}
+
+.articleAuthor {
+    line-height: 35px;
+}
+
+.articleContent {
+    font-size: 120%;
+    display: block;
+}
+
+
+
+
+.newArticle {
+    transform: translate(-50%, 0%);
+    position: relative;
+    left: 50%;
+    margin-top: -5%;
+    font-size: 500%;
+}

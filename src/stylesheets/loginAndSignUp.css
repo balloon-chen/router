@@ -1,0 +1,49 @@
+.textLoginOrSignUp {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5%;
+}
+
+.inputField {
+    transform: translate(-50%, -50%);
+    position: relative;
+    left: 50%;
+    top: 20px;
+    width: 90%;
+    height: 40px;
+    border-radius: 33px;
+    background-color: #F2F2F4;
+    border: none;
+    margin: 3% 0;
+}
+
+.inputField_loginOrSignUp {
+    background-color: #4982F5;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 200;
+    margin-top: 4%;
+}
+
+.textForgetPassword {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 1%;
+    color: #818181;
+    font-weight: 200;
+}
+
+.textSignUpNotice {
+    font-size: 13px;
+    color: #818181;
+    font-weight: 200;
+    padding: 0 5%;
+}
+
+.errorMessage {
+    font-size: 14px;
+    color: red;
+    margin: -5px 5%;
+}

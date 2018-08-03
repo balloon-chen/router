@@ -1,0 +1,28 @@
+.inputField_title {
+    width: 95%;
+    font-size: 40px;
+    margin: 8% 2.5% 3% 2.5%;
+    border: none;
+}
+
+.inputField_content {
+    width: 95%;
+    font-size: 20px;
+    margin: 3% 2.5%;
+    height: 200px;
+    border: none;
+}
+
+.selectCategory {
+    font-size: 15px;
+    margin: 3% 2.5%;
+    display: block;
+}
+
+.submit {
+    font-size: 15px;
+    margin: 8% 3%;
+    display: block;
+    border-radius: 20px;
+    border: none;
+}
