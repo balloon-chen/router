@@ -1,5 +1,6 @@
 import React from 'react';
 import ArticleItem from './ArticleItem';
+import Navigation from './Navigation';
 import { Redirect } from 'react-router-dom';
 
 class Index extends React.Component{
@@ -13,12 +14,12 @@ class Index extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetch = this.fetch.bind(this);
         this.redirectToPost = this.redirectToPost.bind(this);
+        this.deleteArticle = this.deleteArticle.bind(this);
     }
 
     redirectToPost(){
         this.setState({redirectToPost: true});
     }
-
     handleChange(event) {
         switch (event.target.placeholder){
             case '用戶名稱':{
@@ -52,6 +53,7 @@ class Index extends React.Component{
             .then(response => response.json())
             .then(parsedJSON => {
                 this.setState({articles: parsedJSON})
+                console.log(parsedJSON)
                 console.log(parsedJSON[1][0])
                 console.log('authorID: ' + parsedJSON[parsedJSON.length-1][0].authorID)
                 console.log('userName: ' + parsedJSON[parsedJSON.length-1][0].author)
@@ -59,7 +61,21 @@ class Index extends React.Component{
                 console.log('articleContent: ' + parsedJSON[parsedJSON.length-1][0].listOfContent[0].content)
                 console.log('articleCategory :' + parsedJSON[parsedJSON.length-1][0].category)
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+    }
+    deleteArticle(articleID){
+        fetch('http://140.119.163.194:3000/delete_article', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({articleID: articleID})
+        }).then(res=>res.json())
+            .then(res => {
+                console.log(res);
+            });
+        setTimeout(this.fetch, 500);
     }
 
     componentDidMount() {
@@ -82,14 +98,20 @@ class Index extends React.Component{
                     content = {article[0].listOfContent[article[0].listOfContent.length-1].content}
                     category = {article[0].category}
                     articleID = {article[0]._id}
+                    numberOfLikes = {article[0].numberOfLikes}
+                    onDelete={this.deleteArticle}
+                    refetch={this.fetch}
                 />
             </div>)
         );
 
         return (
-            <div>
+            <div className="articleBackground">
+                <Navigation />
                 <div>{articleElements}</div>
-                <button className="newArticle" onClick={this.redirectToPost}>+</button>
+                <div onClick={this.redirectToPost}>
+                    <div className="newArticleButton"></div>
+                </div>
             </div>
         );
     }

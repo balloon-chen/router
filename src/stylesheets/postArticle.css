@@ -25,4 +25,30 @@
     display: block;
     border-radius: 20px;
     border: none;
+    background-color: #294F5A;
+    color: white;
+    font-weight: 200;
+}
+
+.selectCategory {
+    /*移除箭頭樣式*/
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+
+    /*改變右邊箭頭樣式*/
+    /*background: url("arrow.png") no-repeat right center transparent;*/
+
+    border-radius: 5px;
+    border: none;
+    /*width:100%;*/
+    /*height:34px;*/
+    /*padding-left:2px;*/
+    /*padding-right:2px;*/
+    padding: 0.5% 2%;
+    background-color: #294F5A;
+    font-size: 15px;
+    font-weight: 200;
+    color: white;
+    text-align: center;
 }

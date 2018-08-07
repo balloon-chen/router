@@ -36,10 +36,71 @@
 
 
 
+
+.newArticleButton {
+    transform: translate(-50%, 0%);
+    position: fixed;
+    left: 50%;
+    bottom: 2%;
+    border-radius: 100%;
+    background-color: #294F5A;
+    opacity: 0.9;
+    width:  17vw;
+    height: 17vw;
+    background-image: url("../images/cross.png");
+    background-size: cover;
+}
+
 .newArticle {
     transform: translate(-50%, 0%);
-    position: relative;
+    position: fixed;
     left: 50%;
-    margin-top: -5%;
+    bottom: 2%;
     font-size: 500%;
+    color: white;
+}
+
+.articleBackground {
+    font-family: 微軟正黑體;
+    position: relative;
+    width: 100%;
+    background-image: url("../images/signUpLoginBackground.png");
+    border: none;
+}
+
+.updateDeleteSubmit {
+    font-size: 15px;
+    margin: 3% 1%;
+    border-radius: 20px;
+    border: none;
+    background-color: #294F5A;
+    color: white;
+    font-weight: 200;
+}
+
+.articleComment {
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/comment.png");
+    background-size: cover;
+}
+
+.articleDislike {
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/dislike.png");
+    background-size: cover;
+    margin: 1% 1%;
+}
+
+.articleDislike > span {
+    color: #294F5A;
+    position: relative;
+    left: 35px;
+    top: 3px;
+    font-size: 18px;
+}
+
+.articleLike {
+    background-image: url("../images/like.png");
 }

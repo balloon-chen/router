@@ -35,7 +35,6 @@ class App extends Component {
     );
   }
 }
+// <Navigation />
 
 export default App;
-
-// <Navigation />

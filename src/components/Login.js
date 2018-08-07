@@ -114,8 +114,19 @@ class Login extends React.Component{
     render(){
         const { result } = this.state;
         const { err } = this.state;
-        if(result == '登入成功')
-            return <Redirect push to="/index" />;
+        if(result == '登入成功') {
+
+
+            return <Redirect push to="/index"/>;
+            this.props.history.push({
+                pathname: '/index',
+                search: '?query=abc',
+                state: {result: result}
+            })
+        }
+
+
+
 
         return (
             <div>

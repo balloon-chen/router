@@ -19,7 +19,7 @@ class ArticleItem extends React.Component{
         this.fetch = this.fetch.bind(this);
         this.renderEditMode = this.renderEditMode.bind(this);
         this.renderViewMode = this.renderViewMode.bind(this);
-        this.refreshPage = this.refreshPage.bind(this);
+        this.refetch = this.refetch.bind(this);
     }
 
     updateArticle(event){
@@ -40,8 +40,6 @@ class ArticleItem extends React.Component{
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
-                setTimeout(this.refreshPage, 1000);
-                // this.setState({refresh: 'refresh'})
             });
     }
     handleChange(event) {
@@ -50,17 +48,10 @@ class ArticleItem extends React.Component{
     handleSubmit(event) {
         this.fetch();
         this.toggleEditMode();
-        setTimeout(this.refreshPage, 1000);
-        // this.setState({refresh: 'refresh'});
+        this.refetch();
         event.preventDefault();
     }
-
-    refreshPage() {
-        this.setState({refresh: 'refresh'});
-    }
-
     fetch() {
-        // alert(this.state.newContent);
         fetch('http://140.119.163.194:3000/update_article', {
             method: 'put',
             headers: {
@@ -72,6 +63,10 @@ class ArticleItem extends React.Component{
         }).then(res=>res.json())
             .then(res => console.log(res));
     }
+    refetch(){
+        const {refetch} = this.props;
+        setTimeout(refetch, 500);
+    }
 
     renderEditMode(){
         const { author } = this.props;
@@ -79,10 +74,6 @@ class ArticleItem extends React.Component{
         const { content } = this.props;
         const { category } = this.props;
         const { articleID } = this.props;
-        // const { refresh } = this.state;
-
-        // if (refresh)
-        //     return <Redirect push to="/index" />;
 
         return (
             <div className="articleCard">
@@ -95,7 +86,7 @@ class ArticleItem extends React.Component{
                     <div className="userPhoto"></div>
                     <span className="articleAuthor">{author}</span>
                     <input className="articleContent" type="text" placeholder={content} onChange={this.handleChange} />
-                    <input type="submit" value="確定" />
+                    <input className="updateDeleteSubmit" type="submit" value="確定" />
                 </form>
             </div>
         );
@@ -106,10 +97,8 @@ class ArticleItem extends React.Component{
         const { content } = this.props;
         const { category } = this.props;
         const { articleID } = this.props;
-        // const { refresh } = this.state;
-
-        // if (refresh)
-        //     return <Redirect push to="/index" />;
+        const { numberOfLikes } = this.props;
+        const { onDelete } = this.props;
 
         return (
             <div>
@@ -122,8 +111,9 @@ class ArticleItem extends React.Component{
                     <div className="userPhoto"></div>
                     <span className="articleAuthor">{author}</span>
                     <p className="articleContent">{content}</p>
-                    <button type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
-                    <button type='submit' onClick={this.deleteArticle} value={articleID}>刪除</button>
+                    <button className="updateDeleteSubmit" type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
+                    <button className="updateDeleteSubmit" type='submit' onClick={() => onDelete && onDelete(articleID)}>刪除</button>
+                    <div className="articleDislike"><span>{numberOfLikes}</span></div>
                 </div>
             </div>
         );

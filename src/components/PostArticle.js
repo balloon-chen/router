@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import Navigation from './Navigation';
 import '../stylesheets/postArticle.css'
 
 class PostArticle extends React.Component{
@@ -75,11 +76,12 @@ class PostArticle extends React.Component{
 
         return (
             <div>
+                <Navigation />
                 <form onSubmit={this.handleSubmit}>
                     <input className="inputField_title" type="text" name="標題" placeholder="標題" onChange={this.handleChange} />
                     <textarea className="inputField_content" name="內文" placeholder="內文" onChange={this.handleChange}></textarea>
                     <select className="selectCategory" name="文章類別" onChange={this.handleChange}>
-                        <option value="未分類">未分類</option>
+                        <option value="未分類">分類</option>
                         <option value="創作">創作</option>
                         <option value="旅遊">旅遊</option>
                         <option value="生活">生活</option>

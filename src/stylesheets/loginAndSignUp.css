@@ -47,3 +47,9 @@
     color: red;
     margin: -5px 5%;
 }
+
+::placeholder {
+    position: relative;
+    left: 10px;
+    font-size: 14px;
+}
