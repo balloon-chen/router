@@ -1,6 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import "../stylesheets/articleItem.css"
+import "../stylesheets/articleItem.css";
+import ArticleLike from './ArticleLike';
 
 class ArticleItem extends React.Component{
     constructor(props, context){
@@ -74,6 +74,9 @@ class ArticleItem extends React.Component{
         const { content } = this.props;
         const { category } = this.props;
         const { articleID } = this.props;
+        const { numberOfLikes } = this.props;
+        const { onHandleLike } = this.props;
+        const { likeOrDislike }=this.props;
 
         return (
             <div className="articleCard">
@@ -88,6 +91,12 @@ class ArticleItem extends React.Component{
                     <input className="articleContent" type="text" placeholder={content} onChange={this.handleChange} />
                     <input className="updateDeleteSubmit" type="submit" value="確定" />
                 </form>
+                <ArticleLike
+                    numberOfLikes = {numberOfLikes}
+                    likeOrDislike = {!!likeOrDislike}
+                    articleID = {articleID}
+                    handleLike = {() => onHandleLike && onHandleLike(articleID, likeOrDislike)}
+                />
             </div>
         );
     }
@@ -99,6 +108,10 @@ class ArticleItem extends React.Component{
         const { articleID } = this.props;
         const { numberOfLikes } = this.props;
         const { onDelete } = this.props;
+        const { onHandleLike } = this.props;
+        const { likeOrDislike }=this.props;
+
+        const { whoLikes } = this.props;
 
         return (
             <div>
@@ -113,7 +126,13 @@ class ArticleItem extends React.Component{
                     <p className="articleContent">{content}</p>
                     <button className="updateDeleteSubmit" type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
                     <button className="updateDeleteSubmit" type='submit' onClick={() => onDelete && onDelete(articleID)}>刪除</button>
-                    <div className="articleDislike"><span>{numberOfLikes}</span></div>
+                    <ArticleLike
+                        numberOfLikes = {numberOfLikes}
+                        likeOrDislike = {!!likeOrDislike}
+                        articleID = {articleID}
+                        handleLike = {() => onHandleLike && onHandleLike(articleID, likeOrDislike)}
+                    />
+                    <div style={invisible}>按讚的人：{whoLikes}</div>
                 </div>
             </div>
         );
@@ -124,3 +143,7 @@ class ArticleItem extends React.Component{
 }
 
 export default ArticleItem;
+
+const invisible = {
+    'display': 'none'
+}
