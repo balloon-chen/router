@@ -1,6 +1,8 @@
 import React from 'react';
 import "../stylesheets/articleItem.css";
 import ArticleLike from './ArticleLike';
+import AddArticleComment from './AddArticleComment';
+import ArticleComment from './ArticleComment';
 
 class ArticleItem extends React.Component{
     constructor(props, context){
@@ -9,7 +11,9 @@ class ArticleItem extends React.Component{
             editable: false,
             refresh: '',
             articleID: '',
-            newContent: ''
+            newContent: '',
+            currentUser: localStorage.getItem("currentUser"),
+            currentToken: localStorage.getItem("currentToken")
         };
         this.updateArticle = this.updateArticle.bind(this);
         this.toggleEditMode = this.toggleEditMode.bind(this);
@@ -52,20 +56,52 @@ class ArticleItem extends React.Component{
         event.preventDefault();
     }
     fetch() {
+        let formData = new FormData();
+        alert(this.state.articleID+'\n'+this.state.newContent);
+        formData.append('articleID', this.state.articleID);
+        formData.append('content', this.state.newContent);
+
+
         fetch('http://140.119.163.194:3000/update_article', {
             method: 'put',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({articleID: this.state.articleID,
-                content: this.state.newContent})
+            // headers: {
+            //     'Accept': 'application/json, text/plain, */*',
+            //     'Content-Type': 'application/json'
+            // },
+            // body: JSON.stringify({articleID: this.state.articleID,
+            //     content: this.state.newContent})
+            body: formData
         }).then(res=>res.json())
             .then(res => console.log(res));
     }
     refetch(){
         const {refetch} = this.props;
-        setTimeout(refetch, 500);
+        setTimeout(refetch, 700);
+    }
+
+    onAddComment(content, articleID, currentUser){
+        let formData = new FormData();
+        // alert(content);
+        // alert(articleID);
+        // alert(currentUser);
+        formData.append('content', content);
+        formData.append('articleID', articleID);
+        formData.append('commenterID', currentUser);
+
+
+        fetch('http://140.119.163.194:3000/add_comment', {
+            method: 'post',
+            // headers: {
+            //     'Accept': 'application/json, text/plain, */*',
+            //     'Content-Type': 'application/json'
+            // },
+            // body: JSON.stringify({commenterID: currentUser,
+            //     articleID: articleID,
+            //     content: content})
+            body: formData
+        }).then(res=>res.json())
+            .then(res => console.log(res));
+        this.refetch();
     }
 
     renderEditMode(){
@@ -113,6 +149,20 @@ class ArticleItem extends React.Component{
 
         const { whoLikes } = this.props;
 
+        const { comments } = this.props;
+        const commentElements = comments.slice(1).map((comment) => {
+            return (<div key = {comment._id}>
+                <ArticleComment
+                    commentID = {comment._id}
+                    commenterID = {comment.commenterID}
+                    articleID = {comment.articleID}
+                    comment = {comment.listOfComment[0].content}
+                    checkUser = {comment.commenterID!=this.state.currentUser ? ' invisible' : ''}
+                    onDeleteComment = {this.props.deleteComment}
+                />
+            </div>)
+        });
+
         return (
             <div>
                 <div className="articleCard">
@@ -133,6 +183,15 @@ class ArticleItem extends React.Component{
                         handleLike = {() => onHandleLike && onHandleLike(articleID, likeOrDislike)}
                     />
                     <div style={invisible}>按讚的人：{whoLikes}</div>
+                    <br/>
+                    <hr className="hrLine" />
+                    <br/>
+                    <AddArticleComment
+                        articleID = {articleID}
+                        onAddComment = {this.onAddComment}
+                        refetch = {this.refetch}
+                    />
+                    <div>{commentElements}</div>
                 </div>
             </div>
         );

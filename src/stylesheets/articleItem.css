@@ -78,6 +78,10 @@
     font-weight: 200;
 }
 
+.invisible {
+    display: none;
+}
+
 .articleComment {
     width: 30px;
     height: 30px;

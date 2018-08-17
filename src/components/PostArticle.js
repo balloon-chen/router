@@ -7,12 +7,14 @@ class PostArticle extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            authorID: "發文人的ID",
-            userName: "test",
+            // authorID: "發文人的ID",
+            // userName: "test",
             articleTitle: "test",
             articleContent: "test123",
             articleCategory: "未分類",
-            submit: false
+            submit: false,
+            currentUser: localStorage.getItem("currentUser"),
+            currentToken: localStorage.getItem("currentToken")
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,17 +55,32 @@ class PostArticle extends React.Component{
         event.preventDefault();
     }
     fetch() {
+        let formData = new FormData();
+
+        alert(this.state.currentToken+'\n'+
+        this.state.currentUser+'\n'+
+        this.state.articleCategory+'\n'+
+        this.state.articleTitle);
+
+
+        formData.append('authorID', this.state.currentToken);
+        formData.append('name', this.state.currentUser);
+        formData.append('category', this.state.articleCategory);
+        formData.append('content', this.state.articleContent);
+        formData.append('title', this.state.articleTitle);
+
         fetch('http://140.119.163.194:3000/add_article', {
             method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({authorID: this.state.authorID,
-                                  title: this.state.articleTitle,
-                                  name: this.state.userName,
-                                  category: this.state.articleCategory,
-                                  content: this.state.articleContent})
+            // headers: {
+            //     'Accept': 'application/json, text/plain, */*',
+            //     'Content-Type': 'application/json'
+            // },
+            // body: JSON.stringify({authorID: this.state.currentToken,
+            //                       title: this.state.articleTitle,
+            //                       name: this.state.currentUser,
+            //                       category: this.state.articleCategory,
+            //                       content: this.state.articleContent})
+            body: formData
         }).then(res=>res.json())
             .then(res => console.log(res));
     }

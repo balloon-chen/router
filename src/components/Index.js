@@ -9,7 +9,8 @@ class Index extends React.Component{
         this.state = {
             articles: [],
             redirectToPost: false,
-            likesPersonID: 'user07'
+            currentUser: localStorage.getItem("currentUser"),
+            currentToken: localStorage.getItem("currentToken")
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,6 +18,12 @@ class Index extends React.Component{
         this.redirectToPost = this.redirectToPost.bind(this);
         this.deleteArticle = this.deleteArticle.bind(this);
         this.like = this.like.bind(this);
+        this.deleteComment = this.deleteComment.bind(this);
+
+
+        this.getName = this.getName.bind(this);
+
+
     }
 
     redirectToPost(){
@@ -63,6 +70,7 @@ class Index extends React.Component{
                 console.log('articleContent: ' + parsedJSON[0][0].listOfContent[0].content)
                 console.log('articleCategory :' + parsedJSON[0][0].category)
                 console.log('like :' + parsedJSON[0][0].likes)
+                console.log('comment: ' + parsedJSON[0][1].listOfComment[0].content)
             })
             .catch(err => console.log(err));
     }
@@ -80,6 +88,20 @@ class Index extends React.Component{
             });
         setTimeout(this.fetch, 500);
     }
+    deleteComment(commentID){
+        fetch('http://140.119.163.194:3000/delete_comment', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({commentID: commentID})
+        }).then(res=>res.json())
+            .then(res => {
+                console.log(res);
+            });
+        setTimeout(this.fetch, 700);
+    }
     like(articleID, likeOrDislike){
         if (likeOrDislike == false){
             fetch('http://140.119.163.194:3000/likes_article', {
@@ -89,7 +111,7 @@ class Index extends React.Component{
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({articleID: articleID,
-                    likesPersonID: this.state.likesPersonID})
+                    likesPersonID: this.state.currentUser})
             }).then(res=>res.json())
                 .then(res => console.log(res));
             setTimeout(this.fetch, 500);
@@ -102,7 +124,7 @@ class Index extends React.Component{
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({articleID: articleID,
-                    likesPersonID: this.state.likesPersonID})
+                    dislikesPersonID: this.state.currentUser})
             }).then(res=>res.json())
                 .then(res => console.log(res));
             setTimeout(this.fetch, 500);
@@ -111,6 +133,12 @@ class Index extends React.Component{
 
     componentDidMount() {
         this.fetch();
+    }
+
+    getName(){
+        let abc = localStorage.getItem("currentUser");
+        let efg = localStorage.getItem("currentToken");
+        alert(abc+'\n'+efg);
     }
 
     render(){
@@ -122,7 +150,7 @@ class Index extends React.Component{
         }
 
         const articleElements = articles.map((article) =>
-            (<div key={article[0]._id}>
+            (<div key = {article[0]._id}>
                 <ArticleItem
                     author = { article[0].author }
                     title = {article[0].title}
@@ -130,11 +158,13 @@ class Index extends React.Component{
                     category = {article[0].category}
                     articleID = {article[0]._id}
                     numberOfLikes = {article[0].numberOfLikes}
-                    likeOrDislike={ article[0].likes.filter( (like) => like==this.state.likesPersonID ).length }
+                    likeOrDislike={ article[0].likes.filter( (like) => like==this.state.currentUser ).length }
                     onDelete = {this.deleteArticle}
                     refetch = {this.fetch}
                     onHandleLike = {this.like}
                     whoLikes = { article[0].likes }
+                    comments = { article }
+                    deleteComment = {this.deleteComment}
                 />
             </div>)
         );
@@ -142,6 +172,9 @@ class Index extends React.Component{
         return (
             <div className="articleBackground">
                 <Navigation />
+
+                <div onClick={this.getName}>按我拿名字</div>
+
                 <div>{articleElements}</div>
                 <div onClick={this.redirectToPost}>
                     <div className="newArticleButton"></div>

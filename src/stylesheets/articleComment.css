@@ -1,0 +1,20 @@
+.articleComment_inputField {
+    width: 70%;
+    height: 40px;
+    font-size: 16px;
+    margin: 0% 2.5% 3% 2.5%;
+    border: none;
+    display: inline;
+}
+
+.articleComment_submit {
+    font-size: 15px;
+    margin: 3% 5% 3% 2.5%;
+    display: inline;
+    border-radius: 20px;
+    border: none;
+    background-color: #294F5A;
+    color: white;
+    font-weight: 200;
+    float: right;
+}

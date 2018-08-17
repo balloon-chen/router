@@ -71,9 +71,16 @@ class Login extends React.Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({name: this.state.userName, password: this.state.userPassword, email: this.state.userEmail})
-        }).then(res=>res.json())
+        }).then(res => {
+            console.log(res.headers);
+            return res.json();
+        })
             .then(res => {
                 console.log(res);
+                console.log('loginMember: ' + res.result.loginMember.substring(3,res.result.loginMember.length-4));
+                console.log('token: ' + res.result.token);
+                localStorage.setItem("currentUser", res.result.loginMember.substring(3,res.result.loginMember.length-4));
+                localStorage.setItem("currentToken", res.result.token);
                 this.setState({result: res.result.status});
                 if (res.result.status == '登入失敗'){
                     if (res.result.content == undefined){
