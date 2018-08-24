@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import InputField from './InputField';
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
-import SignUpLoginTemplate from "./SignUpLoginTemplate";
+import SignUpLoginTemplate from "../member/SignUpLoginTemplate";
 
 // 10-2. 將新增邏輯抽成一個 function
 const _createTodo = (todos, title) => {

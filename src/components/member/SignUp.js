@@ -1,15 +1,15 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import '../stylesheets/main.css';
-import '../stylesheets/loginAndSignUp.css';
+import '../../stylesheets/main.css';
+import '../../stylesheets/loginAndSignUp.css';
 
 class SignUp extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            userName: "userName",
-            userEmail: "userEmail@gmail.com",
-            userPassword: "userPassword",
+            userName: "",
+            userEmail: "",
+            userPassword: "",
             result: '',
             err: ''
         };
@@ -18,6 +18,7 @@ class SignUp extends React.Component{
         this.fetch = this.fetch.bind(this);
     }
 
+    // 取得輸入值
     handleChange(event) {
         switch (event.target.placeholder){
             case '用戶名稱':{
@@ -37,15 +38,12 @@ class SignUp extends React.Component{
             }
         }
     }
+    // 提交表單
     handleSubmit(event) {
-        // alert(
-        //     '用戶名稱：' + this.state.userName + '\n' +
-        //     '電子郵件：' + this.state.userEmail + '\n' +
-        //     '密碼：' + this.state.userPassword
-        // );
         this.fetch();
         event.preventDefault();
     }
+    // 連接 API 並填入註冊資訊
     fetch() {
         fetch('http://140.119.163.194:3000/register', {
             method: 'post',
@@ -65,7 +63,6 @@ class SignUp extends React.Component{
                     this.setState({result: res.status});
                     this.setState({err: res.err});
                 }
-
             });
     }
 

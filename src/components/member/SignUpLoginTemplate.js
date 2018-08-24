@@ -2,8 +2,8 @@ import React from 'react';
 import Login from './Login';
 import FBLogin from './FBLogin';
 import SignUp from "./SignUp";
-import '../stylesheets/main.css';
-import '../stylesheets/signUpLoginTemplate.css';
+import '../../stylesheets/main.css';
+import '../../stylesheets/signUpLoginTemplate.css';
 
 class SignUpLoginTemplate extends React.Component{
     constructor(props, context){

@@ -3,15 +3,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import './stylesheets/main.css';
 
-import SignUpLoginTemplate from './components/SignUpLoginTemplate';
-import Index from  './components/Index';
+import SignUpLoginTemplate from './components/member/SignUpLoginTemplate';
+import Index from './components/main/Index';
 import PostArticle from './components/PostArticle';
 
-import TodoApp from './components/TodoApp';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import Error from './components/Error';
+import TodoApp from './components/todolist/TodoApp';
+import Home from './components/default/Home';
+import About from './components/default/About';
+import Contact from './components/default/Contact';
+import Error from './components/default/Error';
 import Navigation from './components/Navigation';
 
 class App extends Component {

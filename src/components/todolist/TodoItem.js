@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import InputField from './InputField';
-import SignUpLoginTemplate from "./SignUpLoginTemplate";
+import SignUpLoginTemplate from "../member/SignUpLoginTemplate";
 
 class TodoItem extends React.Component{
     // 這邊不懂

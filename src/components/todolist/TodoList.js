@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
-import SignUpLoginTemplate from "./SignUpLoginTemplate";
+import SignUpLoginTemplate from "../member/SignUpLoginTemplate";
 
 class TodoList extends React.Component{
     render(){

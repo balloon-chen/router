@@ -1,11 +1,10 @@
 import React from 'react';
-import '../stylesheets/articleComment.css'
+import '../../stylesheets/articleComment.css'
 
 class AddArticleComment extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            // commenterID: '',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken")
         };
@@ -13,9 +12,11 @@ class AddArticleComment extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // 取得輸入值
     handleChange(event) {
         this.setState({ content: event.target.value });
     }
+    // 提交表單
     handleSubmit(event) {
         this.props.onAddComment(this.state.content, this.props.articleID, this.state.currentUser);
         event.preventDefault();

@@ -1,27 +1,26 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Navigation from './Navigation';
-import '../stylesheets/postArticle.css'
+import '../stylesheets/postArticle.css';
 
 class PostArticle extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            // authorID: "發文人的ID",
-            // userName: "test",
-            articleTitle: "test",
-            articleContent: "test123",
+            articleTitle: "",
+            articleContent: "",
             articleCategory: "未分類",
-            submit: false,
+            redirectToIndex: false,
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken")
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetch = this.fetch.bind(this);
-        this.setStateSubmit = this.setStateSubmit.bind(this);
+        this.redirectToIndex = this.redirectToIndex.bind(this);
     }
 
+    // 取得輸入值
     handleChange(event) {
         switch (event.target.name){
             case '標題':{
@@ -41,36 +40,29 @@ class PostArticle extends React.Component{
             }
         }
     }
-    setStateSubmit() {
-        this.setState({submit: true});
+    // 提交表單後重新導向至 index 頁
+    redirectToIndex() {
+        this.setState({redirectToIndex: true});
     }
+    // 提交表單
     handleSubmit(event) {
-        // alert(
-        //     '標題：' + this.state.articleTitle + '\n' +
-        //     '內文：' + this.state.articleContent + '\n' +
-        //     '文章類別：' + this.state.articleCategory
-        // );
         this.fetch();
-        setTimeout(this.setStateSubmit, 700);
+        setTimeout(this.redirectToIndex, 700);
         event.preventDefault();
     }
+    // 連接 API 並填入文章內容
     fetch() {
         let formData = new FormData();
 
-        alert(this.state.currentToken+'\n'+
-        this.state.currentUser+'\n'+
-        this.state.articleCategory+'\n'+
-        this.state.articleTitle);
-
-
         formData.append('authorID', this.state.currentToken);
-        formData.append('name', this.state.currentUser);
+        formData.append('author', this.state.currentUser);
         formData.append('category', this.state.articleCategory);
         formData.append('content', this.state.articleContent);
         formData.append('title', this.state.articleTitle);
 
         fetch('http://140.119.163.194:3000/add_article', {
             method: 'post',
+            // 舊的 fetch 作法
             // headers: {
             //     'Accept': 'application/json, text/plain, */*',
             //     'Content-Type': 'application/json'
@@ -86,8 +78,8 @@ class PostArticle extends React.Component{
     }
 
     render(){
-        const { submit } = this.state;
-        if (submit) {
+        const { redirectToIndex } = this.state;
+        if (redirectToIndex) {
             return <Redirect push to="/index" />;
         }
 

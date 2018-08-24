@@ -1,5 +1,5 @@
 import React from 'react';
-import "../stylesheets/articleItem.css";
+import "../../stylesheets/articleItem.css";
 import ArticleLike from './ArticleLike';
 import AddArticleComment from './AddArticleComment';
 import ArticleComment from './ArticleComment';
@@ -9,101 +9,40 @@ class ArticleItem extends React.Component{
         super(props, context);
         this.state = {
             editable: false,
-            refresh: '',
             articleID: '',
             newContent: '',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken")
         };
         this.updateArticle = this.updateArticle.bind(this);
-        this.toggleEditMode = this.toggleEditMode.bind(this);
-        this.deleteArticle = this.deleteArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.fetch = this.fetch.bind(this);
+        this.toggleEditMode = this.toggleEditMode.bind(this);
         this.renderEditMode = this.renderEditMode.bind(this);
         this.renderViewMode = this.renderViewMode.bind(this);
-        this.refetch = this.refetch.bind(this);
     }
 
+    // 一般畫面點擊編輯時取得文章 ID
     updateArticle(event){
         this.setState({ articleID: event.target.value });
         this.toggleEditMode();
     }
-    toggleEditMode(){
-        this.setState({ editable: !this.state.editable });
-    }
-    deleteArticle(event){
-        fetch('http://140.119.163.194:3000/delete_article', {
-            method: 'put',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({articleID: event.target.value})
-        }).then(res=>res.json())
-            .then(res => {
-                console.log(res);
-            });
-    }
+    // 編輯畫面取得輸入值
     handleChange(event) {
         this.setState({ newContent: event.target.value });
     }
+    // 編輯畫面提交表單
     handleSubmit(event) {
-        this.fetch();
+        this.props.onUpdateArticle(this.state.articleID, this.state.newContent);
         this.toggleEditMode();
-        this.refetch();
         event.preventDefault();
     }
-    fetch() {
-        let formData = new FormData();
-        alert(this.state.articleID+'\n'+this.state.newContent);
-        formData.append('articleID', this.state.articleID);
-        formData.append('content', this.state.newContent);
-
-
-        fetch('http://140.119.163.194:3000/update_article', {
-            method: 'put',
-            // headers: {
-            //     'Accept': 'application/json, text/plain, */*',
-            //     'Content-Type': 'application/json'
-            // },
-            // body: JSON.stringify({articleID: this.state.articleID,
-            //     content: this.state.newContent})
-            body: formData
-        }).then(res=>res.json())
-            .then(res => console.log(res));
-    }
-    refetch(){
-        const {refetch} = this.props;
-        setTimeout(refetch, 700);
+    // 切換一般畫面或編輯畫面
+    toggleEditMode(){
+        this.setState({ editable: !this.state.editable });
     }
 
-    onAddComment(content, articleID, currentUser){
-        let formData = new FormData();
-        // alert(content);
-        // alert(articleID);
-        // alert(currentUser);
-        formData.append('content', content);
-        formData.append('articleID', articleID);
-        formData.append('commenterID', currentUser);
-
-
-        fetch('http://140.119.163.194:3000/add_comment', {
-            method: 'post',
-            // headers: {
-            //     'Accept': 'application/json, text/plain, */*',
-            //     'Content-Type': 'application/json'
-            // },
-            // body: JSON.stringify({commenterID: currentUser,
-            //     articleID: articleID,
-            //     content: content})
-            body: formData
-        }).then(res=>res.json())
-            .then(res => console.log(res));
-        this.refetch();
-    }
-
+    // 渲染編輯畫面
     renderEditMode(){
         const { author } = this.props;
         const { title } = this.props;
@@ -136,15 +75,17 @@ class ArticleItem extends React.Component{
             </div>
         );
     }
+    // 渲染一般畫面
     renderViewMode(){
         const { author } = this.props;
         const { title } = this.props;
         const { content } = this.props;
         const { category } = this.props;
         const { articleID } = this.props;
+        const { onDeleteArticle } = this.props;
+        const { handleLike } = this.props;
+        const { handleCommentLike } = this.props;
         const { numberOfLikes } = this.props;
-        const { onDelete } = this.props;
-        const { onHandleLike } = this.props;
         const { likeOrDislike }=this.props;
 
         const { whoLikes } = this.props;
@@ -159,6 +100,12 @@ class ArticleItem extends React.Component{
                     comment = {comment.listOfComment[0].content}
                     checkUser = {comment.commenterID!=this.state.currentUser ? ' invisible' : ''}
                     onDeleteComment = {this.props.deleteComment}
+                    onUpdateComment = {this.props.updateComment}
+                    refetch = {this.refetch}
+
+                    numberOfLikes = {comment.numberOfLikes}
+                    likeOrDislike={ comment.likes.filter( (like) => like==this.state.currentUser ).length }
+                    handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
                 />
             </div>)
         });
@@ -175,12 +122,12 @@ class ArticleItem extends React.Component{
                     <span className="articleAuthor">{author}</span>
                     <p className="articleContent">{content}</p>
                     <button className="updateDeleteSubmit" type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
-                    <button className="updateDeleteSubmit" type='submit' onClick={() => onDelete && onDelete(articleID)}>刪除</button>
+                    <button className="updateDeleteSubmit" type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
                     <ArticleLike
                         numberOfLikes = {numberOfLikes}
                         likeOrDislike = {!!likeOrDislike}
                         articleID = {articleID}
-                        handleLike = {() => onHandleLike && onHandleLike(articleID, likeOrDislike)}
+                        onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
                     />
                     <div style={invisible}>按讚的人：{whoLikes}</div>
                     <br/>
@@ -188,7 +135,7 @@ class ArticleItem extends React.Component{
                     <br/>
                     <AddArticleComment
                         articleID = {articleID}
-                        onAddComment = {this.onAddComment}
+                        onAddComment = {this.props.addComment}
                         refetch = {this.refetch}
                     />
                     <div>{commentElements}</div>
@@ -196,6 +143,7 @@ class ArticleItem extends React.Component{
             </div>
         );
     }
+    // 判斷渲染一般畫面或編輯畫面
     render(){
         return this.state.editable ? this.renderEditMode() : this.renderViewMode();
     }
@@ -205,4 +153,4 @@ export default ArticleItem;
 
 const invisible = {
     'display': 'none'
-}
+};

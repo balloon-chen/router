@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignUpLoginTemplate from "./SignUpLoginTemplate";
+import SignUpLoginTemplate from "../member/SignUpLoginTemplate";
 
 class InputField extends React.Component{
     constructor(props, context){
