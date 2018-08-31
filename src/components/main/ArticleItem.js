@@ -34,6 +34,8 @@ class ArticleItem extends React.Component{
     // 編輯畫面提交表單
     handleSubmit(event) {
         this.props.onUpdateArticle(this.state.articleID, this.state.newContent);
+        // 🦄️
+        this.props.refetch();
         this.toggleEditMode();
         event.preventDefault();
     }
@@ -87,6 +89,7 @@ class ArticleItem extends React.Component{
         const { handleCommentLike } = this.props;
         const { numberOfLikes } = this.props;
         const { likeOrDislike }=this.props;
+        const { checkUser } = this.props;
 
         const { whoLikes } = this.props;
 
@@ -101,7 +104,8 @@ class ArticleItem extends React.Component{
                     checkUser = {comment.commenterID!=this.state.currentUser ? ' invisible' : ''}
                     onDeleteComment = {this.props.deleteComment}
                     onUpdateComment = {this.props.updateComment}
-                    refetch = {this.refetch}
+
+                    refetch = {this.props.refetch}
 
                     numberOfLikes = {comment.numberOfLikes}
                     likeOrDislike={ comment.likes.filter( (like) => like==this.state.currentUser ).length }
@@ -121,8 +125,8 @@ class ArticleItem extends React.Component{
                     <div className="userPhoto"></div>
                     <span className="articleAuthor">{author}</span>
                     <p className="articleContent">{content}</p>
-                    <button className="updateDeleteSubmit" type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
-                    <button className="updateDeleteSubmit" type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
+                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
+                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
                     <ArticleLike
                         numberOfLikes = {numberOfLikes}
                         likeOrDislike = {!!likeOrDislike}
@@ -136,7 +140,8 @@ class ArticleItem extends React.Component{
                     <AddArticleComment
                         articleID = {articleID}
                         onAddComment = {this.props.addComment}
-                        refetch = {this.refetch}
+
+                        refetch = {this.props.refetch}
                     />
                     <div>{commentElements}</div>
                 </div>

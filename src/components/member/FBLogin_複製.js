@@ -37,6 +37,11 @@ class FBLogin extends React.Component{
 
     testAPI(){
         console.log('Welcome!  Fetching your information.... ');
+        // FB.api('/me', function(response) {
+        //     console.log('Successful login for: ' + response.name);
+        //     document.getElementById('status').innerHTML =
+        //         'Thanks for logging in, ' + response.name + '!';
+        // });
     }
 
     change_state(userID){
@@ -50,7 +55,13 @@ class FBLogin extends React.Component{
         console.log(response);
         if (response.status === 'connected') {
             this.testAPI();
-        }
+        } // else if (response.status === 'not_authorized') {
+        //     document.getElementById('status').innerHTML = 'Please log ' +
+        //         'into this app.';
+        // } else {
+        //     document.getElementById('status').innerHTML = 'Please log ' +
+        //         'into Facebook.';
+        // }
     }
 
     checkLoginState(){
@@ -94,13 +105,16 @@ class FBLogin extends React.Component{
     }
 
     render(){
+        const { userID } = this.state;
         return <div>
-            <button style={button_FBLogin} onClick={this.Login}>使用 Facebook 帳號登入</button>
-            <button style={button_FBLogout} onClick={this.Logout}>(Logout)</button>
+            <button style={button_FBLogin}>FBLogin is broken</button>
         </div>;
     }
 
 }
+
+// <button style={button_FBLogin} onClick={this.Login}>使用 Facebook 帳號登入</button>
+// <button style={button_FBLogout} onClick={this.Logout}>(Logout)</button>
 
 export default FBLogin;
 
@@ -125,9 +139,9 @@ const button_FBLogin = {
 };
 
 const button_FBLogout = {
-  'position': 'absolute',
-  'left': '0%',
-  'top': '10px',
-  'border': 'none',
-  'backgroundColor': 'white',
+    'position': 'absolute',
+    'left': '0',
+    'top': '10px',
+    'border': 'none',
+    'backgroundColor': 'white',
 };

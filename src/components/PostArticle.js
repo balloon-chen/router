@@ -59,6 +59,7 @@ class PostArticle extends React.Component{
         formData.append('category', this.state.articleCategory);
         formData.append('content', this.state.articleContent);
         formData.append('title', this.state.articleTitle);
+        formData.append('privacy', 'public');
 
         fetch('http://140.119.163.194:3000/add_article', {
             method: 'post',

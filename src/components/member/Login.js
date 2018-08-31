@@ -66,6 +66,10 @@ class Login extends React.Component{
                     console.log('token: ' + res.result.token);
                     localStorage.setItem("currentToken", res.result.token);
                 }
+                if (res.result.userID != undefined){
+                    console.log('userID: ' + res.result.userID);
+                    localStorage.setItem("currentUserID", res.result.userID);
+                }
                 this.setState({result: res.result.status});
                 if (res.result.status == '登入失敗'){
                     if (res.result.content == undefined){

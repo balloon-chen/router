@@ -13,7 +13,9 @@ class Navigation extends React.Component{
             <div className="navigationBar">
                 <NavLink className="navigationText" to='/post'>Post</NavLink>
                 <NavLink className="navigationText" to='/index'>Index</NavLink>
+                <NavLink className="navigationText" to='/profile'>Profile</NavLink>
                 <NavLink className="navigationText" to='/'>Logout</NavLink>
+                {/*<NavLink className="navigationText" to='/upload'>upload</NavLink>*/}
             </div>
         );
     }

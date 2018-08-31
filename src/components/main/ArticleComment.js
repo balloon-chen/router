@@ -32,6 +32,8 @@ class ArticleComment extends React.Component{
     // 編輯畫面提交表單
     handleSubmit(event) {
         this.props.onUpdateComment(this.state.commentID, this.state.newComment);
+        // 🦄️
+        this.props.refetch();
         this.toggleEditMode();
         event.preventDefault();
     }

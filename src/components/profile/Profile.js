@@ -1,0 +1,151 @@
+import React from 'react';
+import Navigation from '../Navigation';
+import '../../stylesheets/profile.css';
+import Index from "../main/Index";
+
+class Profile extends React.Component{
+    constructor(props, context){
+        super(props, context);
+        this.state = {
+            currentUser: localStorage.getItem("currentUser"),
+            currentToken: localStorage.getItem("currentToken"),
+            currentUserID: localStorage.getItem("currentUserID"),
+            avatarLink: '',
+            backgroundLink: '',
+            myImg: {}
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.fetchAvatar = this.fetchAvatar.bind(this);
+        this.fetchBackGroundPhoto = this.fetchBackGroundPhoto.bind(this);
+        this.fetchData = this.fetchData.bind(this)
+    }
+
+    // 取得輸入值，並提交表單
+    handleChange(event) {
+        switch (event.target.name){
+            case 'uploadAvatar':{
+                this.setState({myImg: event.target.files[0]});
+                setTimeout(this.fetchAvatar, 300);
+                break;
+            }
+            case 'uploadBackGroundPhoto':{
+                this.setState({myImg: event.target.files[0]});
+                setTimeout(this.fetchBackGroundPhoto, 300);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+    // 連接大頭貼 API 並上傳圖片
+    fetchAvatar() {
+        let formData = new FormData();
+
+        formData.append('userID', this.state.currentUserID);
+        formData.append('image', this.state.myImg);
+        formData.append('photoType', 'jpg');
+
+        fetch('http://140.119.163.194:3000/upload_avatar', {
+            method: 'post',
+            body: formData
+        }).then(res=>res.json())
+            .then(res => {
+                console.log(res);
+                this.fetchData()
+            });
+    }
+    // 連接封面照片 API 並上傳圖片
+    fetchBackGroundPhoto() {
+        let formData = new FormData();
+
+        formData.append('userID', this.state.currentUserID);
+        formData.append('image', this.state.myImg);
+        formData.append('photoType', 'jpg');
+
+        fetch('http://140.119.163.194:3000/upload_backGroundPhoto', {
+            method: 'post',
+            body: formData
+        }).then(res=>res.json())
+            .then(res => {
+                console.log(res);
+                this.fetchData()
+            });
+    }
+    // 取得個人資料
+    fetchData(){
+        fetch('http://140.119.163.194:3000/search_profileByUserID', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userID: this.state.currentUserID})
+        }).then(res=>res.json())
+            .then(res => {
+                this.setState({avatarLink: res.avatarLink});
+                this.setState({backgroundLink: res.backgroundLink});
+                console.log(res);
+                console.log('avatarLink: ' + res.avatarLink);
+                console.log('backgroundLink: ' + res.backgroundLink);
+            });
+    }
+
+    componentDidMount(){
+        this.fetchData();
+    }
+
+    render(){
+        const { currentUser } = this.state;
+        const { avatarLink } = this.state;
+        const { backgroundLink } = this.state;
+
+        return (
+            <div>
+                <Navigation />
+                <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
+                    <label className="uploadUserCoverPhoto">編輯
+                        <form encType="multipart/form-data">
+                            <input className="invisible" name="uploadBackGroundPhoto" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
+                        </form>
+                    </label>
+                    <div className="userName">{currentUser}</div>
+                    <div className="userPhotoInProfile" style={{'backgroundImage': 'url('+avatarLink+')'}}>
+                        <label className="uploadUserPhotoIcon">
+                            <form encType="multipart/form-data">
+                                <input className="invisible" name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
+                            </form>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <table className="infoTable">
+                        <tbody>
+                            <tr>
+                                <td className="infoNumberTd">38</td>
+                                <td className="infoNumberTd">1537</td>
+                                <td className="infoNumberTd">36</td>
+                            </tr>
+                            <tr>
+                                <td className="infoTextTd">貼文</td>
+                                <td className="infoTextTd">粉絲人數</td>
+                                <td className="infoTextTd">追蹤中</td>
+                            </tr>
+                            <tr>
+                                <td colSpan="3" className="mottoTd">對於吃貨來說，吃與不吃和飽了沒飽是沒有關係的！</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/><br/><br/>
+                <hr className="hrLine" />
+                <br/>
+                <Index
+                    invisible = "invisible"
+                />
+            </div>
+        )
+    }
+}
+
+export default Profile;

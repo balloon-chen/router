@@ -51,7 +51,7 @@ class SignUp extends React.Component{
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name: this.state.userName, password: this.state.userPassword, email: this.state.userEmail})
+            body: JSON.stringify({userName: this.state.userName, password: this.state.userPassword, email: this.state.userEmail})
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);

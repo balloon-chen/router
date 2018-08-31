@@ -19,6 +19,8 @@ class AddArticleComment extends React.Component{
     // 提交表單
     handleSubmit(event) {
         this.props.onAddComment(this.state.content, this.props.articleID, this.state.currentUser);
+        // 🦄️
+        this.props.refetch();
         event.preventDefault();
     }
 

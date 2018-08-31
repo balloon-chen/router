@@ -10,18 +10,12 @@ class Index extends React.Component{
             articles: [],
             redirectToPost: false,
             currentUser: localStorage.getItem("currentUser"),
-            currentToken: localStorage.getItem("currentToken")
+            currentToken: localStorage.getItem("currentToken"),
         };
 
-
-
+        this.fetchData = this.fetchData.bind(this);
         this.refetch = this.refetch.bind(this);
 
-
-
-
-
-        this.fetch = this.fetch.bind(this);
         this.redirectToPost = this.redirectToPost.bind(this);
         this.deleteArticle = this.deleteArticle.bind(this);
         this.deleteComment = this.deleteComment.bind(this);
@@ -37,7 +31,7 @@ class Index extends React.Component{
 
     // 重新抓資料並重新渲染畫面
     refetch(){
-        setTimeout(this.fetch, 700);
+        setTimeout(this.fetchData, 700);
     }
 
 
@@ -55,8 +49,9 @@ class Index extends React.Component{
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
+                this.fetchData();
             });
-        setTimeout(this.fetch, 500);
+        // setTimeout(this.fetchData, 500);
     }
     // 更新文章
     updateArticle(articleID, newContent) {
@@ -68,9 +63,11 @@ class Index extends React.Component{
             method: 'put',
             body: formData
         }).then(res=>res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res)
+            });
         // 🦄️
-        setTimeout(this.fetch, 700);
+        // setTimeout(this.xxx, 5000);
     }
 
 
@@ -88,8 +85,9 @@ class Index extends React.Component{
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
+                this.fetchData();
             });
-        setTimeout(this.fetch, 700);
+        // setTimeout(this.fetchData, 700);
     }
     // 更新留言
     updateComment(commentID, newComment) {
@@ -101,9 +99,13 @@ class Index extends React.Component{
             method: 'put',
             body: formData
         }).then(res=>res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res)
+                console.log('FUck')
+                // this.xxx();
+            });
         // 🦄️
-        setTimeout(this.fetch, 700);
+        // setTimeout(this.fetchData, 700);
     }
 
 
@@ -121,9 +123,12 @@ class Index extends React.Component{
             method: 'post',
             body: formData
         }).then(res=>res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res)
+                // this.xxx();
+            });
         // 🦄️
-        setTimeout(this.fetch, 700);
+        // setTimeout(this.fetchData, 700);
     }
 
 
@@ -141,8 +146,11 @@ class Index extends React.Component{
                 body: JSON.stringify({articleID: articleID,
                     likesPersonID: this.state.currentUser})
             }).then(res=>res.json())
-                .then(res => console.log(res));
-            setTimeout(this.fetch, 500);
+                .then(res => {
+                    console.log(res);
+                    this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
         }
         else {
             fetch('http://140.119.163.194:3000/dislikes_article', {
@@ -154,8 +162,11 @@ class Index extends React.Component{
                 body: JSON.stringify({articleID: articleID,
                     dislikesPersonID: this.state.currentUser})
             }).then(res=>res.json())
-                .then(res => console.log(res));
-            setTimeout(this.fetch, 500);
+                .then(res => {
+                    console.log(res);
+                    this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
         }
     }
     // 留言按愛心或收回愛心
@@ -170,8 +181,11 @@ class Index extends React.Component{
                 body: JSON.stringify({commentID: commentID,
                     likesPersonID: this.state.currentUser})
             }).then(res=>res.json())
-                .then(res => console.log(res));
-            setTimeout(this.fetch, 500);
+                .then(res => {
+                    console.log(res);
+                    this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
         }
         else {
             fetch('http://140.119.163.194:3000/dislikes_comment', {
@@ -183,8 +197,11 @@ class Index extends React.Component{
                 body: JSON.stringify({commentID: commentID,
                     dislikesPersonID: this.state.currentUser})
             }).then(res=>res.json())
-                .then(res => console.log(res));
-            setTimeout(this.fetch, 500);
+                .then(res => {
+                    console.log(res);
+                    this.fetchData()
+                });
+            // setTimeout(this.fetchData, 500);
         }
     }
 
@@ -199,7 +216,7 @@ class Index extends React.Component{
     }
 
     // 抓資料並渲染畫面
-    fetch() {
+    fetchData() {
         fetch('http://140.119.163.194:3000/search_article')
             .then(response => response.json())
             .then(parsedJSON => {
@@ -218,7 +235,7 @@ class Index extends React.Component{
     }
 
     componentDidMount() {
-        this.fetch();
+        this.fetchData();
     }
 
     render(){
@@ -241,10 +258,12 @@ class Index extends React.Component{
                     likeOrDislike={ article[0].likes.filter( (like) => like==this.state.currentUser ).length }
                     whoLikes = { article[0].likes }
                     comments = { article }
+                    checkUser = {article[0].author!=this.state.currentUser ? ' invisible' : ''}
+
+                    refetch = {this.refetch}
 
                     onUpdateArticle = {this.updateArticle}
                     onDeleteArticle = {this.deleteArticle}
-                    refetch = {this.refetch}
                     handleLike = {this.articleLike}
                     handleCommentLike = {this.commentLike}
                     deleteComment = {this.deleteComment}
@@ -254,12 +273,17 @@ class Index extends React.Component{
             </div>)
         );
 
+        // 在 profile 頁面時隱藏 Nav 和 + 按鈕
+        const { invisible } = this.props;
+
         return (
             <div className="articleBackground">
-                <Navigation />
+                <div className={invisible}><Navigation /></div>
                 <div>{articleElements}</div>
-                <div onClick={this.redirectToPost}>
-                    <div className="newArticleButton"></div>
+                    <div className={invisible}>
+                        <div onClick={this.redirectToPost}>
+                        <div className="newArticleButton"></div>
+                    </div>
                 </div>
             </div>
         );
