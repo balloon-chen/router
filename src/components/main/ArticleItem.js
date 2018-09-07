@@ -4,6 +4,11 @@ import ArticleLike from './ArticleLike';
 import AddArticleComment from './AddArticleComment';
 import ArticleComment from './ArticleComment';
 
+import iconMenu from '../../images/iconAlreadyTag.svg';
+import iconComment from '../../images/iconComment.svg';
+import iconNotTag from '../../images/iconNotTag.svg';
+import iconAlreadyTag from '../../images/iconAlreadyTag.svg';
+
 class ArticleItem extends React.Component{
     constructor(props, context){
         super(props, context);
@@ -117,33 +122,51 @@ class ArticleItem extends React.Component{
         return (
             <div>
                 <div className="articleCard">
-                    <span className="articleCategory">{category}</span>
-                    <span className="articleTitle">{title}</span>
-                    <br/>
-                    <hr className="hrLine" />
-                    <br/>
-                    <div className="userPhoto"></div>
-                    <span className="articleAuthor">{author}</span>
-                    <p className="articleContent">{content}</p>
-                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
-                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
-                    <ArticleLike
-                        numberOfLikes = {numberOfLikes}
-                        likeOrDislike = {!!likeOrDislike}
-                        articleID = {articleID}
-                        onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
-                    />
-                    <div style={invisible}>按讚的人：{whoLikes}</div>
-                    <br/>
-                    <hr className="hrLine" />
-                    <br/>
-                    <AddArticleComment
-                        articleID = {articleID}
-                        onAddComment = {this.props.addComment}
 
-                        refetch = {this.props.refetch}
-                    />
-                    <div>{commentElements}</div>
+                    <div className={'articleImage'}>
+                        <span className="articleCategory">{category}</span>
+                        <span className="articleTitle">{title}</span>
+                    </div>
+
+                    <div className={"aaa"}>
+                        <div className="userPhoto"> </div>
+                        <div>
+                            <div className="articleAuthor">{author}</div>
+                            <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>
+                        </div>
+                        <img src={iconMenu} className={"navigationIcon bbb"} alt="iconMenu"/>
+                    </div>
+
+                    <p className="articleContent">{content}</p>
+                    <div>
+                        <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
+                        <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
+                    </div>
+
+                    <div className="ccc">
+                        <img src={iconComment} className="navigationIcon" alt="iconComment"/>
+                        <span className="numOfArticleComment">999</span>
+                        <ArticleLike
+                            numberOfLikes = {numberOfLikes}
+                            likeOrDislike = {!!likeOrDislike}
+                            articleID = {articleID}
+                            onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
+                        />
+                        <img src={iconNotTag} className={"navigationIcon ddd"} alt="iconNotTag"/>
+                    </div>
+
+                    <div style={invisible}>按讚的人：{whoLikes}</div>
+
+                    {/*<br/>*/}
+                    {/*<hr className="hrLine" />*/}
+                    {/*<br/>*/}
+                    {/*<AddArticleComment*/}
+                        {/*articleID = {articleID}*/}
+                        {/*onAddComment = {this.props.addComment}*/}
+
+                        {/*refetch = {this.props.refetch}*/}
+                    {/*/>*/}
+                    {/*<div>{commentElements}</div>*/}
                 </div>
             </div>
         );

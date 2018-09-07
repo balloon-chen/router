@@ -1,5 +1,7 @@
 import React from 'react';
-import "../../stylesheets/articleItem.css"
+import "../../stylesheets/articleItem.css";
+
+import iconDislike from "../../images/dislike.svg";
 
 class ArticleLike extends React.Component{
     constructor(props, context){
@@ -15,9 +17,11 @@ class ArticleLike extends React.Component{
         let likeOrDislike = false;
 
         return (
-            <div>
-                <div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike"><span>{numberOfLikes}</span></div>
-            </div>
+            <span>
+                <img src={iconDislike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIcon" alt="iconComment"/>
+                {/*<div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike navigationIcon"> </div>*/}
+                <span className="numOfArticleLike">{numberOfLikes}</span>
+            </span>
         );
     }
     // 渲染已按愛心的畫面
@@ -28,9 +32,8 @@ class ArticleLike extends React.Component{
         let likeOrDislike = true;
 
         return (
-            <div>
-                <div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike articleLike"><span>{numberOfLikes}</span></div>
-            </div>
+            <div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike navigationIcon articleLike"><span>{numberOfLikes}</span></div>
+
         );
     }
     // 判斷渲染已按愛心的畫面或未按愛心的畫面

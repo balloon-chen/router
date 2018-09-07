@@ -3,6 +3,13 @@ import ArticleItem from './ArticleItem';
 import Navigation from '../Navigation';
 import { Redirect } from 'react-router-dom';
 
+import logo from '../../images/logo.svg';
+import iconSearch from '../../images/iconSearch.svg';
+import iconNotice from '../../images/iconNotice.svg';
+import icon03 from '../../images/icon03.svg';
+import icon04 from '../../images/icon04.svg';
+import userPhotoDefault from '../../images/userPhotoDefault.svg';
+
 class Index extends React.Component{
     constructor(props, context){
         super(props, context);
@@ -279,6 +286,7 @@ class Index extends React.Component{
         return (
             <div className="articleBackground">
                 <div className={invisible}><Navigation /></div>
+                <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx"/><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={userPhotoDefault} className="navigationIcon ooo" /></div>
                 <div>{articleElements}</div>
                     <div className={invisible}>
                         <div onClick={this.redirectToPost}>

@@ -10,15 +10,20 @@
     position: relative;
     left: 50%;
     top: 20px;
-    width: 90%;
+    width: 85%;
     height: 40px;
     border-radius: 33px;
     background-color: #F2F2F4;
     border: none;
     margin: 3% 0;
+    padding-left: 5%;
+    /*padding-left: 70px;*/
+    /*background-image: url("../images/email.svg");*/
+    /*background-repeat: no-repeat;*/
 }
 
 .inputField_loginOrSignUp {
+    width: 90%;
     background-color: #4982F5;
     color: white;
     text-align: center;

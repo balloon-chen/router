@@ -21,7 +21,7 @@ class SignUpLoginTemplate extends React.Component{
     renderSignUpMode(){
         return (
             <div className="background">
-                <div className="logo">LOGO</div>
+                <div className="logo"></div>
                 <div className="card">
                     <SignUp />
                     <hr className="hrLine" />
@@ -33,12 +33,12 @@ class SignUpLoginTemplate extends React.Component{
     renderLoginMode(){
         return (
             <div className="background">
-                <div className="logo">LOGO</div>
+                <div className="logo"></div>
                 <div className="card">
                     <Login />
                     <hr className="hrShortLine_left" /><div className="textOr">or</div><hr className="hrShortLine_right" />
-                    <FBLogin />
-                    <button style={button_GoogleLogin} onClick={this.Login}>GoogleLogin is not finished!</button>
+                    <button style={button_FacebookLogin}>使用 Facebook 帳號登入</button>
+                    <button style={button_GoogleLogin}>使用 Google+ 帳號登入</button>
                     <hr className="hrLine" />
                     <p className="textAlreadyHaveAccountOrNot">還沒有帳號嗎？<span className="textAlreadyHaveAccountOrNot_loginOrSignUp" onClick={this.toggleRenderMode}>註冊</span></p>
                 </div>
@@ -53,6 +53,26 @@ class SignUpLoginTemplate extends React.Component{
 export default SignUpLoginTemplate;
 
 // css style
+
+const button_FacebookLogin = {
+    'transform': 'translate(-50%, -50%)',
+    'position': 'relative',
+    'left': '50%',
+    'top': '20px',
+    'width': '90%',
+    'height': '40px',
+    'borderRadius': '33px',
+    'backgroundColor': '#3B5998',
+    'border': 'none',
+
+    'marginTop': '5%',
+    'marginBottom': '3%',
+
+    'color': 'white',
+    'textAlign': 'center',
+    'fontSize': '15px',
+    'fontWeight': '200',
+};
 
 const button_GoogleLogin = {
     'transform': 'translate(-50%, -50%)',

@@ -11,3 +11,7 @@ html, body {
 div, form {
     position: relative;
 }
+
+*:focus {
+    outline: none;
+}

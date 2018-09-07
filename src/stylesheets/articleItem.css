@@ -1,19 +1,35 @@
 .articleCard {
-    margin: 5% 3%;
+    margin: 18% 3%;
     border-radius: 33px;
     box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.1);
     background-color: white;
     padding: 24px 14px;
+    overflow: hidden;
+}
+
+.articleImage {
+    margin: -9% -6%;
+    background-image: url("../images/annihilation.jpg");
+    background-size: cover;
+    padding: 9% 6%;
+    height: 90vw;
 }
 
 .articleCategory {
     display: block;
     font-size: 120%;
+    font-weight: 300;
+    color: white;
+    position: relative;
+    top: 76%;
 }
 
 .articleTitle {
     display: block;
     font-size: 280%;
+    color: white;
+    position: relative;
+    top: 76%;
 }
 
 .userPhoto {
@@ -22,20 +38,29 @@
     background-image: url("../images/userPhoto.jpg");
     background-size: cover;
     border-radius: 100%;
+    display: inline-block;
 }
 
 .articleAuthor {
     line-height: 35px;
+    font-weight: bold;
+}
+
+.articleDateAndPosition {
+    opacity: 0.3;
+    font-size: 80%;
 }
 
 .articleContent {
-    font-size: 120%;
     display: block;
+    font-weight: 300;
 }
 
-
-
-
+.numOfArticleComment {
+    margin: 0% 10% 0% 2%;
+    position: relative;
+    top: -6px;
+}
 
 .newArticleButton {
     transform: translate(-50%, 0%);
@@ -62,9 +87,13 @@
 
 .articleBackground {
     font-family: 微軟正黑體;
-    position: relative;
+    position: absolute;
+    top: 0;
     width: 100%;
     background-image: url("../images/signUpLoginBackground.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     border: none;
 }
 
@@ -90,21 +119,40 @@
 }
 
 .articleDislike {
-    width: 30px;
-    height: 30px;
-    background-image: url("../images/dislike.png");
+    /*width: 30px;*/
+    /*height: 30px;*/
+    width: 100px;
+    height: 100px;
+    background-image: url("../images/dislike.svg");
     background-size: cover;
-    margin: 1% 1%;
+    /*margin: 1% 1%;*/
+    /*display: inline;*/
 }
 
-.articleDislike > span {
-    color: #294F5A;
+.numOfArticleLike {
+    margin-left: 2%;
     position: relative;
-    left: 35px;
-    top: 3px;
-    font-size: 18px;
+    top: -6px;
 }
 
 .articleLike {
-    background-image: url("../images/like.png");
+    background-image: url("../images/like.svg");
+}
+
+.aaa {
+    margin-top: 14%;
+    display: flex;
+    align-items: center;
+}
+.aaa > div {
+    margin-right: 4%;
+}
+.bbb {
+    position: absolute;
+    right: 1%;
+}
+.ccc {}
+.ddd {
+    position: absolute;
+    right: 1%;
 }

@@ -3,6 +3,14 @@ import Navigation from '../Navigation';
 import '../../stylesheets/profile.css';
 import Index from "../main/Index";
 
+import menu from "../../images/menu.svg"
+import tag from "../../images/tag.svg"
+import palette from "../../images/palette.svg"
+import exit from "../../images/exit.svg"
+import iconSort01 from "../../images/iconSort01.svg"
+import iconSort02 from "../../images/iconSort02.svg"
+import iconSort03 from "../../images/iconSort03.svg"
+
 class Profile extends React.Component{
     constructor(props, context){
         super(props, context);
@@ -104,12 +112,12 @@ class Profile extends React.Component{
             <div>
                 <Navigation />
                 <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
+                    <div className="frostedGlass"><img src={menu} className="navigationIcon"/><img src={tag} className="navigationIcon" /><span>個人頁面</span><img src={palette} className="navigationIcon" /><img src={exit} className="navigationIcon" /></div>
                     <label className="uploadUserCoverPhoto">編輯
                         <form encType="multipart/form-data">
                             <input className="invisible" name="uploadBackGroundPhoto" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
                         </form>
                     </label>
-                    <div className="userName">{currentUser}</div>
                     <div className="userPhotoInProfile" style={{'backgroundImage': 'url('+avatarLink+')'}}>
                         <label className="uploadUserPhotoIcon">
                             <form encType="multipart/form-data">
@@ -117,32 +125,36 @@ class Profile extends React.Component{
                             </form>
                         </label>
                     </div>
+                    <div className="userPhotoInProfileBorder"></div>
+                    <p className="userName">{currentUser}</p>
+                    <div>
+                        <table className="infoTable">
+                            <tbody>
+                                <tr>
+                                    <td colSpan="3" className="mottoTd">對於吃貨來說，吃與不吃和飽了沒飽是沒有關係的！</td>
+                                </tr>
+                                <tr>
+                                    <td className="infoNumberTd">0</td>
+                                    <td className="infoNumberTd">0</td>
+                                    <td className="infoNumberTd">0</td>
+                                </tr>
+                                <tr>
+                                    <td className="infoTextTd">貼文</td>
+                                    <td className="infoTextTd">粉絲</td>
+                                    <td className="infoTextTd">追蹤</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={"separationLine"}> </div>
+                    <div className="iconSort"><img src={iconSort01} className="navigationIcon"/><img src={iconSort02} className="navigationIcon" /><img src={iconSort03} className="navigationIcon" /></div>
                 </div>
-                <div>
-                    <table className="infoTable">
-                        <tbody>
-                            <tr>
-                                <td className="infoNumberTd">38</td>
-                                <td className="infoNumberTd">1537</td>
-                                <td className="infoNumberTd">36</td>
-                            </tr>
-                            <tr>
-                                <td className="infoTextTd">貼文</td>
-                                <td className="infoTextTd">粉絲人數</td>
-                                <td className="infoTextTd">追蹤中</td>
-                            </tr>
-                            <tr>
-                                <td colSpan="3" className="mottoTd">對於吃貨來說，吃與不吃和飽了沒飽是沒有關係的！</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <br/><br/><br/>
+
                 <hr className="hrLine" />
                 <br/>
-                <Index
-                    invisible = "invisible"
-                />
+                {/*<Index*/}
+                    {/*invisible = "invisible"*/}
+                {/*/>*/}
             </div>
         )
     }

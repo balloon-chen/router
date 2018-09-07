@@ -9,11 +9,14 @@
 }
 
 .logo {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
+    width: 110px;
+    height: 30px;
+    transform: translate(-50%, 0%);
     position: relative;
     top: 40px;
+    left: 50%;
+    background-image: url("../images/logo.svg");
+    background-repeat: no-repeat;
 }
 
 .card {
