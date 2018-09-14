@@ -87,15 +87,27 @@
 }
 
 .articleBackground {
+    /*font-family: 微軟正黑體;*/
+    /*position: absolute;*/
+    /*!*top: 0;*!*/
+    /*width: 100%;*/
+    /*background-image: url("../images/signUpLoginBackground.png");*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*background-attachment: fixed;*/
+    /*border: none;*/
+
     font-family: 微軟正黑體;
-    position: absolute;
+    position: fixed;
     top: 0;
-    width: 100%;
+    width: 100vw;
     background-image: url("../images/signUpLoginBackground.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    /*background-attachment: fixed;*/
     border: none;
+
+    height: 100vh;
 }
 
 .updateDeleteSubmit {

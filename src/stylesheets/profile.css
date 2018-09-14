@@ -13,6 +13,8 @@
     position: fixed;
     text-align: center;
     width: 100%;
+
+    top: 0;
 }
 .frostedGlass > img {
     margin: 11px 10px;

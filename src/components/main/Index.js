@@ -296,13 +296,15 @@ class Index extends React.Component{
         const { invisible } = this.props;
 
         return (
-            <div className="articleBackground">
+            <div>
+            {/*<div className="articleBackground">*/}
+                <div className="articleBackground"> </div>
                 {/*<div className={invisible}><Navigation /></div>*/}
                 <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={userPhotoDefault} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
                 <div>{articleElements}</div>
                     <div className={invisible}>
                         <div onClick={this.redirectToPost}>
-                        <div className="newArticleButton"></div>
+                        <div className="newArticleButton"> </div>
                     </div>
                 </div>
             </div>
