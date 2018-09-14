@@ -18,3 +18,28 @@
     font-weight: 200;
     float: right;
 }
+
+.articleCommentBox1 {
+    display: flex;
+}
+
+.articleCommentBox2 {
+    margin: 5px 5px 5px 0;
+}
+
+.articleCommentCommenterID {
+    font-weight: bold;
+}
+
+.articleCommentComment {
+    margin: 10px 0;
+}
+
+.articleCommentLike {
+    margin-bottom: -8px;
+}
+
+.articleCommentLike > span > span {
+    position: relative;
+    left: 5px;
+}

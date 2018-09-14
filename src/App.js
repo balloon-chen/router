@@ -7,6 +7,7 @@ import SignUpLoginTemplate from './components/member/SignUpLoginTemplate';
 import Index from './components/main/Index';
 import PostArticle from './components/PostArticle';
 import Profile from './components/profile/Profile';
+// import ProfileIndex from './components/profile/ProfileIndex';
 
 
 import upload from './components/upload';
@@ -29,6 +30,7 @@ class App extends Component {
                     <Route path='/index' component={Index} />
                     <Route path='/post' component={PostArticle} />
                     <Route path='/profile' component={Profile} />
+                    {/*<Route path='/profile' component={ProfileIndex} />*/}
                     <Route path='/upload' component={upload} />
 
                     <Route path='/todo' component={TodoApp} />

@@ -1,12 +1,16 @@
 import React from 'react';
-import '../../stylesheets/articleComment.css'
+import '../../stylesheets/articleComment.css';
+import '../../stylesheets/addArticleComment.css';
+
+import userPhotoDefault from '../../images/userPhotoDefault.svg';
 
 class AddArticleComment extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
             currentUser: localStorage.getItem("currentUser"),
-            currentToken: localStorage.getItem("currentToken")
+            currentToken: localStorage.getItem("currentToken"),
+            content: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,17 +23,23 @@ class AddArticleComment extends React.Component{
     // 提交表單
     handleSubmit(event) {
         this.props.onAddComment(this.state.content, this.props.articleID, this.state.currentUser);
+        this.setState({ content: '' });
         // 🦄️
         this.props.refetch();
         event.preventDefault();
     }
 
     render(){
+        const { content } = this.state;
+
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input className="articleComment_inputField" type="text" name="留言" placeholder="留言" onChange={this.handleChange} />
-                    <input className="articleComment_submit" type="submit" value="發佈" />
+                    <div className="AddArticleCommentBackground">
+                        <img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />
+                        <input className="articleComment_inputField_AddArticleComment" type="text" name="留言" placeholder="留言......" onChange={this.handleChange} value={content} />
+                        <input className="invisible" type="submit" value="發佈" />
+                    </div>
                 </form>
             </div>
         );

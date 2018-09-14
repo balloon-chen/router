@@ -3,6 +3,11 @@ import { Redirect } from 'react-router-dom';
 import '../../stylesheets/main.css';
 import '../../stylesheets/loginAndSignUp.css';
 
+import iconUser from '../../images/iconUser.svg';
+import iconEmail from '../../images/email.svg';
+import iconLock from '../../images/iconLock.svg';
+import iconError from '../../images/iconError.svg';
+
 class SignUp extends React.Component{
     constructor(props, context){
         super(props, context);
@@ -11,8 +16,9 @@ class SignUp extends React.Component{
             userEmail: "",
             userPassword: "",
             result: '',
-            err: ''
-        };
+            err: '',
+            errIcon: 'invisible'
+    };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetch = this.fetch.bind(this);
@@ -58,10 +64,12 @@ class SignUp extends React.Component{
                 if (res.status == undefined){
                     this.setState({result: res.result.status});
                     this.setState({err: res.result.err});
+                    this.setState({errIcon: ''});
                 }
                 else {
                     this.setState({result: res.status});
                     this.setState({err: res.err});
+                    this.setState({errIcon: ''});
                 }
             });
     }
@@ -69,6 +77,8 @@ class SignUp extends React.Component{
     render(){
         const { result } = this.state;
         const { err } = this.state;
+        const { errIcon } = this.state;
+
         if(result == '註冊成功')
             return <Redirect push to="/index" />;
 
@@ -76,11 +86,29 @@ class SignUp extends React.Component{
             <div>
                 <div className="textLoginOrSignUp">註冊</div>
                 <form onSubmit={this.handleSubmit}>
-                    <input className="inputField" type="text" placeholder="用戶名稱" onChange={this.handleChange} />
-                    <input className="inputField" type="text" placeholder="電子郵件" onChange={this.handleChange} />
-                    <input className="inputField" type="password" placeholder="密碼" onChange={this.handleChange} />
+                    <div className="inputFieldAlign">
+                        <input className="inputField" type="text" placeholder="用戶名稱" onChange={this.handleChange} />
+                        <img src={iconUser} alt="iconUser"/>
+                    </div>
+
+                    {/*<input className="inputField" type="text" placeholder="電子郵件" onChange={this.handleChange} />*/}
+
+                    <div className="inputFieldAlign">
+                        <input className="inputField" type="text" placeholder="電子郵件" onChange={this.handleChange} />
+                        <img src={iconEmail} alt="iconEmail"/>
+                    </div>
+
+                    {/*<input className="inputField" type="password" placeholder="密碼" onChange={this.handleChange} />*/}
+
+                    <div className="inputFieldAlign">
+                        <input className="inputField" type="password" placeholder="密碼" onChange={this.handleChange} />
+                        <img src={iconLock} alt="iconLock"/>
+                    </div>
+
                     <input className="inputField" type="password" placeholder="再輸入一次密碼" />
-                    <p className="errorMessage">{ err }</p>
+                    <div className="errorMessageDiv">
+                        <img src={iconError} alt="iconEmail" className={errIcon} /><span className="errorMessage">{ err }</span>
+                    </div>
                     <input className="inputField inputField_loginOrSignUp" type="submit" value="註冊" />
                 </form>
                 <div className="textSignUpNotice">點擊「註冊」即表示你同意我們的使用條款、資料政策和 Cookie 政策。

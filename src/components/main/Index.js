@@ -16,6 +16,8 @@ class Index extends React.Component{
         this.state = {
             articles: [],
             redirectToPost: false,
+            redirectToIndex: false,
+            redirectToProfile: false,
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
         };
@@ -24,6 +26,7 @@ class Index extends React.Component{
         this.refetch = this.refetch.bind(this);
 
         this.redirectToPost = this.redirectToPost.bind(this);
+        this.redirectToProfile = this.redirectToProfile.bind(this);
         this.deleteArticle = this.deleteArticle.bind(this);
         this.deleteComment = this.deleteComment.bind(this);
         this.articleLike = this.articleLike.bind(this);
@@ -155,7 +158,7 @@ class Index extends React.Component{
             }).then(res=>res.json())
                 .then(res => {
                     console.log(res);
-                    this.fetchData();
+                    // this.fetchData();
                 });
             // setTimeout(this.fetchData, 500);
         }
@@ -171,7 +174,7 @@ class Index extends React.Component{
             }).then(res=>res.json())
                 .then(res => {
                     console.log(res);
-                    this.fetchData();
+                    // this.fetchData();
                 });
             // setTimeout(this.fetchData, 500);
         }
@@ -190,7 +193,7 @@ class Index extends React.Component{
             }).then(res=>res.json())
                 .then(res => {
                     console.log(res);
-                    this.fetchData();
+                    // this.fetchData();
                 });
             // setTimeout(this.fetchData, 500);
         }
@@ -206,7 +209,7 @@ class Index extends React.Component{
             }).then(res=>res.json())
                 .then(res => {
                     console.log(res);
-                    this.fetchData()
+                    // this.fetchData();
                 });
             // setTimeout(this.fetchData, 500);
         }
@@ -220,6 +223,9 @@ class Index extends React.Component{
     // 重新導向至發文頁
     redirectToPost(){
         this.setState({redirectToPost: true});
+    }
+    redirectToProfile(){
+        this.setState({redirectToProfile: true});
     }
 
     // 抓資料並渲染畫面
@@ -236,6 +242,7 @@ class Index extends React.Component{
                 console.log('articleContent: ' + parsedJSON[0][0].listOfContent[0].content)
                 console.log('articleCategory :' + parsedJSON[0][0].category)
                 console.log('like :' + parsedJSON[0][0].likes)
+                console.log('avatarLink: ' + parsedJSON[0][0].avatarLink)
                 console.log('comment: ' + parsedJSON[0][1].listOfComment[0].content)
             })
             .catch(err => console.log(err));
@@ -248,9 +255,13 @@ class Index extends React.Component{
     render(){
         const { articles } = this.state;
         const { redirectToPost } = this.state;
+        const { redirectToProfile } = this.state;
 
         if (redirectToPost) {
             return <Redirect push to="/post" />;
+        }
+        if (redirectToProfile) {
+            return <Redirect push to="/profile" />;
         }
 
         const articleElements = articles.map((article) =>
@@ -265,7 +276,8 @@ class Index extends React.Component{
                     likeOrDislike={ article[0].likes.filter( (like) => like==this.state.currentUser ).length }
                     whoLikes = { article[0].likes }
                     comments = { article }
-                    checkUser = {article[0].author!=this.state.currentUser ? ' invisible' : ''}
+                    checkUser = { article[0].author!=this.state.currentUser ? ' invisible' : '' }
+                    avatarLink = { article[0].avatarLink }
 
                     refetch = {this.refetch}
 
@@ -285,8 +297,8 @@ class Index extends React.Component{
 
         return (
             <div className="articleBackground">
-                <div className={invisible}><Navigation /></div>
-                <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx"/><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={userPhotoDefault} className="navigationIcon ooo" /></div>
+                {/*<div className={invisible}><Navigation /></div>*/}
+                <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={userPhotoDefault} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
                 <div>{articleElements}</div>
                     <div className={invisible}>
                         <div onClick={this.redirectToPost}>

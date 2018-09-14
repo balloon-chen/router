@@ -2,6 +2,8 @@ import React from 'react';
 import "../../stylesheets/articleItem.css";
 import ArticleLike from "./ArticleLike";
 
+import userPhotoDefault from '../../images/userPhotoDefault.svg';
+
 class ArticleComment extends React.Component{
     constructor(props, context){
         super(props, context);
@@ -10,7 +12,13 @@ class ArticleComment extends React.Component{
             commentID: '',
             newComment: '',
             currentUser: localStorage.getItem("currentUser"),
-            currentToken: localStorage.getItem("currentToken")
+            currentToken: localStorage.getItem("currentToken"),
+
+
+
+            // 啦啦啦
+            numberOfLikesTemp: 0,
+            likeOrDislike: this.props.likeOrDislike,
         };
         this.updateComment = this.updateComment.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -18,6 +26,11 @@ class ArticleComment extends React.Component{
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.renderEditMode = this.renderEditMode.bind(this);
         this.renderViewMode = this.renderViewMode.bind(this);
+
+
+
+        //啦啦啦
+        this.handleLikekkk = this.handleLikekkk.bind(this);
     }
 
     // 一般畫面點擊編輯時取得留言 ID
@@ -41,6 +54,34 @@ class ArticleComment extends React.Component{
     toggleEditMode(){
         this.setState({ editable: !this.state.editable });
     }
+
+
+
+
+    //啦啦啦
+    handleLikekkk(articleID, likeOrDislike) {
+        // alert(likeOrDislike);
+        if (likeOrDislike == 0) {
+            if (this.state.numberOfLikesTemp == -1)
+                this.setState({numberOfLikesTemp: 0});
+            else
+                this.setState({numberOfLikesTemp: 1});
+        }
+        else {
+            if (this.state.numberOfLikesTemp == 1)
+                this.setState({numberOfLikesTemp: 0});
+            else
+                this.setState({numberOfLikesTemp: -1});
+        }
+        this.setState({likeOrDislike: !(this.state.likeOrDislike)});
+        // this.setState({likeOrDislike: !(this.state.likeOrDislike)});
+        this.props.handleCommentLike(articleID, likeOrDislike);
+        // this.props.handleCommentLike();
+        // setTimeout(this.setState({numberOfLikesTemp: -20}), 5000)
+    }
+
+
+
 
     // 渲染編輯畫面
     renderEditMode(){
@@ -69,24 +110,41 @@ class ArticleComment extends React.Component{
         const { checkUser } = this.props;
 
         const { handleCommentLike } = this.props;
+
+
+
+        // 啦啦啦
         const { numberOfLikes } = this.props;
-        const { likeOrDislike }=this.props;
+        // const { likeOrDislike }=this.props;
+        const { likeOrDislike }=this.state;
 
         return (
             <div>
-                <hr className="hrLine" />
-                <br/>
-                <div>{commenterID}: {comment}</div>
-                <div style={invisible}>articleID: {articleID}</div>
-                <div style={invisible}>commentID: {commentID}</div>
-                <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateComment} value={commentID}>編輯</button>
-                <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteComment && onDeleteComment(commentID)}>刪除</button>
-                <ArticleLike
-                    articleID = {commentID}
-                    numberOfLikes = {numberOfLikes}
-                    likeOrDislike = {!!likeOrDislike}
-                    onHandleLike = {() => handleCommentLike && handleCommentLike(numberOfLikes, likeOrDislike)}
-                />
+                <div className="AddArticleCommentBackground">
+                    <div className="articleCommentBox1">
+                        <div className="articleCommentBox2">
+                            <img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />
+                        </div>
+                        <div className="articleCommentBox2">
+                            <div className="articleCommentCommenterID">{commenterID}</div>
+                            <div className="articleCommentComment">{comment}</div>
+                            <div className="articleCommentLike">
+                                <ArticleLike
+                                    // 啦啦啦
+                                    articleID = {commentID}
+                                    numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
+                                    likeOrDislike = {!!likeOrDislike}
+                                    // onHandleLike = {() => handleCommentLike && handleCommentLike(numberOfLikes, likeOrDislike)}
+                                    onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(commentID, likeOrDislike)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div style={invisible}>articleID: {articleID}</div>
+                    <div style={invisible}>commentID: {commentID}</div>
+                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateComment} value={commentID}>編輯</button>
+                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteComment && onDeleteComment(commentID)}>刪除</button>
+                </div>
             </div>
         );
     }

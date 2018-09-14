@@ -10,16 +10,49 @@
     position: relative;
     left: 50%;
     top: 20px;
-    width: 85%;
+    width: 75%;
     height: 40px;
     border-radius: 33px;
     background-color: #F2F2F4;
     border: none;
     margin: 3% 0;
-    padding-left: 5%;
+    padding-left: 15%;
     /*padding-left: 70px;*/
     /*background-image: url("../images/email.svg");*/
     /*background-repeat: no-repeat;*/
+}
+.inputField + input {
+    z-index: 0;
+    position: absolute;
+    /*background-color: #294F5A;*/
+}
+.inputFieldAlign {
+    display:flex;
+    align-items: center;
+}
+.inputField + img {
+    position: absolute;
+    left: 10%;
+    width: 23px;
+    height: 23px;
+    z-index: 2;
+}
+.inputField + img + img {
+    position: absolute;
+    right: 10%;
+    width: 23px;
+    height: 23px;
+    z-index: 2;
+}
+.inputField + img + img + img {
+    position: absolute;
+    right: 10%;
+    width: 23px;
+    height: 23px;
+    z-index: 2;
+}
+.z-index {
+    z-index: 1;
 }
 
 .inputField_loginOrSignUp {
@@ -30,6 +63,7 @@
     font-size: 15px;
     font-weight: 200;
     margin-top: 4%;
+    padding-left: 0;
 }
 
 .textForgetPassword {
@@ -47,6 +81,15 @@
     padding: 0 5%;
 }
 
+.errorMessageDiv{
+    display: flex;
+    align-items: center;
+}
+.errorMessageDiv > img {
+    width: 20px;
+    height: 20px;
+    padding-left: 10.4%;
+}
 .errorMessage {
     font-size: 14px;
     color: red;

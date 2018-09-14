@@ -4,6 +4,7 @@
     box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.1);
     background-color: white;
     padding: 24px 14px;
+    padding-bottom: 10px;
     overflow: hidden;
 }
 
@@ -151,8 +152,18 @@
     position: absolute;
     right: 1%;
 }
-.ccc {}
-.ddd {
-    position: absolute;
+.ccc {
+
+}
+.eee {
+    /*position: absolute;*/
+    /*right: 1%;*/
+    /*display: inline;*/
+    float: right;
+    position: relative;
     right: 1%;
+}
+.ddd {
+    /*position: relative;*/
+    /*top: 100px;*/
 }

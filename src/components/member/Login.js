@@ -3,21 +3,48 @@ import { Redirect } from 'react-router-dom';
 import '../../stylesheets/main.css';
 import '../../stylesheets/loginAndSignUp.css';
 
+import iconEmail from '../../images/email.svg';
+import iconLock from '../../images/iconLock.svg';
+import iconDisplayPassword from '../../images/iconDisplayPassword.svg';
+import iconHidePassword from '../../images/iconHidePassword.svg';
+import iconError from '../../images/iconError.svg';
+
 class Login extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
             userName: "userName",
             userEmail: "userEmail@gmail.com",
-            userPassword: "userPassword",
+            userPassword: "",
             result: '',
-            err: ''
+            err: '',
+            iconDisplayPassword_invisible: '',
+            iconHidePassword_invisible: 'invisible',
+            inputDisplayPassword_invisible: ' z-index',
+            inputHidePassword_invisible: '',
+            errIcon: 'invisible'
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetch = this.fetch.bind(this);
+        this.toggleDisplayHidePassword = this.toggleDisplayHidePassword.bind(this);
     }
 
+    // 切換顯示或隱藏密碼
+    toggleDisplayHidePassword() {
+        if (this.state.iconDisplayPassword_invisible === 'invisible'){
+            this.setState({iconDisplayPassword_invisible: ''});
+            this.setState({iconHidePassword_invisible: 'invisible'});
+            this.setState({inputDisplayPassword_invisible: ' z-index'});
+            this.setState({inputHidePassword_invisible: ''});
+        }
+        else {
+            this.setState({iconDisplayPassword_invisible: 'invisible'});
+            this.setState({iconHidePassword_invisible: ''});
+            this.setState({inputDisplayPassword_invisible: ''});
+            this.setState({inputHidePassword_invisible: ' z-index'});
+        }
+    }
     // 取得輸入值
     handleChange(event) {
         switch (event.target.placeholder){
@@ -74,9 +101,11 @@ class Login extends React.Component{
                 if (res.result.status == '登入失敗'){
                     if (res.result.content == undefined){
                         this.setState({err: res.result.err});
+                        this.setState({errIcon: ''});
                     }
                     else {
                         this.setState({err: res.result.content});
+                        this.setState({errIcon: ''});
                     }
                 }
             });
@@ -85,6 +114,13 @@ class Login extends React.Component{
     render(){
         const { result } = this.state;
         const { err } = this.state;
+        const { errIcon } = this.state;
+        const { iconDisplayPassword_invisible } = this.state;
+        const { iconHidePassword_invisible } = this.state;
+        const { inputDisplayPassword_invisible } = this.state;
+        const { inputHidePassword_invisible } = this.state;
+        const { userPassword } = this.state;
+
         if(result == '登入成功')
             return <Redirect push to="/index"/>;
 
@@ -92,9 +128,20 @@ class Login extends React.Component{
             <div>
                 <div className="textLoginOrSignUp">登入</div>
                 <form onSubmit={this.handleSubmit}>
-                    <input className="inputField" type="text" placeholder="電子郵件" onChange={this.handleChange} />
-                    <input className="inputField" type="password" placeholder="密碼" onChange={this.handleChange} />
-                    <p className="errorMessage">{ err }</p>
+                    <div className="inputFieldAlign">
+                        <input className="inputField" type="text" placeholder="電子郵件" onChange={this.handleChange} />
+                        <img src={iconEmail} alt="iconEmail"/>
+                    </div>
+                    <div className="inputFieldAlign">
+                        <input className={"inputField" + inputDisplayPassword_invisible} type="password" placeholder="密碼" onChange={this.handleChange} value={userPassword} />
+                        <input className={"inputField" + inputHidePassword_invisible} type="text" placeholder="密碼" onChange={this.handleChange} value={userPassword} />
+                        <img src={iconLock} alt="iconLock"/>
+                        <img src={iconDisplayPassword} className={iconDisplayPassword_invisible} alt="iconDisplayPassword" onClick={this.toggleDisplayHidePassword} />
+                        <img src={iconHidePassword} className={iconHidePassword_invisible} alt="iconHidePassword" onClick={this.toggleDisplayHidePassword} />
+                    </div>
+                    <div className="errorMessageDiv">
+                        <img src={iconError} alt="iconEmail" className={errIcon} /><span className="errorMessage">{ err }</span>
+                    </div>
                     <input className="inputField inputField_loginOrSignUp" type="submit" value="登入" />
                 </form>
                 <div className="textForgetPassword">忘記密碼？</div>

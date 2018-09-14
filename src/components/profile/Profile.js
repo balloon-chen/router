@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from '../Navigation';
 import '../../stylesheets/profile.css';
 import Index from "../main/Index";
+import { Redirect } from 'react-router-dom';
 
 import menu from "../../images/menu.svg"
 import tag from "../../images/tag.svg"
@@ -10,6 +11,13 @@ import exit from "../../images/exit.svg"
 import iconSort01 from "../../images/iconSort01.svg"
 import iconSort02 from "../../images/iconSort02.svg"
 import iconSort03 from "../../images/iconSort03.svg"
+
+import logo from '../../images/logo.svg';
+import iconSearch from '../../images/iconSearch.svg';
+import iconNotice from '../../images/iconNotice.svg';
+import icon03 from '../../images/icon03.svg';
+import icon04 from '../../images/icon04.svg';
+import userPhotoDefault from '../../images/userPhotoDefault.svg';
 
 class Profile extends React.Component{
     constructor(props, context){
@@ -26,6 +34,7 @@ class Profile extends React.Component{
         this.fetchAvatar = this.fetchAvatar.bind(this);
         this.fetchBackGroundPhoto = this.fetchBackGroundPhoto.bind(this);
         this.fetchData = this.fetchData.bind(this)
+        this.redirectToIndex = this.redirectToIndex.bind(this);
     }
 
     // 取得輸入值，並提交表單
@@ -80,6 +89,11 @@ class Profile extends React.Component{
                 this.fetchData()
             });
     }
+
+    redirectToIndex(){
+        this.setState({redirectToIndex: true});
+    }
+
     // 取得個人資料
     fetchData(){
         fetch('http://140.119.163.194:3000/search_profileByUserID', {
@@ -93,6 +107,8 @@ class Profile extends React.Component{
             .then(res => {
                 this.setState({avatarLink: res.avatarLink});
                 this.setState({backgroundLink: res.backgroundLink});
+                this.setState({numberOfFans: res.fans.length});
+                this.setState({numberOfFollowing: res.following.length});
                 console.log(res);
                 console.log('avatarLink: ' + res.avatarLink);
                 console.log('backgroundLink: ' + res.backgroundLink);
@@ -107,12 +123,21 @@ class Profile extends React.Component{
         const { currentUser } = this.state;
         const { avatarLink } = this.state;
         const { backgroundLink } = this.state;
+        const { numberOfFans } = this.state;
+        const { numberOfFollowing } = this.state;
+        const { numberOfPersonalArticles } = this.props;
+        const { redirectToIndex } = this.state;
+
+        if (redirectToIndex) {
+            return <Redirect push to="/index" />;
+        }
 
         return (
             <div>
-                <Navigation />
+                {/*<Navigation />*/}
                 <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
-                    <div className="frostedGlass"><img src={menu} className="navigationIcon"/><img src={tag} className="navigationIcon" /><span>個人頁面</span><img src={palette} className="navigationIcon" /><img src={exit} className="navigationIcon" /></div>
+                    {/*<div className="frostedGlass"><img src={menu} className="navigationIcon"/><img src={tag} className="navigationIcon" /><span>個人頁面</span><img src={palette} className="navigationIcon" /><img src={exit} className="navigationIcon" /></div>*/}
+                    <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={userPhotoDefault} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
                     <label className="uploadUserCoverPhoto">編輯
                         <form encType="multipart/form-data">
                             <input className="invisible" name="uploadBackGroundPhoto" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
@@ -134,12 +159,12 @@ class Profile extends React.Component{
                                     <td colSpan="3" className="mottoTd">對於吃貨來說，吃與不吃和飽了沒飽是沒有關係的！</td>
                                 </tr>
                                 <tr>
-                                    <td className="infoNumberTd">0</td>
-                                    <td className="infoNumberTd">0</td>
-                                    <td className="infoNumberTd">0</td>
+                                    <td className="infoNumberTd">{0}</td>
+                                    <td className="infoNumberTd">{numberOfFans}</td>
+                                    <td className="infoNumberTd">{numberOfFollowing}</td>
                                 </tr>
                                 <tr>
-                                    <td className="infoTextTd">貼文</td>
+                                    <td className="infoTextTd">好友</td>
                                     <td className="infoTextTd">粉絲</td>
                                     <td className="infoTextTd">追蹤</td>
                                 </tr>

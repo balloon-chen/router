@@ -12,7 +12,8 @@ class PostArticle extends React.Component{
             articleCategory: "未分類",
             redirectToIndex: false,
             currentUser: localStorage.getItem("currentUser"),
-            currentToken: localStorage.getItem("currentToken")
+            currentToken: localStorage.getItem("currentToken"),
+            currentUserID: localStorage.getItem("currentUserID"),
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,7 +55,7 @@ class PostArticle extends React.Component{
     fetch() {
         let formData = new FormData();
 
-        formData.append('authorID', this.state.currentToken);
+        formData.append('authorID', this.state.currentUserID);
         formData.append('author', this.state.currentUser);
         formData.append('category', this.state.articleCategory);
         formData.append('content', this.state.articleContent);

@@ -4,10 +4,11 @@ import ArticleLike from './ArticleLike';
 import AddArticleComment from './AddArticleComment';
 import ArticleComment from './ArticleComment';
 
-import iconMenu from '../../images/iconAlreadyTag.svg';
+import iconMenu from '../../images/iconMenu.svg';
 import iconComment from '../../images/iconComment.svg';
 import iconNotTag from '../../images/iconNotTag.svg';
 import iconAlreadyTag from '../../images/iconAlreadyTag.svg';
+import ArticleWhoLikes from "./ArticleWhoLikes";
 
 class ArticleItem extends React.Component{
     constructor(props, context){
@@ -17,7 +18,13 @@ class ArticleItem extends React.Component{
             articleID: '',
             newContent: '',
             currentUser: localStorage.getItem("currentUser"),
-            currentToken: localStorage.getItem("currentToken")
+            currentToken: localStorage.getItem("currentToken"),
+
+            // 啦啦啦
+            numberOfLikesTemp: 0,
+            likeOrDislike: this.props.likeOrDislike,
+
+            invisible: 'invisible'
         };
         this.updateArticle = this.updateArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -25,6 +32,21 @@ class ArticleItem extends React.Component{
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.renderEditMode = this.renderEditMode.bind(this);
         this.renderViewMode = this.renderViewMode.bind(this);
+
+
+        //啦啦啦
+        this.handleLikekkk = this.handleLikekkk.bind(this);
+        this.commentLikeOrDislike = this.commentLikeOrDislike.bind(this);
+
+
+        this.toggleCommentInvisible = this.toggleCommentInvisible.bind(this);
+    }
+
+    toggleCommentInvisible(){
+        if (this.state.invisible === 'invisible')
+            this.setState({invisible: ''});
+        else
+            this.setState({invisible: 'invisible'});
     }
 
     // 一般畫面點擊編輯時取得文章 ID
@@ -48,6 +70,37 @@ class ArticleItem extends React.Component{
     toggleEditMode(){
         this.setState({ editable: !this.state.editable });
     }
+
+
+
+
+    //啦啦啦
+    handleLikekkk(articleID, likeOrDislike) {
+        // alert(likeOrDislike);
+        if (likeOrDislike == 0) {
+            if (this.state.numberOfLikesTemp == -1)
+                this.setState({numberOfLikesTemp: 0});
+            else
+                this.setState({numberOfLikesTemp: 1});
+        }
+        else {
+            if (this.state.numberOfLikesTemp == 1)
+                this.setState({numberOfLikesTemp: 0});
+            else
+                this.setState({numberOfLikesTemp: -1});
+        }
+        this.setState({likeOrDislike: !(this.state.likeOrDislike)});
+        // this.setState({likeOrDislike: !(this.state.likeOrDislike)});
+        this.props.handleLike(articleID, likeOrDislike);
+        // setTimeout(this.setState({numberOfLikesTemp: -20}), 5000)
+    }
+    // 啦啦啦
+    commentLikeOrDislike(commentID, likeOrDislike){
+        this.props.handleCommentLike(commentID, likeOrDislike)
+    }
+
+
+
 
     // 渲染編輯畫面
     renderEditMode(){
@@ -90,10 +143,23 @@ class ArticleItem extends React.Component{
         const { category } = this.props;
         const { articleID } = this.props;
         const { onDeleteArticle } = this.props;
+        const { avatarLink } = this.props;
         const { handleLike } = this.props;
         const { handleCommentLike } = this.props;
+
+
+
+        // 啦啦啦
         const { numberOfLikes } = this.props;
-        const { likeOrDislike }=this.props;
+        // const { likeOrDislike }=this.props;
+        // const { numberOfLikes } = this.state;
+        const { likeOrDislike }=this.state;
+
+
+
+
+
+
         const { checkUser } = this.props;
 
         const { whoLikes } = this.props;
@@ -114,10 +180,13 @@ class ArticleItem extends React.Component{
 
                     numberOfLikes = {comment.numberOfLikes}
                     likeOrDislike={ comment.likes.filter( (like) => like==this.state.currentUser ).length }
-                    handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
+                    // handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
+                    handleCommentLike = { this.commentLikeOrDislike }
                 />
             </div>)
         });
+        let numOfArticleComment = comments.slice(1).length;
+        const { invisible } = this.state;
 
         return (
             <div>
@@ -129,7 +198,7 @@ class ArticleItem extends React.Component{
                     </div>
 
                     <div className={"aaa"}>
-                        <div className="userPhoto"> </div>
+                        <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}}> </div>
                         <div>
                             <div className="articleAuthor">{author}</div>
                             <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>
@@ -143,30 +212,38 @@ class ArticleItem extends React.Component{
                         <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
                     </div>
 
-                    <div className="ccc">
-                        <img src={iconComment} className="navigationIcon" alt="iconComment"/>
-                        <span className="numOfArticleComment">999</span>
+                    <div>
+                        <img src={iconComment} className="navigationIcon" alt="iconComment" onClick={this.toggleCommentInvisible} />
+                        <span className="numOfArticleComment">{numOfArticleComment}</span>
                         <ArticleLike
-                            numberOfLikes = {numberOfLikes}
+                            numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
+                            // 啦啦啦
                             likeOrDislike = {!!likeOrDislike}
                             articleID = {articleID}
-                            onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
+                            // 啦啦啦
+                            // onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
+                            onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
                         />
-                        <img src={iconNotTag} className={"navigationIcon ddd"} alt="iconNotTag"/>
+                        <img src={iconNotTag} className={"navigationIcon eee"} alt="iconNotTag"/>
                     </div>
 
-                    <div style={invisible}>按讚的人：{whoLikes}</div>
+                    <ArticleWhoLikes
+                        whoLikes = {whoLikes}
+                    />
 
-                    {/*<br/>*/}
-                    {/*<hr className="hrLine" />*/}
-                    {/*<br/>*/}
-                    {/*<AddArticleComment*/}
-                        {/*articleID = {articleID}*/}
-                        {/*onAddComment = {this.props.addComment}*/}
+                    <div className={invisible}>
+                        <hr className="hrLine" />
 
-                        {/*refetch = {this.props.refetch}*/}
-                    {/*/>*/}
-                    {/*<div>{commentElements}</div>*/}
+                        <AddArticleComment
+                            articleID = {articleID}
+                            onAddComment = {this.props.addComment}
+                            refetch = {this.props.refetch}
+                        />
+
+                        <div>{commentElements}</div>
+                    </div>
+
+
                 </div>
             </div>
         );
@@ -178,7 +255,3 @@ class ArticleItem extends React.Component{
 }
 
 export default ArticleItem;
-
-const invisible = {
-    'display': 'none'
-};

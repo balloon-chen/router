@@ -1,0 +1,20 @@
+.AddArticleCommentBackground {
+    background-color: #FAFAFA;
+    border-radius: 20px;
+    padding: 10px 3%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.articleComment_inputField_AddArticleComment {
+    margin-left: 2%;
+    font-size: 16px;
+    border: none;
+    background-color: #FAFAFA;
+}
+
+.userPhoto_AddArticleComment {
+    width: 43px;
+    height:43px;
+}
