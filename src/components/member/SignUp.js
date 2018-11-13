@@ -12,16 +12,36 @@ class SignUp extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
+            // apiURL: 'http://140.119.163.194:3000/',
+            apiURL: 'http://localhost:3000/',
             userName: "",
             userEmail: "",
             userPassword: "",
             result: '',
             err: '',
-            errIcon: 'invisible'
+            errIcon: 'invisible',
+            retypePassword: 'retypePassword_yes',
+            retypePasswordCheckIconInvisible: 'invisible'
     };
+        this.handleChangeCheck = this.handleChangeCheck.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetch = this.fetch.bind(this);
+    }
+
+    handleChangeCheck(event){
+        if (event.target.value !== this.state.userPassword){
+            this.setState({err: '密碼不符'});
+            this.setState({errIcon: ''});
+            this.setState({retypePassword: 'retypePassword_no'});
+            this.setState({retypePasswordCheckIconInvisible: 'invisible'});
+        }
+        else {
+            this.setState({err: ''});
+            this.setState({errIcon: 'invisible'});
+            this.setState({retypePassword: 'retypePassword_yes'});
+            this.setState({retypePasswordCheckIconInvisible: ''});
+        }
     }
 
     // 取得輸入值
@@ -51,7 +71,8 @@ class SignUp extends React.Component{
     }
     // 連接 API 並填入註冊資訊
     fetch() {
-        fetch('http://140.119.163.194:3000/register', {
+        // fetch('http://140.119.163.194:3000/register', {
+        fetch(this.state.apiURL+'register', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -61,7 +82,15 @@ class SignUp extends React.Component{
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
-                if (res.status == undefined){
+                if (res.content){
+                    console.log('loginMember: ' + res.content.userName);
+                    localStorage.setItem("currentUser", res.content.userName);
+                    // console.log('token: ' + res.content.token);
+                    // localStorage.setItem("currentToken", res.result.token);
+                    console.log('userID: ' + res.content._id);
+                    localStorage.setItem("currentUserID", res.content._id);
+                }
+                if (res.status === undefined){
                     this.setState({result: res.result.status});
                     this.setState({err: res.result.err});
                     this.setState({errIcon: ''});
@@ -78,9 +107,11 @@ class SignUp extends React.Component{
         const { result } = this.state;
         const { err } = this.state;
         const { errIcon } = this.state;
+        const { retypePassword } = this.state;
+        const { retypePasswordCheckIconInvisible } = this.state;
 
-        if(result == '註冊成功')
-            return <Redirect push to="/index" />;
+        if(result === '註冊成功')
+            return <Redirect push to="/UploadUserPhoto" />;
 
         return (
             <div>
@@ -105,7 +136,13 @@ class SignUp extends React.Component{
                         <img src={iconLock} alt="iconLock"/>
                     </div>
 
-                    <input className="inputField" type="password" placeholder="再輸入一次密碼" />
+                    <div className="inputFieldAlign">
+                        <input className={"inputField " + retypePassword} type="password" placeholder="再輸入一次密碼" onChange={this.handleChangeCheck} />
+                        {/*要換綠色勾勾*/}
+                        <img src={iconLock} alt="iconLock" className='opacity-zero' />
+                        <img src={iconLock} alt="iconLock" className={retypePasswordCheckIconInvisible} />
+                    </div>
+
                     <div className="errorMessageDiv">
                         <img src={iconError} alt="iconEmail" className={errIcon} /><span className="errorMessage">{ err }</span>
                     </div>

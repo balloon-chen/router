@@ -65,6 +65,9 @@
     margin-top: 4%;
     padding-left: 0;
 }
+.pointer {
+    pointer-events: none;
+}
 
 .textForgetPassword {
     text-align: center;
@@ -100,4 +103,15 @@
     position: relative;
     left: 10px;
     font-size: 14px;
+}
+
+.retypePassword_no {
+    color: red;
+}
+.retypePassword_yes {
+    color: black;
+}
+.asd {
+    position: absolute;
+    left: 50px;
 }

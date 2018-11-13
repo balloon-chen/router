@@ -1,0 +1,90 @@
+/*大小*/
+
+/*大標*/
+.h1 {
+    font-size: 24px !important;
+    font-weight: 600;
+}
+/*中標*/
+.h2 {
+    font-size: 20px !important;
+    font-weight: 500;
+}
+/*註解*/
+.annotation {
+    font-size: 12px !important;
+    font-weight: 300;
+}
+
+
+/*引用*/
+
+/*引用A*/
+.quoteA {
+    /*margin-left: -11px;*/
+}
+.quoteADiv {
+    display: inline;
+}
+.quoteAInvisible {
+    display: none !important;
+}
+/*引用B*/
+.quoteB {
+
+}
+.quoteBDiv {
+    display: inline;
+}
+.quoteBInvisible {
+    display: none !important;
+}
+
+
+/*分隔線*/
+
+/*樣式一*/
+.separationLineAInvisible {
+    display: none;
+}
+/*樣式二*/
+.separationLineBInvisible {
+    display: none;
+}
+/*樣式三*/
+.separationLineCInvisible {
+    display: none;
+}
+/*樣式四*/
+.separationLineDInvisible {
+    display: none;
+}
+/*隱藏輸入框*/
+.inputInvisible {
+    display: none;
+}
+
+
+/*清單*/
+
+/*點點*/
+.dot {
+
+}
+.paragraphListDotInvisible {
+    display: none;
+}
+.paragraphListDotDiv {
+    font-size: 36px;
+    margin: -17px -1px -7px -14px;
+}
+/*數字*/
+.number {
+
+}
+.paragraphListNumberInvisible {
+     display: none;
+ }
+.paragraphListNumberDiv {
+    font-size: 16px;
+}

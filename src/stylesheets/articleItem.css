@@ -40,11 +40,14 @@
     background-size: cover;
     border-radius: 100%;
     display: inline-block;
+    pointer-events: none;
 }
 
 .articleAuthor {
     line-height: 35px;
     font-weight: bold;
+    font-size: 16px;
+    pointer-events: none;
 }
 
 .articleDateAndPosition {
@@ -174,6 +177,7 @@
     float: right;
     position: relative;
     right: 1%;
+    top: -30px;
 }
 .ddd {
     /*position: relative;*/

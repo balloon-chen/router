@@ -3,12 +3,20 @@ import "../../stylesheets/articleItem.css";
 import ArticleLike from './ArticleLike';
 import AddArticleComment from './AddArticleComment';
 import ArticleComment from './ArticleComment';
+import { Redirect } from 'react-router-dom';
 
 import iconMenu from '../../images/iconMenu.svg';
 import iconComment from '../../images/iconComment.svg';
 import iconNotTag from '../../images/iconNotTag.svg';
 import iconAlreadyTag from '../../images/iconAlreadyTag.svg';
 import ArticleWhoLikes from "./ArticleWhoLikes";
+
+import separationLineA from '../../images/editor/separationLineA.svg';
+import separationLineB from '../../images/editor/separationLineB.svg';
+import separationLineC from '../../images/editor/separationLineC.svg';
+import separationLineD from '../../images/editor/separationLineD.svg';
+import quoteA from '../../images/editor/quoteA.svg';
+import quoteB from '../../images/editor/quoteB.svg';
 
 class ArticleItem extends React.Component{
     constructor(props, context){
@@ -24,7 +32,10 @@ class ArticleItem extends React.Component{
             numberOfLikesTemp: 0,
             likeOrDislike: this.props.likeOrDislike,
 
-            invisible: 'invisible'
+            invisible: 'invisible',
+            redirectToProfile: '',
+
+            redirectToPost: false
         };
         this.updateArticle = this.updateArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -40,6 +51,7 @@ class ArticleItem extends React.Component{
 
 
         this.toggleCommentInvisible = this.toggleCommentInvisible.bind(this);
+        this.redirectToProfile = this.redirectToProfile.bind(this);
     }
 
     toggleCommentInvisible(){
@@ -51,8 +63,10 @@ class ArticleItem extends React.Component{
 
     // 一般畫面點擊編輯時取得文章 ID
     updateArticle(event){
-        this.setState({ articleID: event.target.value });
-        this.toggleEditMode();
+        // this.setState({ articleID: event.target.value });
+        // this.toggleEditMode();
+        // 🦄
+        this.setState({redirectToPost: true})
     }
     // 編輯畫面取得輸入值
     handleChange(event) {
@@ -95,12 +109,22 @@ class ArticleItem extends React.Component{
         // setTimeout(this.setState({numberOfLikesTemp: -20}), 5000)
     }
     // 啦啦啦
-    commentLikeOrDislike(commentID, likeOrDislike){
-        this.props.handleCommentLike(commentID, likeOrDislike)
+    commentLikeOrDislike(commentID, articleID, likeOrDislike){
+        this.props.handleCommentLike(commentID, articleID, likeOrDislike)
     }
 
-
-
+    redirectToProfile(event){
+        switch (event.target.name){
+            case 'author':{
+                localStorage.setItem("whichUserID", event.target.value);
+                this.setState({redirectToProfile: true});
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
 
     // 渲染編輯畫面
     renderEditMode(){
@@ -112,26 +136,96 @@ class ArticleItem extends React.Component{
         const { numberOfLikes } = this.props;
         const { onHandleLike } = this.props;
         const { likeOrDislike }=this.props;
+        let contentToObjects = JSON.parse(content);
+        const contentToObjectsElements = contentToObjects.map( (contentToObject) => {
+            let quoteAInvisible = contentToObject.quoteAInvisible || 'quoteAInvisible';
+            let quoteBInvisible = contentToObject.quoteBInvisible || 'quoteBInvisible';
+            let separationLineAInvisible = contentToObject.separationLineAInvisible || 'separationLineAInvisible';
+            let separationLineBInvisible = contentToObject.separationLineBInvisible || 'separationLineBInvisible';
+            let separationLineCInvisible = contentToObject.separationLineCInvisible || 'separationLineCInvisible';
+            let separationLineDInvisible = contentToObject.separationLineDInvisible || 'separationLineDInvisible';
+            let paragraphListDotInvisible = contentToObject.paragraphListDotInvisible || 'paragraphListDotInvisible';
+            let paragraphListNumberInvisible = contentToObject.paragraphListNumberInvisible || 'paragraphListDotInvisible';
+            return (
+                <div key={contentToObject.id}>
+
+                    <div className={separationLineAInvisible + ' flex justify-content'}><img src={separationLineA} alt="separationLine01" className='postArticleList_separationLine' /></div>
+                    <div className={separationLineBInvisible + ' flex justify-content'}><img src={separationLineB} alt="separationLine02" className='postArticleList_separationLine' /></div>
+                    <div className={separationLineCInvisible + ' flex justify-content'}><img src={separationLineC} alt="separationLine03" className='postArticleList_separationLine' /></div>
+                    <div className={separationLineDInvisible + ' flex justify-content'}><img src={separationLineD} alt="separationLine04" className='postArticleList_separationLine' /></div>
+
+                    <div className={contentToObject.inputInvisible + ' flex justify-content-flex-start'}>
+
+                        {/*quoteA*/}
+                        <div className={'quoteADiv'+' '+quoteAInvisible}><img src={quoteA} alt="quoteA" className='postArticleList_quote postArticleList_quoteA' style={{'marginLeft':'-14px'}} /></div>
+                        {/*quoteB*/}
+                        <div className={'quoteBDiv'+' '+quoteBInvisible}><img src={quoteB} alt="quoteB" className='postArticleList_quote postArticleList_quoteB' /></div>
+
+                        {/*paragraphListDot*/}
+                        <div className={'paragraphListDotDiv'+' '+paragraphListDotInvisible}>・</div>
+                        {/*paragraphListNumber*/}
+                        <div className={'paragraphListNumberDiv'+' '+paragraphListNumberInvisible}>{contentToObject.paragraphListNumber}. </div>
+
+                        <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}>
+                            {contentToObject.articleContent}
+                            <textarea
+                            // rows={1}
+                            className = {'postArticleList_inputField postArticleList_inputField_top '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}
+                            value = {contentToObject.articleContent}
+                            ref={this.textInput}
+                            onChange = {this.handleChange}
+                            onFocus={this.focus}
+                            onClick={this.mouseLocation}
+                            onKeyUp={this.mouseLocation}
+                            onKeyDown={this.handleKeyDown}
+                            />
+                        </div>
+                    </div>
+
+
+                </div>
+            )
+        } );
+        const { avatarLink } = this.props;
+        const { authorID } = this.props;
 
         return (
             <div className="articleCard">
-                <form onSubmit={this.handleSubmit}>
+                {/*<form onSubmit={this.handleSubmit}>*/}
+                    {/*<span className="articleCategory">{category}</span>*/}
+                    {/*<span className="articleTitle">{title}</span>*/}
+                    {/*<br/>*/}
+                    {/*<hr className="hrLine" />*/}
+                    {/*<br/>*/}
+                    {/*<div className="userPhoto"> </div>*/}
+                    {/*<span className="articleAuthor">{author}</span>*/}
+                    {/*<input className="articleContent" type="text" placeholder={content} onChange={this.handleChange} />*/}
+                    {/*<input className="updateDeleteSubmit" type="submit" value="確定" />*/}
+                {/*</form>*/}
+
+
+                <div className={'articleImage'}>
                     <span className="articleCategory">{category}</span>
                     <span className="articleTitle">{title}</span>
-                    <br/>
-                    <hr className="hrLine" />
-                    <br/>
-                    <div className="userPhoto"></div>
-                    <span className="articleAuthor">{author}</span>
-                    <input className="articleContent" type="text" placeholder={content} onChange={this.handleChange} />
-                    <input className="updateDeleteSubmit" type="submit" value="確定" />
-                </form>
-                <ArticleLike
-                    numberOfLikes = {numberOfLikes}
-                    likeOrDislike = {!!likeOrDislike}
-                    articleID = {articleID}
-                    handleLike = {() => onHandleLike && onHandleLike(articleID, likeOrDislike)}
-                />
+                </div>
+
+                <div className={"aaa"}>
+                    <button name="author" onClick={this.redirectToProfile} value={authorID}>
+                        <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}} onClick={this.redirectToProfile}> </div>
+                    </button>
+                    <div>
+                        <button name="author" onClick={this.redirectToProfile} value={authorID}>
+                            <div className="articleAuthor">{author}</div>
+                        </button>
+                        <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>
+                    </div>
+                    <img src={iconMenu} className={"navigationIcon bbb"} alt="iconMenu"/>
+                </div>
+
+                <div style={{'width':'100%', 'height':'10px'}}> </div>
+                <div>{contentToObjectsElements}</div>
+
+
             </div>
         );
     }
@@ -140,13 +234,73 @@ class ArticleItem extends React.Component{
         const { author } = this.props;
         const { title } = this.props;
         const { content } = this.props;
+        let contentToObjects = JSON.parse(content);
+
+
+        const { redirectToPost } = this.state;
+        if (redirectToPost) {
+            localStorage.setItem("articleContents", content);
+            localStorage.setItem("articleID", articleID);
+            return <Redirect push to="/post" />;
+        }
+
+
+        const contentToObjectsElements = contentToObjects.map( (contentToObject) => {
+            let quoteAInvisible = contentToObject.quoteAInvisible || 'quoteAInvisible';
+            let quoteBInvisible = contentToObject.quoteBInvisible || 'quoteBInvisible';
+            let separationLineAInvisible = contentToObject.separationLineAInvisible || 'separationLineAInvisible';
+            let separationLineBInvisible = contentToObject.separationLineBInvisible || 'separationLineBInvisible';
+            let separationLineCInvisible = contentToObject.separationLineCInvisible || 'separationLineCInvisible';
+            let separationLineDInvisible = contentToObject.separationLineDInvisible || 'separationLineDInvisible';
+            let paragraphListDotInvisible = contentToObject.paragraphListDotInvisible || 'paragraphListDotInvisible';
+            let paragraphListNumberInvisible = contentToObject.paragraphListNumberInvisible || 'paragraphListDotInvisible';
+            return (
+                <div key={contentToObject.id}>
+
+                    <div className={separationLineAInvisible + ' flex justify-content'}><img src={separationLineA} alt="separationLine01" className='postArticleList_separationLine' /></div>
+                    <div className={separationLineBInvisible + ' flex justify-content'}><img src={separationLineB} alt="separationLine02" className='postArticleList_separationLine' /></div>
+                    <div className={separationLineCInvisible + ' flex justify-content'}><img src={separationLineC} alt="separationLine03" className='postArticleList_separationLine' /></div>
+                    <div className={separationLineDInvisible + ' flex justify-content'}><img src={separationLineD} alt="separationLine04" className='postArticleList_separationLine' /></div>
+
+                    <div className={contentToObject.inputInvisible + ' flex justify-content-flex-start'}>
+
+                        {/*quoteA*/}
+                        <div className={'quoteADiv'+' '+quoteAInvisible}><img src={quoteA} alt="quoteA" className='postArticleList_quote postArticleList_quoteA' style={{'marginLeft':'-14px'}} /></div>
+                        {/*quoteB*/}
+                        <div className={'quoteBDiv'+' '+quoteBInvisible}><img src={quoteB} alt="quoteB" className='postArticleList_quote postArticleList_quoteB' /></div>
+
+                        {/*paragraphListDot*/}
+                        <div className={'paragraphListDotDiv'+' '+paragraphListDotInvisible}>・</div>
+                        {/*paragraphListNumber*/}
+                        <div className={'paragraphListNumberDiv'+' '+paragraphListNumberInvisible}>{contentToObject.paragraphListNumber}. </div>
+
+                        <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}>
+                            {contentToObject.articleContent}
+                            {/*<textarea*/}
+                                {/*// rows={1}*/}
+                                {/*className = {'postArticleList_inputField postArticleList_inputField_top '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}*/}
+                                {/*value = {contentToObject.articleContent}*/}
+                                {/*ref={this.textInput}*/}
+                                {/*onChange = {this.handleChange}*/}
+                                {/*onFocus={this.focus}*/}
+                                {/*onClick={this.mouseLocation}*/}
+                                {/*onKeyUp={this.mouseLocation}*/}
+                                {/*onKeyDown={this.handleKeyDown}*/}
+                            {/*/>*/}
+                        </div>
+                    </div>
+
+
+                </div>
+            )
+        } );
+
         const { category } = this.props;
         const { articleID } = this.props;
         const { onDeleteArticle } = this.props;
         const { avatarLink } = this.props;
         const { handleLike } = this.props;
         const { handleCommentLike } = this.props;
-
 
 
         // 啦啦啦
@@ -165,29 +319,44 @@ class ArticleItem extends React.Component{
         const { whoLikes } = this.props;
 
         const { comments } = this.props;
-        const commentElements = comments.slice(1).map((comment) => {
-            return (<div key = {comment._id}>
-                <ArticleComment
-                    commentID = {comment._id}
-                    commenterID = {comment.commenterID}
-                    articleID = {comment.articleID}
-                    comment = {comment.listOfComment[0].content}
-                    checkUser = {comment.commenterID!=this.state.currentUser ? ' invisible' : ''}
-                    onDeleteComment = {this.props.deleteComment}
-                    onUpdateComment = {this.props.updateComment}
+        // 🦄️
+        if (comments[0] !== undefined) {
+            // alert(comments[0]);
+        }
+        const commentElements = comments.map((comment) => {
+            // alert(comment);
+            if (comment !== null) {
+                // alert(comment.listOfComment[comment.listOfComment.length-1].content);
+                console.log(comment.listOfComment[0].content);
+                return (<div key = {comment.id}>
+                    <ArticleComment
+                        commentID = {comment.id}
+                        commenterID = {comment.commenterID}
+                        // articleID = {comment.articleID}
+                        articleID = {articleID}
+                        comment = {comment.listOfComment[0].content}
+                        checkUser = {comment.commenterID!=this.state.currentUser ? ' invisible' : ''}
+                        onDeleteComment={this.props.deleteComment}
+                        onUpdateComment={this.props.updateComment}
 
-                    refetch = {this.props.refetch}
+                        refetch={this.props.refetch}
 
-                    numberOfLikes = {comment.numberOfLikes}
-                    likeOrDislike={ comment.likes.filter( (like) => like==this.state.currentUser ).length }
-                    // handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
-                    handleCommentLike = { this.commentLikeOrDislike }
-                />
-            </div>)
+                        numberOfLikes = {comment.numberOfLikes}
+                        likeOrDislike={ comment.likes.filter( (like) => like==this.state.currentUser ).length }
+                        // handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
+                        handleCommentLike={this.commentLikeOrDislike}
+                        whoLikes = {comment.likes}
+                    />
+                </div>)
+            }
         });
-        let numOfArticleComment = comments.slice(1).length;
+        let numOfArticleComment = comments.length;
         const { invisible } = this.state;
-
+        const { redirectToProfile } = this.state;
+        if (redirectToProfile) {
+            return <Redirect push to="/profile" />;
+        }
+        const { authorID } = this.props;
         return (
             <div>
                 <div className="articleCard">
@@ -198,18 +367,29 @@ class ArticleItem extends React.Component{
                     </div>
 
                     <div className={"aaa"}>
-                        <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}}> </div>
+                        <button name="author" onClick={this.redirectToProfile} value={authorID}>
+                            <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}} onClick={this.redirectToProfile}> </div>
+                        </button>
                         <div>
-                            <div className="articleAuthor">{author}</div>
+                            {/*<div className="articleAuthor"><input type="button" onClick={this.redirectToProfile} value={author}/>{author}</div>*/}
+                            <button name="author" onClick={this.redirectToProfile} value={authorID}>
+                                <div className="articleAuthor">{author}</div>
+                            </button>
                             <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>
                         </div>
                         <img src={iconMenu} className={"navigationIcon bbb"} alt="iconMenu"/>
                     </div>
 
-                    <p className="articleContent">{content}</p>
+                    {/*<p className="articleContent">{content}</p>*/}
+                    <div style={{'width':'100%', 'height':'10px'}}> </div>
+                    <div>{contentToObjectsElements}</div>
+                    {/*文章格式壞掉可用*/}
+                    {/*<div>{content}</div>*/}
                     <div>
                         <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
                         <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
+                        {/*文章格式壞掉可用*/}
+                        {/*<button className={'updateDeleteSubmit'} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>*/}
                     </div>
 
                     <div>
@@ -223,13 +403,14 @@ class ArticleItem extends React.Component{
                             // 啦啦啦
                             // onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
                             onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
+                            whoLikes = {whoLikes}
                         />
-                        <img src={iconNotTag} className={"navigationIcon eee"} alt="iconNotTag"/>
+                        <img src={iconNotTag} className="navigationIcon eee" alt="iconNotTag"/>
                     </div>
 
-                    <ArticleWhoLikes
-                        whoLikes = {whoLikes}
-                    />
+                    {/*<ArticleWhoLikes*/}
+                        {/*whoLikes = {whoLikes}*/}
+                    {/*/>*/}
 
                     <div className={invisible}>
                         <hr className="hrLine" />

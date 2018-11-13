@@ -12,11 +12,15 @@ class ArticleWhoLikes extends React.Component{
     }
 
     render(){
-        const { whoLikes } = this.props;
+        const { whoLike } = this.props;
 
         return (
             <div>
-                <div className="articleWhoLikesCard">按讚的人：{whoLikes}</div>
+                <div className="flex">
+                    <div className="userPhoto"> </div>
+                    <span>{whoLike}</span>
+                    <span className="position-right button">加好友</span>
+                </div>
             </div>
         );
     }

@@ -13,7 +13,7 @@ const _createTodo = (todos, title) => {
         completed: false
     });
     return todos;
-}
+};
 
 // 10-2. 將編輯邏輯抽成一個 function
 const _updateTodo = (todos, id, title) => {

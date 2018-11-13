@@ -1,15 +1,49 @@
+.articleWhoLikesBackground {
+    background-color: black;
+    width: 110vw;
+    height: 110vh;
+    position: fixed;
+    top: 0;
+    margin-left: -28px;
+    z-index: 5;
+    opacity: 0.4;
+}
+
 .articleWhoLikesCard {
     /*margin: 18% 3%;*/
-    /*border-radius: 33px;*/
+    border-radius: 20px;
     /*box-shadow: 5px 5px 20px 5px rgba(0,0,0,0.1);*/
     /*background-color: white;*/
-    /*padding: 24px 14px;*/
+    padding: 3vw;
+    /*padding-top: 50px;*/
     /*padding-bottom: 10px;*/
     /*overflow: hidden;*/
 
-    /*position: absolute;*/
-    /*top: 20px;*/
-    /*z-index: 10;*/
+    /*transform: translate(-50%, -50%);*/
+    position: fixed;
+    top: 12%;
+    /*left: 50%;*/
+    z-index: 5;
+    width: 88vw;
+    /*margin-left: -2%;*/
+    margin-left: -14px;
+    background-color: white;
+    /*border: 1px solid black;*/
+    /*opacity: 1;*/
 
-    display: none;
+    overflow: scroll;
+    height: 500px;
+}
+
+.position-right {
+    position: absolute;
+    right: 0px;
+}
+
+.button {
+    background-color: #7391E5;
+    border-radius: 20px;
+    padding: 3px 10px;
+    color: white;
+    font-weight: 300;
 }

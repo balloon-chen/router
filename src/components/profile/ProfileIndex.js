@@ -5,6 +5,8 @@ class ProfileIndex extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
+            // apiURL: 'http://140.119.163.194:3000/',
+            apiURL: 'http://localhost:3000/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
             currentUserID: localStorage.getItem("currentUserID"),
@@ -15,7 +17,8 @@ class ProfileIndex extends React.Component{
 
     // 取得個人資料
     fetchPersonalArticleData(){
-        fetch('http://140.119.163.194:3000/search_article')
+        // fetch('http://140.119.163.194:3000/search_article')
+        fetch(this.state.apiURL+'search_article')
             .then(response => response.json())
             .then(parsedJSON => {
                 this.setState({articles: parsedJSON})

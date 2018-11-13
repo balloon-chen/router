@@ -13,6 +13,7 @@ class ArticleComment extends React.Component{
             newComment: '',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
+            articleID: this.props.articleID,
 
 
 
@@ -44,7 +45,7 @@ class ArticleComment extends React.Component{
     }
     // 編輯畫面提交表單
     handleSubmit(event) {
-        this.props.onUpdateComment(this.state.commentID, this.state.newComment);
+        this.props.onUpdateComment(this.state.commentID, this.state.articleID, this.state.newComment);
         // 🦄️
         this.props.refetch();
         this.toggleEditMode();
@@ -59,7 +60,7 @@ class ArticleComment extends React.Component{
 
 
     //啦啦啦
-    handleLikekkk(articleID, likeOrDislike) {
+    handleLikekkk(commentID, articleID, likeOrDislike) {
         // alert(likeOrDislike);
         if (likeOrDislike == 0) {
             if (this.state.numberOfLikesTemp == -1)
@@ -75,7 +76,7 @@ class ArticleComment extends React.Component{
         }
         this.setState({likeOrDislike: !(this.state.likeOrDislike)});
         // this.setState({likeOrDislike: !(this.state.likeOrDislike)});
-        this.props.handleCommentLike(articleID, likeOrDislike);
+        this.props.handleCommentLike(commentID, articleID, likeOrDislike);
         // this.props.handleCommentLike();
         // setTimeout(this.setState({numberOfLikesTemp: -20}), 5000)
     }
@@ -91,18 +92,26 @@ class ArticleComment extends React.Component{
 
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <hr className="hrLine" />
-                    <br/>
-                    <div>{commenterID}: <input className="" type="text" placeholder={comment} onChange={this.handleChange} /></div>
-                    <button className={'updateDeleteSubmit'+checkUser} type='submit'>確定</button>
-                </form>
+                <div className="AddArticleCommentBackground">
+                    <div className="articleCommentBox1">
+                        <div className="articleCommentBox2">
+                            <img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />
+                        </div>
+                        <div className="articleCommentBox2">
+                            <div className="articleCommentCommenterID">{commenterID}</div>
+                            <form onSubmit={this.handleSubmit}>
+                                <input className="articleCommentComment articleCommentCommentUpdate" type="text" placeholder={comment} onChange={this.handleChange} />
+                                <button className={'updateDeleteSubmit'+checkUser} type='submit'>確定</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
     // 渲染一般畫面
     renderViewMode(){
-        const { articleID } = this.props;
+        const { articleID } = this.state;
         const { comment } = this.props;
         const { commentID } = this.props;
         const { onDeleteComment } = this.props;
@@ -117,6 +126,8 @@ class ArticleComment extends React.Component{
         const { numberOfLikes } = this.props;
         // const { likeOrDislike }=this.props;
         const { likeOrDislike }=this.state;
+
+        const { whoLikes } = this.props;
 
         return (
             <div>
@@ -135,15 +146,20 @@ class ArticleComment extends React.Component{
                                     numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
                                     likeOrDislike = {!!likeOrDislike}
                                     // onHandleLike = {() => handleCommentLike && handleCommentLike(numberOfLikes, likeOrDislike)}
-                                    onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(commentID, likeOrDislike)}
+                                    onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(commentID, articleID, likeOrDislike)}
+                                    whoLikes = {whoLikes}
                                 />
                             </div>
+
+                            <div>
+                                <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateComment} value={commentID}>編輯</button>
+                                <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteComment && onDeleteComment(commentID, articleID)}>刪除</button>
+                            </div>
+
                         </div>
                     </div>
                     <div style={invisible}>articleID: {articleID}</div>
                     <div style={invisible}>commentID: {commentID}</div>
-                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateComment} value={commentID}>編輯</button>
-                    <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteComment && onDeleteComment(commentID)}>刪除</button>
                 </div>
             </div>
         );

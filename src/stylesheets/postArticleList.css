@@ -1,0 +1,36 @@
+.postArticleList {
+    padding-left: 20px;
+}
+.postArticleList_inputField {
+    font-size: 16px;
+    border: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    resize: none;
+    margin-right: 20px;
+    word-break: break-all;
+}
+.postArticleList_inputField_top {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.postArticleList_inputField_bottom {
+    /*border: 1px black solid;*/
+    min-height: 22px;
+}
+.postArticleList_separationLine {
+    width: 35vw;
+}
+.postArticleList_quote {
+
+}
+
+.postArticleList_quoteA {
+    height: 26px;
+    margin-left: -20px;
+}
+.postArticleList_quoteB {
+    height: 14px;
+}

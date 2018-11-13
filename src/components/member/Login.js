@@ -13,6 +13,8 @@ class Login extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
+            // apiURL: 'http://140.119.163.194:3000/',
+            apiURL: 'http://localhost:3000/',
             userName: "userName",
             userEmail: "userEmail@gmail.com",
             userPassword: "",
@@ -72,7 +74,8 @@ class Login extends React.Component{
     }
     // 連接 API 並填入登入資訊
     fetch() {
-        fetch('http://140.119.163.194:3000/login', {
+        // fetch('http://140.119.163.194:3000/login', {
+        fetch(this.state.apiURL+'login', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

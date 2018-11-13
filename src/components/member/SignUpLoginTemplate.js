@@ -4,12 +4,15 @@ import FBLogin from './FBLogin';
 import SignUp from "./SignUp";
 import '../../stylesheets/main.css';
 import '../../stylesheets/signUpLoginTemplate.css';
+import UploadUserPhoto from "./UploadUserPhoto";
+import { Redirect } from 'react-router-dom';
 
 class SignUpLoginTemplate extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            renderSignUpMode: false
+            renderSignUpMode: false,
+            redirectToIndex: false
         };
         this.toggleRenderMode = this.toggleRenderMode.bind(this);
     }
@@ -18,10 +21,14 @@ class SignUpLoginTemplate extends React.Component{
         this.setState({ renderSignUpMode: !this.state.renderSignUpMode });
     }
 
+    componentDidMount(){
+        this.setState({redirectToIndex: !(localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined)})
+    }
+
     renderSignUpMode(){
         return (
             <div className="background">
-                <div className="logo"></div>
+                <div className="logo"> </div>
                 <div className="card">
                     <SignUp />
                     <hr className="hrLine" />
@@ -31,13 +38,18 @@ class SignUpLoginTemplate extends React.Component{
         )
     }
     renderLoginMode(){
+        const { redirectToIndex } = this.state;
+        if (redirectToIndex)
+            return <Redirect push to="/index" />;
+
         return (
             <div className="background">
-                <div className="logo"></div>
+                <div className="logo"> </div>
                 <div className="card">
                     <Login />
                     <hr className="hrShortLine_left" /><div className="textOr">or</div><hr className="hrShortLine_right" />
-                    <button style={button_FacebookLogin}>使用 Facebook 帳號登入</button>
+                    {/*<button style={button_FacebookLogin}>使用 Facebook 帳號登入</button>*/}
+                    <FBLogin />
                     <button style={button_GoogleLogin}>使用 Google+ 帳號登入</button>
                     <hr className="hrLine" />
                     <p className="textAlreadyHaveAccountOrNot">還沒有帳號嗎？<span className="textAlreadyHaveAccountOrNot_loginOrSignUp" onClick={this.toggleRenderMode}>註冊</span></p>
@@ -47,6 +59,14 @@ class SignUpLoginTemplate extends React.Component{
     }
     render(){
         return this.state.renderSignUpMode ? this.renderSignUpMode() : this.renderLoginMode();
+        // return (
+        //     <div className="background">
+        //         <div className="logo"> </div>
+        //         <div className="card">
+        //             <UploadUserPhoto />
+        //         </div>
+        //     </div>
+        // );
     }
 }
 

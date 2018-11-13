@@ -20,7 +20,7 @@ class TodoList extends React.Component{
                     onUpdate={(content) => onUpdateTodo && onUpdateTodo(todo.id, content)}
                 />
             </li>)
-        )
+        );
 
         return <ul>{todoElements}</ul>;
     }

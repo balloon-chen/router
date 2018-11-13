@@ -1,0 +1,52 @@
+.skip {
+    text-align: right;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 5%;
+    float: right;
+    position: absolute;
+    right: 18px;
+    top: 28px;
+    color: #4982F5;
+}
+.defaultUserPhoto {
+    height: 50vw;
+    width: 50vw;
+    background-image: url("../images/userPhotoDefault.svg");
+    background-size: cover;
+    border-radius: 100%;
+    position: relative;
+    transform: translate(-50%, -50%);
+    top: 25vw;
+    left: 50%;
+    z-index: 2;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.oo {
+    height: 50vw;
+    width: 50vw;
+    background-image: url("../images/userPhotoDefault.svg");
+    background-size: cover;
+    border-radius: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 25vw;
+    left: 50%;
+    z-index: 1;
+}
+.defaultUserPhotoBorder {
+    height: 52.5vw;
+    width: 52.5vw;
+    background-color: white;
+    border-radius: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 25vw;
+    left: 50%;
+    box-shadow:2px 2px 13px rgba(20%,20%,40%,0.3);
+}
+.adjustMargin {
+    height: 16px;
+    width: 10px;
+}

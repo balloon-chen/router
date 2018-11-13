@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    width: 95%;
 }
 
 .articleComment_inputField_AddArticleComment {

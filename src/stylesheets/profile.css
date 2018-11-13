@@ -4,7 +4,7 @@
 /*filter 介紹*/
 /*https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter*/
 .frostedGlass {
-    z-index: 3;
+    z-index: 4;
     background-position: center top;
     background-size: cover;
     overflow: hidden;
@@ -46,7 +46,7 @@
 .navigationIcon {
     width: 26px;
     height: 26px;
-    z-index: 5;
+    z-index: 3;
 }
 .xxx {
     width: 90px;
@@ -66,6 +66,8 @@
 .ooo {
     width: 35px;
     height: 35px;
+    z-index: 5;
+    border-radius: 100%;
 }
 
 .coverPhoto {
@@ -176,11 +178,14 @@
     transform: translate(-50%, -50%);
     top: 85%;
     left: 85%;
-    width: 50px;
+    width: 75px;
     height: 22px;
     text-align: center;
     z-index: 1;
     cursor: pointer;
+}
+.uploadUserCoverPhotooo {
+    left: 60%;
 }
 
 .uploadUserPhotoIcon {
@@ -197,4 +202,43 @@
     background-size: cover;
     z-index: 100;
     cursor: pointer;
+}
+
+.square01 {
+    width: 32vw;
+    height: 32vw;
+    border: black solid 1px;
+    float: left;
+    margin-bottom: auto;
+}
+
+.square02 {
+    width: 99vw;
+    height: 99vw;
+    border: black solid 1px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.profile_friendAndFollowButton {
+    border: 2px solid #8A5538;
+    border-radius: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 80px;
+    text-align: center;
+    font-size: 85%;
+    position: relative;
+    top: 100px;
+}
+.addFriendButton {
+
+}
+.followButton {
+    color: #8A5538;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.unFollowButton {
+    color: white;
+    background-color: #8A5538;
 }

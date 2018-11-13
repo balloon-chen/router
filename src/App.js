@@ -5,9 +5,13 @@ import './stylesheets/main.css';
 
 import SignUpLoginTemplate from './components/member/SignUpLoginTemplate';
 import Index from './components/main/Index';
-import PostArticle from './components/PostArticle';
+import PostArticle from './components/postArticle/PostArticle';
+// import PostArticle from './components/postArticle/PostTest';
+// import PostArticleCategory from './components/postArticle/PostArticleCategory';
 import Profile from './components/profile/Profile';
 // import ProfileIndex from './components/profile/ProfileIndex';
+import UploadUserPhoto from './components/member/UploadUserPhoto';
+import Logout from './components/member/Logout';
 
 
 import upload from './components/upload';
@@ -29,8 +33,11 @@ class App extends Component {
                     <Route path='/' component={SignUpLoginTemplate} exact />
                     <Route path='/index' component={Index} />
                     <Route path='/post' component={PostArticle} />
+                    {/*<Route path='/post_category' component={PostArticleCategory}/>*/}
                     <Route path='/profile' component={Profile} />
                     {/*<Route path='/profile' component={ProfileIndex} />*/}
+                    <Route path='/UploadUserPhoto' component={UploadUserPhoto} />
+                    <Route path='/logout' component={Logout} />
                     <Route path='/upload' component={upload} />
 
                     <Route path='/todo' component={TodoApp} />
