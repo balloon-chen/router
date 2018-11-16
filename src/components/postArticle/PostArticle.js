@@ -40,9 +40,9 @@ class PostArticle extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            articleTitle: "",
+            articleTitle: localStorage.getItem("articleTitle") || "",
             articleContent: "",
-            articleCategory: "",
+            articleCategory: localStorage.getItem("articleCategory") || "",
             redirectToIndex: false,
             // apiURL: 'http://140.119.163.194:3000/',
             apiURL: 'http://localhost:3000/',
@@ -65,7 +65,7 @@ class PostArticle extends React.Component{
             articleContents: JSON.parse(localStorage.getItem("articleContents")) || [
                 {
                     id: 0,
-                    articleContent: '這邊：',
+                    articleContent: '',
                     fontSize: '',
                     quoteAInvisible: '',
                     quoteBInvisible: '',
@@ -854,8 +854,12 @@ class PostArticle extends React.Component{
     // 提交表單
     handleSubmit(event) {
         const { articleID } = this.state;
-        if (articleID)
-            this.fetchUpdate();
+        // alert('::'+articleID)
+        if (articleID){
+            // const { articleID } = this.state;
+            // alert('::'+articleID)
+            this.fetchUpdate(articleID);
+        }
         else
             this.fetch();
         setTimeout(this.redirectToIndex, 700);
@@ -894,17 +898,22 @@ class PostArticle extends React.Component{
             .then(res => console.log(res));
     }
     // 連接 API 並填入文章內容（更新文章用）
-    fetchUpdate() {
+    fetchUpdate(articleID) {
         let formData = new FormData();
         let articleContentsStringify = JSON.stringify(this.state.articleContents);
-        alert(this.state.articleContents)
-        alert(articleContentsStringify)
+        // alert(this.state.articleTitle)
+        // alert(articleID)
+        // alert(this.state.articleCategory)
+        // alert(articleContentsStringify)
 
-        formData.append('articleID', this.state.articleID);
+        formData.append('title', this.state.articleTitle);
+        formData.append('articleID', articleID);
+        formData.append('category', this.state.articleCategory);
         formData.append('content', articleContentsStringify);
+        formData.append('privacy', 'public');
 
         fetch(this.state.apiURL+'update_article', {
-            method: 'post',
+            method: 'put',
             body: formData
         }).then(res=>res.json())
             .then(res => console.log(res));
@@ -923,6 +932,10 @@ class PostArticle extends React.Component{
             .then(res => {
                 console.log(res);
                 this.setState({currentUserAvatarLink: res.avatarLink});
+                if (this.state.articleID) {
+                    this.setState({nextStepColor: 'black'});
+                    this.setState({nextStepPointerEvents: 'auto'});
+                }
             });
     }
 
@@ -1042,7 +1055,7 @@ class PostArticle extends React.Component{
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <div className="inputField_title_placeholder">
-                            <input className="inputField_title" type="text" name="標題" placeholder="標題，" onChange={this.handleChange} />
+                            <input className="inputField_title" type="text" name="標題" placeholder="標題，" onChange={this.handleChange} value={this.state.articleTitle} />
                         </div>
                         {/*<div className="inputField_content_placeholder">*/}
                             {/*<textarea className="inputField_content" name="內文" placeholder="你想分享甚麼…" onChange={this.handleChange}></textarea>*/}

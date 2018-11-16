@@ -29,6 +29,8 @@
 
 .articleCommentCommenterID {
     font-weight: bold;
+    font-size: 150%;
+    pointer-events: none;
 }
 
 .articleCommentComment {

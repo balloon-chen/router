@@ -57,24 +57,24 @@
     border: none;
 }
 /*webkit瀏覽器專用*/
-.inputField_content_placeholder ::-webkit-input-placeholder {
+.postArticleList_inputField ::-webkit-input-placeholder {
     color: #BFBFBF;
-    font-size: 18px;
+    font-size: 16px;
 }
 /*Firefox 4-18瀏覽器專用*/
-.inputField_content_placeholder input::-moz-placeholder {
+.postArticleList_inputField input::-moz-placeholder {
     color: #BFBFBF;
-    font-size: 18px;
+    font-size: 16px;
 }
 /*Firefox 19+瀏覽器專用*/
-.inputField_content_placeholder input::-moz-placeholder {
+.postArticleList_inputField input::-moz-placeholder {
     color:#BFBFBF;
-    font-size: 18px;
+    font-size: 16px;
 }
 /*IE10瀏覽器專用*/
-.inputField_content_placeholder:-ms-input-placeholder{
+.postArticleList_inputField:-ms-input-placeholder{
     color: #BFBFBF;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .selectCategory {

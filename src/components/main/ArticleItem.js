@@ -27,6 +27,7 @@ class ArticleItem extends React.Component{
             newContent: '',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
+            currentUserID: localStorage.getItem("currentUserID"),
 
             // 啦啦啦
             numberOfLikesTemp: 0,
@@ -233,7 +234,9 @@ class ArticleItem extends React.Component{
     renderViewMode(){
         const { author } = this.props;
         const { title } = this.props;
+        const { articleID } = this.props;
         const { content } = this.props;
+        const { category } = this.props;
         let contentToObjects = JSON.parse(content);
 
 
@@ -241,6 +244,8 @@ class ArticleItem extends React.Component{
         if (redirectToPost) {
             localStorage.setItem("articleContents", content);
             localStorage.setItem("articleID", articleID);
+            localStorage.setItem("articleTitle", title);
+            localStorage.setItem("articleCategory", category);
             return <Redirect push to="/post" />;
         }
 
@@ -295,8 +300,6 @@ class ArticleItem extends React.Component{
             )
         } );
 
-        const { category } = this.props;
-        const { articleID } = this.props;
         const { onDeleteArticle } = this.props;
         const { avatarLink } = this.props;
         const { handleLike } = this.props;
@@ -335,7 +338,7 @@ class ArticleItem extends React.Component{
                         // articleID = {comment.articleID}
                         articleID = {articleID}
                         comment = {comment.listOfComment[0].content}
-                        checkUser = {comment.commenterID!=this.state.currentUser ? ' invisible' : ''}
+                        checkUser = {comment.commenterID!==this.state.currentUserID ? ' invisible' : ''}
                         onDeleteComment={this.props.deleteComment}
                         onUpdateComment={this.props.updateComment}
 
@@ -346,6 +349,9 @@ class ArticleItem extends React.Component{
                         // handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
                         handleCommentLike={this.commentLikeOrDislike}
                         whoLikes = {comment.likes}
+
+                        commenterName = {comment.commenterName}
+                        commenter_avatarLink = {comment.commenter_avatarLink}
                     />
                 </div>)
             }
@@ -418,6 +424,7 @@ class ArticleItem extends React.Component{
                         <AddArticleComment
                             articleID = {articleID}
                             onAddComment = {this.props.addComment}
+                            currentUserAvatarLink = {this.props.currentUserAvatarLink}
                             refetch = {this.props.refetch}
                         />
 

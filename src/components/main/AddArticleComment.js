@@ -10,6 +10,7 @@ class AddArticleComment extends React.Component{
         this.state = {
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
+            currentUserID: localStorage.getItem("currentUserID"),
             content: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +23,7 @@ class AddArticleComment extends React.Component{
     }
     // 提交表單
     handleSubmit(event) {
-        this.props.onAddComment(this.state.content, this.props.articleID, this.state.currentUser);
+        this.props.onAddComment(this.state.currentUserID, this.state.content, this.props.articleID, this.state.currentUser);
         this.setState({ content: '' });
         // 🦄️
         this.props.refetch();
@@ -31,12 +32,14 @@ class AddArticleComment extends React.Component{
 
     render(){
         const { content } = this.state;
+        const { currentUserAvatarLink } = this.props;
 
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="AddArticleCommentBackground">
-                        <img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />
+                        {/*<img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />*/}
+                        <div className="userPhoto_AddArticleComment" style={{'backgroundImage': 'url('+currentUserAvatarLink+')'}}> </div>
                         <input className="articleComment_inputField_AddArticleComment" type="text" name="留言" placeholder="留言......" onChange={this.handleChange} value={content} />
                         <input className="invisible" type="submit" value="發佈" />
                     </div>

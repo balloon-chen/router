@@ -7,6 +7,7 @@ import iconUser from '../../images/iconUser.svg';
 import iconEmail from '../../images/email.svg';
 import iconLock from '../../images/iconLock.svg';
 import iconError from '../../images/iconError.svg';
+import iconCheck from '../../images/iconCheck.svg';
 
 class SignUp extends React.Component{
     constructor(props, context){
@@ -71,22 +72,20 @@ class SignUp extends React.Component{
     }
     // 連接 API 並填入註冊資訊
     fetch() {
-        // fetch('http://140.119.163.194:3000/register', {
+        let formData = new FormData();
+        formData.append('userName', this.state.userName);
+        formData.append('password', this.state.userPassword);
+        formData.append('email', this.state.userEmail);
+
         fetch(this.state.apiURL+'register', {
             method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({userName: this.state.userName, password: this.state.userPassword, email: this.state.userEmail})
+            body: formData
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
                 if (res.content){
                     console.log('loginMember: ' + res.content.userName);
                     localStorage.setItem("currentUser", res.content.userName);
-                    // console.log('token: ' + res.content.token);
-                    // localStorage.setItem("currentToken", res.result.token);
                     console.log('userID: ' + res.content._id);
                     localStorage.setItem("currentUserID", res.content._id);
                 }
@@ -102,6 +101,39 @@ class SignUp extends React.Component{
                 }
             });
     }
+    // 舊的，fetch()已棄用
+    // fetch() {
+    //     // fetch('http://140.119.163.194:3000/register', {
+    //     fetch(this.state.apiURL+'register', {
+    //         method: 'post',
+    //         headers: {
+    //             'Accept': 'application/json, text/plain, */*',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({userName: this.state.userName, password: this.state.userPassword, email: this.state.userEmail})
+    //     }).then(res=>res.json())
+    //         .then(res => {
+    //             console.log(res);
+    //             if (res.content){
+    //                 console.log('loginMember: ' + res.content.userName);
+    //                 localStorage.setItem("currentUser", res.content.userName);
+    //                 // console.log('token: ' + res.content.token);
+    //                 // localStorage.setItem("currentToken", res.result.token);
+    //                 console.log('userID: ' + res.content._id);
+    //                 localStorage.setItem("currentUserID", res.content._id);
+    //             }
+    //             if (res.status === undefined){
+    //                 this.setState({result: res.result.status});
+    //                 this.setState({err: res.result.err});
+    //                 this.setState({errIcon: ''});
+    //             }
+    //             else {
+    //                 this.setState({result: res.status});
+    //                 this.setState({err: res.err});
+    //                 this.setState({errIcon: ''});
+    //             }
+    //         });
+    // }
 
     render(){
         const { result } = this.state;
@@ -140,7 +172,7 @@ class SignUp extends React.Component{
                         <input className={"inputField " + retypePassword} type="password" placeholder="再輸入一次密碼" onChange={this.handleChangeCheck} />
                         {/*要換綠色勾勾*/}
                         <img src={iconLock} alt="iconLock" className='opacity-zero' />
-                        <img src={iconLock} alt="iconLock" className={retypePasswordCheckIconInvisible} />
+                        <img src={iconCheck} alt="iconLock" className={retypePasswordCheckIconInvisible} />
                     </div>
 
                     <div className="errorMessageDiv">

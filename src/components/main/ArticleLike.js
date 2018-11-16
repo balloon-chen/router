@@ -89,9 +89,10 @@ class ArticleLike extends React.Component{
                 <div className={"articleWhoLikesCard "+invisible}>
                     <div className="flex justify-content">
                         <img src={iconLike} className="navigationIcon" alt="iconLike"/>
-                        <span>喜歡你</span>
+                        <span>喜歡</span>
                         <img src={iconCross} className="navigationIcon position-right" alt="iconCross" onClick={this.toggleWhoLikesInvisible}/>
                     </div>
+
                     <span>{whoLikesElements}</span>
                 </div>
 

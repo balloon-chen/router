@@ -226,17 +226,18 @@ class PostArticleList extends React.Component{
 
                     <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+fontSize+' '+quote+' '+paragraphList}>
                         {articleContent}
-                    <textarea
-                        // rows={1}
-                        className = {'postArticleList_inputField postArticleList_inputField_top '+fontSize+' '+quote+' '+paragraphList}
-                        value = {articleContent}
-                        ref={this.textInput}
-                        onChange = {this.handleChange}
-                        onFocus={this.focus}
-                        onClick={this.mouseLocation}
-                        onKeyUp={this.mouseLocation}
-                        onKeyDown={this.handleKeyDown}
-                    />
+                        <textarea
+                            // rows={1}
+                            className = {'postArticleList_inputField postArticleList_inputField_top '+fontSize+' '+quote+' '+paragraphList}
+                            value = {articleContent}
+                            ref={this.textInput}
+                            onChange = {this.handleChange}
+                            onFocus={this.focus}
+                            onClick={this.mouseLocation}
+                            onKeyUp={this.mouseLocation}
+                            onKeyDown={this.handleKeyDown}
+                            placeholder={'你想分享甚麼…'}
+                        />
                     </div>
                 </div>
             </div>

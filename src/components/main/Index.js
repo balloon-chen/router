@@ -98,13 +98,14 @@ class Index extends React.Component{
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({commentID: commentID, articleID: articleID})
+            body: JSON.stringify({articleID: articleID, commentID: commentID})
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
                 this.fetchData();
             });
         // setTimeout(this.fetchData, 700);
+        // alert('articleID: '+articleID+'\ncommentID: '+commentID)
     }
     // 更新留言
     updateComment(commentID, articleID, newComment) {
@@ -133,11 +134,12 @@ class Index extends React.Component{
     // AddArticleComment
 
     // 新增留言
-    addComment(content, articleID, currentUser){
+    addComment(currentUserID, content, articleID, currentUser){
         // alert(content+' '+articleID+' '+currentUser);
         let formData = new FormData();
 
-        formData.append('commenterID', currentUser);
+        formData.append('commenterName', currentUser);
+        formData.append('commenterID', currentUserID);
         formData.append('articleID', articleID);
         formData.append('content', content);
 
@@ -161,6 +163,7 @@ class Index extends React.Component{
 
     // 文章按愛心或收回愛心
     articleLike(articleID, likeOrDislike){
+        // alert('articleID: '+articleID+'\nlikesPersonID: '+this.state.currentUser);
         if (likeOrDislike == false){
             // fetch('http://140.119.163.194:3000/likes_article', {
             fetch(this.state.apiURL+'likes_article', {
@@ -249,6 +252,10 @@ class Index extends React.Component{
             localStorage.removeItem("articleContents");
         if (localStorage.getItem("articleID"))
             localStorage.removeItem("articleID");
+        if (localStorage.getItem("articleTitle"))
+            localStorage.removeItem("articleTitle");
+        if (localStorage.getItem("articleCategory"))
+            localStorage.removeItem("articleCategory");
         this.setState({redirectToPost: true});
     }
     redirectToProfile(){
@@ -371,6 +378,8 @@ class Index extends React.Component{
                     deleteComment = {this.deleteComment}
                     updateComment = {this.updateComment}
                     addComment = {this.addComment}
+
+                    currentUserAvatarLink = {currentUserAvatarLink}
                 />
             </div>)
         );

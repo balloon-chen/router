@@ -18,4 +18,9 @@
 .userPhoto_AddArticleComment {
     width: 43px;
     height:43px;
+    background-image: url("../images/userPhoto.jpg");
+    background-size: cover;
+    border-radius: 100%;
+    display: inline-block;
+    pointer-events: none;
 }

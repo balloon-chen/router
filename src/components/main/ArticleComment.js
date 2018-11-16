@@ -1,6 +1,7 @@
 import React from 'react';
 import "../../stylesheets/articleItem.css";
 import ArticleLike from "./ArticleLike";
+import { Redirect } from 'react-router-dom';
 
 import userPhotoDefault from '../../images/userPhotoDefault.svg';
 
@@ -13,6 +14,7 @@ class ArticleComment extends React.Component{
             newComment: '',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
+            currentUserID: localStorage.getItem("currentUserID"),
             articleID: this.props.articleID,
 
 
@@ -20,7 +22,10 @@ class ArticleComment extends React.Component{
             // 啦啦啦
             numberOfLikesTemp: 0,
             likeOrDislike: this.props.likeOrDislike,
-        };
+
+            redirectToProfile: false
+
+    };
         this.updateComment = this.updateComment.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +37,7 @@ class ArticleComment extends React.Component{
 
         //啦啦啦
         this.handleLikekkk = this.handleLikekkk.bind(this);
+        this.redirectToProfile = this.redirectToProfile.bind(this);
     }
 
     // 一般畫面點擊編輯時取得留言 ID
@@ -82,23 +88,37 @@ class ArticleComment extends React.Component{
     }
 
 
-
+    redirectToProfile(event){
+        switch (event.target.name){
+            case 'author':{
+                localStorage.setItem("whichUserID", event.target.value);
+                this.setState({redirectToProfile: true});
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
 
     // 渲染編輯畫面
     renderEditMode(){
         const { comment } = this.props;
         const { commenterID } = this.props;
         const { checkUser } = this.props;
+        const { commenter_avatarLink } = this.props;
+        const { commenterName } = this.props;
 
         return (
             <div>
                 <div className="AddArticleCommentBackground">
                     <div className="articleCommentBox1">
                         <div className="articleCommentBox2">
-                            <img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />
+                            {/*<img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />*/}
+                            <div className="userPhoto_AddArticleComment" style={{'backgroundImage': 'url('+commenter_avatarLink+')'}} onClick={this.redirectToProfile}> </div>
                         </div>
                         <div className="articleCommentBox2">
-                            <div className="articleCommentCommenterID">{commenterID}</div>
+                            <div className="articleCommentCommenterID">{commenterName}</div>
                             <form onSubmit={this.handleSubmit}>
                                 <input className="articleCommentComment articleCommentCommentUpdate" type="text" placeholder={comment} onChange={this.handleChange} />
                                 <button className={'updateDeleteSubmit'+checkUser} type='submit'>確定</button>
@@ -129,15 +149,28 @@ class ArticleComment extends React.Component{
 
         const { whoLikes } = this.props;
 
+        const { commenter_avatarLink } = this.props;
+        const { commenterName } = this.props;
+
+        const { redirectToProfile } = this.state;
+        if (redirectToProfile) {
+            return <Redirect push to="/profile" />;
+        }
+
         return (
             <div>
                 <div className="AddArticleCommentBackground">
                     <div className="articleCommentBox1">
                         <div className="articleCommentBox2">
-                            <img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment' />
+                            {/*<img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment'  style={{'backgroundImage': 'url('+commenter_avatarLink+')'}} />*/}
+                            <button name="author" onClick={this.redirectToProfile} value={commenterID}>
+                                <div className="userPhoto_AddArticleComment" style={{'backgroundImage': 'url('+commenter_avatarLink+')'}}> </div>
+                            </button>
                         </div>
                         <div className="articleCommentBox2">
-                            <div className="articleCommentCommenterID">{commenterID}</div>
+                            <button name="author" onClick={this.redirectToProfile} value={commenterID}>
+                                <div className="articleCommentCommenterID">{commenterName}</div>
+                            </button>
                             <div className="articleCommentComment">{comment}</div>
                             <div className="articleCommentLike">
                                 <ArticleLike
@@ -158,8 +191,8 @@ class ArticleComment extends React.Component{
 
                         </div>
                     </div>
-                    <div style={invisible}>articleID: {articleID}</div>
-                    <div style={invisible}>commentID: {commentID}</div>
+                    <div style={invisible1}>articleID: {articleID}</div>
+                    <div style={invisible2}>commentID: {commentID}</div>
                 </div>
             </div>
         );
@@ -172,6 +205,17 @@ class ArticleComment extends React.Component{
 
 export default ArticleComment;
 
-const invisible = {
-    'display': 'none'
+const invisible1 = {
+    'display': 'none',
+    // 'display': 'block',
+    // 'position': 'absolute',
+    // 'top': '0'
+
+};
+const invisible2 = {
+    'display': 'none',
+    // 'display': 'block',
+    // 'position': 'absolute',
+    // 'top': '40px'
+
 };
