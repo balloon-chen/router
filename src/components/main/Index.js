@@ -15,6 +15,7 @@ class Index extends React.Component{
         super(props, context);
         this.state = {
             // apiURL: 'http://140.119.163.194:3000/',
+            // apiURL: 'http://192.168.1.32:3000/',
             apiURL: 'http://localhost:3000/',
             articles: [],
             redirectToPost: false,
@@ -146,6 +147,7 @@ class Index extends React.Component{
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/add_comment', {
         fetch('http://localhost:3000/add_comment', {
+        // fetch('http://192.168.1.32:3000/add_comment', {
         // fetch(this.state.apiURL+'add_comment', {
             method: 'post',
             body: formData
@@ -265,6 +267,33 @@ class Index extends React.Component{
 
     // 抓資料並渲染畫面
     fetchData() {
+
+
+
+        // fetch(this.state.apiURL+'search_articleByUserID', {
+        //     method: 'post',
+        //     headers: {
+        //         'Accept': 'application/json, text/plain, */*',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({userID: this.state.currentUserID})
+        // }).then(res=>res.json())
+        //     .then(parsedJSON => {
+        //         console.log(parsedJSON);
+        //         this.setState({articles: parsedJSON.contentOfArticle})
+        //         console.log(parsedJSON.contentOfArticle[0])
+        //         console.log('authorID: ' + parsedJSON.contentOfArticle[0].authorID)
+        //         console.log('userName: ' + parsedJSON.contentOfArticle[0].author)
+        //         console.log('articleTitle: ' + parsedJSON.contentOfArticle[0].title)
+        //         console.log('articleContent: ' + parsedJSON.contentOfArticle[0].listOfContent[0].content)
+        //         console.log('articleCategory :' + parsedJSON.contentOfArticle[0].category)
+        //         console.log('like :' + parsedJSON.contentOfArticle[0].likes)
+        //         console.log('avatarLink: ' + parsedJSON.contentOfArticle[0].avatarLink)
+        //         console.log('comment: ' + parsedJSON.contentOfArticle[0].comment)
+        //         console.log('comment[0]: ' + parsedJSON.contentOfArticle[0].comment[0])
+        //         // console.log('comment[0].id: ' + parsedJSON.contentOfArticle[0].comment[0].id)
+        //     });
+
         // fetch('http://140.119.163.194:3000/search_article')
         fetch(this.state.apiURL+'search_article')
             .then(response => response.json())
@@ -353,6 +382,14 @@ class Index extends React.Component{
         //         />
         //     </div>)
         // );
+
+        // alert(articles.filter( (article) => article._id === '5beaf1783e4f857a0a24f6e3' ))
+
+        // const fff = articles.filter(function(article){
+        //     return article._id === '5beaf1783e4f857a0a24f6e3';
+        // });
+        // alert(fff);
+
         const articleElements = articles.map((article) =>
             (<div key = {article._id}>
                 <ArticleItem
@@ -380,6 +417,8 @@ class Index extends React.Component{
                     addComment = {this.addComment}
 
                     currentUserAvatarLink = {currentUserAvatarLink}
+
+                    articlesInProfile = {false}
                 />
             </div>)
         );
@@ -393,6 +432,7 @@ class Index extends React.Component{
                 <div className="articleBackground"> </div>
                 {/*<div className={invisible}><Navigation /></div>*/}
                 <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
+                <br/><br/>
                 <div>{articleElements}</div>
                     <div className={invisible}>
                         <div onClick={this.redirectToPost}>

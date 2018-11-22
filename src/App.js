@@ -24,6 +24,8 @@ import Contact from './components/default/Contact';
 import Error from './components/default/Error';
 import Navigation from './components/Navigation';
 
+import Swipe from './components/swipeTest/Swipe'
+
 class App extends Component {
   render() {
     return (
@@ -44,6 +46,9 @@ class App extends Component {
                     <Route path='/home' component={Home} exact />
                     <Route path='/about' component={About} />
                     <Route path='/contact' component={Contact} />
+
+                    <Route path='/swipe' component={Swipe} />
+
                     <Route component={Error} />
                 </Switch>
             </div>

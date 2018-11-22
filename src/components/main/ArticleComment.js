@@ -163,12 +163,12 @@ class ArticleComment extends React.Component{
                     <div className="articleCommentBox1">
                         <div className="articleCommentBox2">
                             {/*<img src={userPhotoDefault} alt="userPhotoDefault" className='userPhoto_AddArticleComment'  style={{'backgroundImage': 'url('+commenter_avatarLink+')'}} />*/}
-                            <button name="author" onClick={this.redirectToProfile} value={commenterID}>
+                            <button name="author" onClick={this.redirectToProfile} value={commenterID} className='buttonNoneStyle'>
                                 <div className="userPhoto_AddArticleComment" style={{'backgroundImage': 'url('+commenter_avatarLink+')'}}> </div>
                             </button>
                         </div>
                         <div className="articleCommentBox2">
-                            <button name="author" onClick={this.redirectToProfile} value={commenterID}>
+                            <button name="author" onClick={this.redirectToProfile} value={commenterID} className='buttonNoneStyle'>
                                 <div className="articleCommentCommenterID">{commenterName}</div>
                             </button>
                             <div className="articleCommentComment">{comment}</div>

@@ -45,6 +45,7 @@ class PostArticle extends React.Component{
             articleCategory: localStorage.getItem("articleCategory") || "",
             redirectToIndex: false,
             // apiURL: 'http://140.119.163.194:3000/',
+            // apiURL: 'http://192.168.1.32:3000/',
             apiURL: 'http://localhost:3000/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
@@ -1085,7 +1086,7 @@ class PostArticle extends React.Component{
                         {/*focus = {this.focus}*/}
                         {/*merge = {this.merge}*/}
                     {/*/>*/}
-                    <button onClick={this.fetchConsole} style={temp}>送出</button>
+                    {/*<button onClick={this.fetchConsole} style={temp}>送出</button>*/}
 
                     {/*編輯器*/}
                     <div className='editor'>

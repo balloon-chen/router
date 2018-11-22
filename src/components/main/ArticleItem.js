@@ -36,7 +36,10 @@ class ArticleItem extends React.Component{
             invisible: 'invisible',
             redirectToProfile: '',
 
-            redirectToPost: false
+            redirectToPost: false,
+
+            articlesInProfile: this.props.articlesInProfile,
+            articlesInProfileDisplay: 'invisible'
         };
         this.updateArticle = this.updateArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -126,6 +129,23 @@ class ArticleItem extends React.Component{
             }
         }
     }
+
+
+    componentDidMount(){
+        if (this.state.articlesInProfile){
+            let id = localStorage.getItem("whichUserID") ? localStorage.getItem("whichUserID") : this.state.currentUserID;
+            if (this.props.authorID === id){
+                this.setState({articlesInProfileDisplay: ''});
+            }
+            else {
+                this.setState({articlesInProfileDisplay: 'invisible'});
+            }
+        }
+        else {
+            this.setState({articlesInProfileDisplay: ''});
+        }
+    }
+
 
     // 渲染編輯畫面
     renderEditMode(){
@@ -363,8 +383,9 @@ class ArticleItem extends React.Component{
             return <Redirect push to="/profile" />;
         }
         const { authorID } = this.props;
+
         return (
-            <div>
+            <div className={this.state.articlesInProfileDisplay}>
                 <div className="articleCard">
 
                     <div className={'articleImage'}>
@@ -373,12 +394,12 @@ class ArticleItem extends React.Component{
                     </div>
 
                     <div className={"aaa"}>
-                        <button name="author" onClick={this.redirectToProfile} value={authorID}>
+                        <button name="author" onClick={this.redirectToProfile} value={authorID} className='buttonNoneStyle'>
                             <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}} onClick={this.redirectToProfile}> </div>
                         </button>
                         <div>
                             {/*<div className="articleAuthor"><input type="button" onClick={this.redirectToProfile} value={author}/>{author}</div>*/}
-                            <button name="author" onClick={this.redirectToProfile} value={authorID}>
+                            <button name="author" onClick={this.redirectToProfile} value={authorID}  className='buttonNoneStyle'>
                                 <div className="articleAuthor">{author}</div>
                             </button>
                             <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>

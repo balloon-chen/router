@@ -28,12 +28,15 @@ import iconFriend from "../../images/iconFriend.svg";
 import iconAddFollow from "../../images/iconAddFollow.svg";
 import iconFollow from "../../images/iconFollow.svg";
 
+import ArticleItem from '../main/ArticleItem';
+
 
 class Profile extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
             // apiURL: 'http://140.119.163.194:3000/',
+            // apiURL: 'http://192.168.1.32:3000/',
             apiURL: 'http://localhost:3000/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
@@ -55,7 +58,9 @@ class Profile extends React.Component{
             socialBoardInvisible: 'invisible',
             fans: [],
             followings: [],
-            friends: []
+            friends: [],
+
+            articles: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.fetchAvatar = this.fetchAvatar.bind(this);
@@ -301,19 +306,36 @@ class Profile extends React.Component{
         this.setState({requestFriendByMyselfButton: 'invisible'});
         this.setState({unFriendButtonInvisible: 'invisible'});
         this.setState({numberOfFriends: this.state.numberOfFriends - 1});
-    }
-    follow() {
-        this.setState({numberOfFans: this.state.numberOfFans+1});
-        this.setState({followButtonInvisible: 'invisible'});
-        this.setState({unFollowButtonInvisible: ''});
-        fetch(this.state.apiURL+'friends_add', {
+        // alert(this.state.currentUserID)
+        // alert(this.state.whichUserID)
+        fetch(this.state.apiURL+'friends_unadded', {
             method: 'put',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({userID: this.state.currentUserID,
-                                  userID_add: this.state.whichUserID})
+                userID_unadded: this.state.whichUserID})
+        }).then(res=>res.json())
+            .then(res => {
+                    console.log(res);
+                    // this.setState({numberOfFans: this.state.numberOfFans+1});
+                }
+            );
+    }
+    follow() {
+        this.setState({numberOfFans: this.state.numberOfFans+1});
+        this.setState({followButtonInvisible: 'invisible'});
+        this.setState({unFollowButtonInvisible: ''});
+        fetch(this.state.apiURL+'friends_following', {
+        // fetch('http://localhost:3000/friends_following', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userID_following: this.state.currentUserID,
+                                  userID_followed: this.state.whichUserID})
         }).then(res=>res.json())
             .then(res => {
                     console.log(res);
@@ -354,6 +376,15 @@ class Profile extends React.Component{
         // this.fetchData();
         window.document.body.scrollTop = 0;
         window.document.documentElement.scrollTop = 0;
+
+
+        // 搜尋文章
+        fetch(this.state.apiURL+'search_article')
+            .then(response => response.json())
+            .then(parsedJSON => {
+                this.setState({articles: parsedJSON});
+            })
+            .catch(err => console.log(err));
     }
 
     render(){
@@ -394,6 +425,40 @@ class Profile extends React.Component{
             (<div key={element}>
                 <SocialListCard
                     element = {element}
+                />
+            </div>)
+        );
+
+        const { articles } = this.state;
+        const articleElements = articles.map((article) =>
+            (<div key = {article._id}>
+                <ArticleItem
+                    author = { article.author }
+                    title = {article.title}
+                    content = {article.listOfContent[article.listOfContent.length-1].content}
+                    category = {article.category}
+                    articleID = {article._id}
+                    numberOfLikes = {article.likes.length}
+                    likeOrDislike={ article.likes.filter( (like) => like==this.state.currentUser ).length }
+                    whoLikes = { article.likes }
+                    comments = { article.comment }
+                    checkUser = { article.author!=this.state.currentUser ? ' invisible' : '' }
+                    avatarLink = { article.avatarLink }
+                    authorID = { article.authorID }
+
+                    refetch = {this.refetch}
+
+                    onUpdateArticle = {this.updateArticle}
+                    onDeleteArticle = {this.deleteArticle}
+                    handleLike = {this.articleLike}
+                    handleCommentLike = {this.commentLike}
+                    deleteComment = {this.deleteComment}
+                    updateComment = {this.updateComment}
+                    addComment = {this.addComment}
+
+                    currentUserAvatarLink = {currentUserAvatarLink}
+
+                    articlesInProfile = {true}
                 />
             </div>)
         );
@@ -489,6 +554,8 @@ class Profile extends React.Component{
 
                 <hr className="hrLine" />
 
+                {articleElements}
+
                 <div className={squareDisplay}>1</div>
                 <div className={squareDisplay}>2</div>
                 <div className={squareDisplay}>3</div>
@@ -502,6 +569,7 @@ class Profile extends React.Component{
                 {/*<Index*/}
                     {/*invisible = "invisible"*/}
                 {/*/>*/}
+
             </div>
         )
     }
