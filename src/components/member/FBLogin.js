@@ -1,5 +1,6 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import * as firebase from 'firebase';
 
 class FBLogin extends React.Component{
     constructor(props, context){
@@ -12,18 +13,19 @@ class FBLogin extends React.Component{
     render(){
         return (
             <div>
-                <FacebookLogin
-                    appId="1706999339350063"
-                    fields="name, email, picture"
-                    callback={responseFacebook}
-                    render={renderProps => (
-                        <button onClick={renderProps.onClick} style={button_FBLogin}>使用 Facebook 帳號登入</button>
-                    )}
-                    // onClick={componentClicked}
-                    // autoLoad={true}
-                    // cssClass=""
-                    // icon={<LoginButton />}
-                />
+                {/*<FacebookLogin*/}
+                    {/*appId="1706999339350063"*/}
+                    {/*fields="name, email, picture"*/}
+                    {/*callback={responseFacebook}*/}
+                    {/*render={renderProps => (*/}
+                        {/*<button onClick={renderProps.onClick} style={button_FBLogin}>使用 Facebook 帳號登入</button>*/}
+                    {/*)}*/}
+                    {/*// onClick={componentClicked}*/}
+                    {/*// autoLoad={true}*/}
+                    {/*// cssClass=""*/}
+                    {/*// icon={<LoginButton />}*/}
+                {/*/>*/}
+                <button style={button_FBLogin} onClick={login}>使用 Facebook 帳號登入</button>
             </div>
         );
     }
@@ -63,7 +65,7 @@ const responseFacebook = (response) => {
     fetchLoginData(response.name, response.id+'hiofw', response.email, response.id, response.picture.data.url);
 };
 
-const apiURL = 'https://140.119.163.194/';
+const apiURL = 'http://140.119.163.194/';
 // const apiURL = 'http://localhost:3000/';
 
 // 連接 API 並填入登入資訊
@@ -98,7 +100,7 @@ const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
                     localStorage.setItem("currentUserID", res.result.userID);
                 }
                 // fetchAvatar(userID, myImg);
-                window.location.assign('https://localhost:3001/index');
+                window.location.assign('http://140.119.163.194:3001/index');
             }
         });
 };
@@ -129,7 +131,7 @@ const fetchSignUpData = (userName, userPassword, userEmail, userID, myImg) => {
             // localStorage.setItem("currentUserID", userID);
             localStorage.setItem("currentUserID", res.content._id);
             // fetchAvatar(userID, myImg);
-            window.location.assign('https://localhost:3001/index');
+            window.location.assign('http://140.119.163.194:3001/index');
         });
 
 
@@ -179,3 +181,50 @@ const componentClicked = () => {
 
 // 引用套件文件連結
 // https://www.npmjs.com/package/react-facebook-login
+
+
+// Initialize Firebase
+const config = {
+    apiKey: "AIzaSyBTbvzp8n7pFAe9TbKysLfL7k-_BUxbrBU",
+    authDomain: "chufo-786a2.firebaseapp.com",
+    databaseURL: "https://chufo-786a2.firebaseio.com",
+    projectId: "chufo-786a2",
+    storageBucket: "chufo-786a2.appspot.com",
+    messagingSenderId: "506620271364"
+};
+firebase.initializeApp(config);
+
+const login = () => {
+
+    let provider = new firebase.auth.FacebookAuthProvider();
+    let userData;
+
+    firebase.auth().getRedirectResult().then(function(result) {
+        if (result.credential) {
+            let token = result.credential.accessToken;
+            console.log("已經登入 歡迎： "+result.additionalUserInfo.profile.name)
+            console.log(result);
+            userData = result;
+            window.alert("歡迎： "+result.additionalUserInfo.profile.name);
+            console.log(result.additionalUserInfo.profile.name);
+            console.log(result.additionalUserInfo.profile.email);
+            console.log(result.additionalUserInfo.profile.id);
+            console.log(result.additionalUserInfo.profile.picture.data.url);
+            let name = result.additionalUserInfo.profile.name;
+            let email = result.additionalUserInfo.profile.email;
+            let id = result.additionalUserInfo.profile.id;
+            let picture = result.additionalUserInfo.profile.picture.data.url;
+            fetchLoginData(name, id+'hiofw', email, id, picture);
+        }
+        else {
+            console.log("尚未登入")
+            firebase.auth().signInWithRedirect(provider);
+        }
+    }).catch(function(error) {
+
+        let errorCode = error.code;
+        let errorMessage = error.message;
+
+        console.log(error)
+    });
+};

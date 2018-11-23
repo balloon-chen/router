@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.5.5",
+    "firebase": "^5.5.9",
     "immutability-helper": "^2.8.1",
     "prop-types": "^15.6.2",
     "re-carousel": "^2.3.0",
