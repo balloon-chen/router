@@ -10,13 +10,15 @@ import icon03 from '../../images/icon03.svg';
 import icon04 from '../../images/icon04.svg';
 import userPhotoDefault from '../../images/userPhotoDefault.svg';
 
+import Carousel from '../swipeTest/Carousel';
+
+
 class Index extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            // apiURL: 'http://140.119.163.194:3000/',
-            // apiURL: 'http://192.168.1.32:3000/',
-            apiURL: 'http://localhost:3000/',
+            apiURL: 'http://140.119.163.194/',
+            // apiURL: 'http://localhost/',
             articles: [],
             redirectToPost: false,
             redirectToIndex: false,
@@ -93,6 +95,7 @@ class Index extends React.Component{
     // 刪除留言
     deleteComment(commentID, articleID){
         // fetch('http://140.119.163.194:3000/delete_comment', {
+        // alert('commentID: '+commentID+', articleID: '+articleID)
         fetch(this.state.apiURL+'delete_comment', {
             method: 'put',
             headers: {
@@ -117,7 +120,7 @@ class Index extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/update_comment', {
-        fetch('http://localhost:3000/update_comment', {
+        fetch('http://140.119.163.194/update_comment', {
         // fetch(this.state.apiURL+'update_comment', {
             method: 'put',
             body: formData
@@ -146,7 +149,7 @@ class Index extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/add_comment', {
-        fetch('http://localhost:3000/add_comment', {
+        fetch('http://140.119.163.194/add_comment', {
         // fetch('http://192.168.1.32:3000/add_comment', {
         // fetch(this.state.apiURL+'add_comment', {
             method: 'post',
@@ -391,6 +394,9 @@ class Index extends React.Component{
         // alert(fff);
 
         const articleElements = articles.map((article) =>
+            // (<div key = {article._id}>
+            // 🦄️ swipe
+            // (<div key = {article._id} style={{backgroundColor: 'rgba(255,255,255,1)', height: '100%'}}>
             (<div key = {article._id}>
                 <ArticleItem
                     author = { article.author }
@@ -434,7 +440,18 @@ class Index extends React.Component{
                 <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
                 <br/><br/>
                 <div>{articleElements}</div>
-                    <div className={invisible}>
+
+
+                {/*🦄️ swipe*/}
+                {/*<div style={{height: '360px'}} className='articleCard'>*/}
+                    {/*<Carousel loop auto axis='x' className="custom-class" frames={articleElements}> </Carousel>*/}
+                {/*</div>*/}
+                {/*<div style={{height: '1000px'}}>*/}
+                    {/*<Carousel frames={articleElements} className='kkk'> </Carousel>*/}
+                {/*</div>*/}
+
+
+                <div className={invisible}>
                         <div onClick={this.redirectToPost}>
                         <div className="newArticleButton"> </div>
                     </div>

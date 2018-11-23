@@ -190,15 +190,15 @@ class ArticleItem extends React.Component{
                         <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}>
                             {contentToObject.articleContent}
                             <textarea
-                            // rows={1}
-                            className = {'postArticleList_inputField postArticleList_inputField_top '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}
-                            value = {contentToObject.articleContent}
-                            ref={this.textInput}
-                            onChange = {this.handleChange}
-                            onFocus={this.focus}
-                            onClick={this.mouseLocation}
-                            onKeyUp={this.mouseLocation}
-                            onKeyDown={this.handleKeyDown}
+                                // rows={1}
+                                className = {'postArticleList_inputField postArticleList_inputField_top '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}
+                                value = {contentToObject.articleContent}
+                                ref={this.textInput}
+                                onChange = {this.handleChange}
+                                onFocus={this.focus}
+                                onClick={this.mouseLocation}
+                                onKeyUp={this.mouseLocation}
+                                onKeyDown={this.handleKeyDown}
                             />
                         </div>
                     </div>
@@ -213,15 +213,15 @@ class ArticleItem extends React.Component{
         return (
             <div className="articleCard">
                 {/*<form onSubmit={this.handleSubmit}>*/}
-                    {/*<span className="articleCategory">{category}</span>*/}
-                    {/*<span className="articleTitle">{title}</span>*/}
-                    {/*<br/>*/}
-                    {/*<hr className="hrLine" />*/}
-                    {/*<br/>*/}
-                    {/*<div className="userPhoto"> </div>*/}
-                    {/*<span className="articleAuthor">{author}</span>*/}
-                    {/*<input className="articleContent" type="text" placeholder={content} onChange={this.handleChange} />*/}
-                    {/*<input className="updateDeleteSubmit" type="submit" value="確定" />*/}
+                {/*<span className="articleCategory">{category}</span>*/}
+                {/*<span className="articleTitle">{title}</span>*/}
+                {/*<br/>*/}
+                {/*<hr className="hrLine" />*/}
+                {/*<br/>*/}
+                {/*<div className="userPhoto"> </div>*/}
+                {/*<span className="articleAuthor">{author}</span>*/}
+                {/*<input className="articleContent" type="text" placeholder={content} onChange={this.handleChange} />*/}
+                {/*<input className="updateDeleteSubmit" type="submit" value="確定" />*/}
                 {/*</form>*/}
 
 
@@ -302,15 +302,15 @@ class ArticleItem extends React.Component{
                         <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}>
                             {contentToObject.articleContent}
                             {/*<textarea*/}
-                                {/*// rows={1}*/}
-                                {/*className = {'postArticleList_inputField postArticleList_inputField_top '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}*/}
-                                {/*value = {contentToObject.articleContent}*/}
-                                {/*ref={this.textInput}*/}
-                                {/*onChange = {this.handleChange}*/}
-                                {/*onFocus={this.focus}*/}
-                                {/*onClick={this.mouseLocation}*/}
-                                {/*onKeyUp={this.mouseLocation}*/}
-                                {/*onKeyDown={this.handleKeyDown}*/}
+                            {/*// rows={1}*/}
+                            {/*className = {'postArticleList_inputField postArticleList_inputField_top '+contentToObject.fontSize+' '+contentToObject.quote+' '+contentToObject.paragraphList}*/}
+                            {/*value = {contentToObject.articleContent}*/}
+                            {/*ref={this.textInput}*/}
+                            {/*onChange = {this.handleChange}*/}
+                            {/*onFocus={this.focus}*/}
+                            {/*onClick={this.mouseLocation}*/}
+                            {/*onKeyUp={this.mouseLocation}*/}
+                            {/*onKeyDown={this.handleKeyDown}*/}
                             {/*/>*/}
                         </div>
                     </div>
@@ -436,7 +436,7 @@ class ArticleItem extends React.Component{
                     </div>
 
                     {/*<ArticleWhoLikes*/}
-                        {/*whoLikes = {whoLikes}*/}
+                    {/*whoLikes = {whoLikes}*/}
                     {/*/>*/}
 
                     <div className={invisible}>

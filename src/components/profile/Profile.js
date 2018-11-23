@@ -35,9 +35,8 @@ class Profile extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            // apiURL: 'http://140.119.163.194:3000/',
-            // apiURL: 'http://192.168.1.32:3000/',
-            apiURL: 'http://localhost:3000/',
+            apiURL: 'http://140.119.163.194/',
+            // apiURL: 'http://localhost/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
             currentUserID: localStorage.getItem("currentUserID"),
@@ -306,6 +305,8 @@ class Profile extends React.Component{
         this.setState({requestFriendByMyselfButton: 'invisible'});
         this.setState({unFriendButtonInvisible: 'invisible'});
         this.setState({numberOfFriends: this.state.numberOfFriends - 1});
+        this.setState({numberOfFans: this.state.numberOfFans - 1});
+        this.setState({numberOfFollowing: this.state.numberOfFollowing - 1});
         // alert(this.state.currentUserID)
         // alert(this.state.whichUserID)
         fetch(this.state.apiURL+'friends_unadded', {
@@ -556,15 +557,15 @@ class Profile extends React.Component{
 
                 {articleElements}
 
-                <div className={squareDisplay}>1</div>
-                <div className={squareDisplay}>2</div>
-                <div className={squareDisplay}>3</div>
-                <div className={squareDisplay}>4</div>
-                <div className={squareDisplay}>5</div>
-                <div className={squareDisplay}>6</div>
-                <div className={squareDisplay}>7</div>
-                <div className={squareDisplay}>8</div>
-                <div className={squareDisplay}>9</div>
+                {/*<div className={squareDisplay}>1</div>*/}
+                {/*<div className={squareDisplay}>2</div>*/}
+                {/*<div className={squareDisplay}>3</div>*/}
+                {/*<div className={squareDisplay}>4</div>*/}
+                {/*<div className={squareDisplay}>5</div>*/}
+                {/*<div className={squareDisplay}>6</div>*/}
+                {/*<div className={squareDisplay}>7</div>*/}
+                {/*<div className={squareDisplay}>8</div>*/}
+                {/*<div className={squareDisplay}>9</div>*/}
 
                 {/*<Index*/}
                     {/*invisible = "invisible"*/}

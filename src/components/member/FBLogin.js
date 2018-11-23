@@ -63,8 +63,8 @@ const responseFacebook = (response) => {
     fetchLoginData(response.name, response.id+'hiofw', response.email, response.id, response.picture.data.url);
 };
 
-// const apiURL = 'http://140.119.163.194:3000/';
-const apiURL = 'http://localhost:3000/';
+const apiURL = 'https://140.119.163.194/';
+// const apiURL = 'http://localhost:3000/';
 
 // 連接 API 並填入登入資訊
 const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
@@ -98,7 +98,7 @@ const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
                     localStorage.setItem("currentUserID", res.result.userID);
                 }
                 // fetchAvatar(userID, myImg);
-                window.location.assign('http://localhost:3001/index');
+                window.location.assign('https://localhost:3001/index');
             }
         });
 };
@@ -106,15 +106,21 @@ const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
 // 連接 API 並填入註冊資訊
 const fetchSignUpData = (userName, userPassword, userEmail, userID, myImg) => {
     // fetch('http://140.119.163.194:3000/register', {
+    // alert('userName: '+userName+', userPassword: '+userPassword+', userEmail: '+userEmail+', userID: '+userID)
+
+
+    let formData = new FormData();
+    formData.append('userName', userName);
+    formData.append('password', userPassword);
+    formData.append('email', userEmail);
+
     fetch(apiURL+'register', {
         method: 'post',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({userName: userName, password: userPassword, email: userEmail})
+        body: formData
     }).then(res=>res.json())
         .then(res => {
+            // alert('userName: '+userName+', userPassword: '+userPassword+', userEmail: '+userEmail+', userID: '+userID)
+            console.log(res);
             console.log(res);
             console.log('loginMember: ' + userName);
             localStorage.setItem("currentUser", userName);
@@ -123,8 +129,29 @@ const fetchSignUpData = (userName, userPassword, userEmail, userID, myImg) => {
             // localStorage.setItem("currentUserID", userID);
             localStorage.setItem("currentUserID", res.content._id);
             // fetchAvatar(userID, myImg);
-            window.location.assign('http://localhost:3001/index');
+            window.location.assign('https://localhost:3001/index');
         });
+
+
+    // fetch(apiURL+'register', {
+    //     method: 'post',
+    //     headers: {
+    //         'Accept': 'application/json, text/plain, */*',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({userName: userName, password: userPassword, email: userEmail})
+    // }).then(res=>res.json())
+    //     .then(res => {
+    //         console.log(res);
+    //         console.log('loginMember: ' + userName);
+    //         localStorage.setItem("currentUser", userName);
+    //         // 沒有 token
+    //         console.log('userID: ' + userID);
+    //         // localStorage.setItem("currentUserID", userID);
+    //         localStorage.setItem("currentUserID", res.content._id);
+    //         // fetchAvatar(userID, myImg);
+    //         window.location.assign('http://localhost:3001/index');
+    //     });
 };
 
 // 連接大頭貼 API 並上傳圖片
