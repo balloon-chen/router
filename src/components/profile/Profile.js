@@ -31,6 +31,8 @@ import iconFollow from "../../images/iconFollow.svg";
 import ArticleItem from '../main/ArticleItem';
 import ArticleSwipeItem from '../main/ArticleSwipeItem';
 
+import loadingGif from "../../images/loadingGif.gif";
+
 
 class Profile extends React.Component{
     constructor(props, context){
@@ -308,7 +310,8 @@ class Profile extends React.Component{
                         "numberOfLikes": 0
                     }
                 ]
-            ]
+            ],
+            loadingGifInvisible: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.fetchAvatar = this.fetchAvatar.bind(this);
@@ -474,7 +477,7 @@ class Profile extends React.Component{
                     this.setState({requestFriendByMyselfButton: 'invisible'});
                     this.setState({unFriendButtonInvisible: 'invisible'});
                 }
-
+                this.setState({loadingGifInvisible: 'invisible'});
 
             });
         // 取得個人大頭照
@@ -725,6 +728,8 @@ class Profile extends React.Component{
 
         return (
             <div>
+                {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
+                <div className={'loadingGif '+this.state.loadingGifInvisible}> </div>
                 {/*<Navigation />*/}
                 <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
                     {/*<div className="frostedGlass"><img src={menu} className="navigationIcon"/><img src={tag} className="navigationIcon" /><span>個人頁面</span><img src={palette} className="navigationIcon" /><img src={exit} className="navigationIcon" /></div>*/}

@@ -62,3 +62,56 @@ div, form {
     width: 94%;
     pointer-events: none;
 }
+
+/*https://abgne.tw/css/apply-css3/css3-circle-rotate-loading-spinner.html*/
+.loadingGif {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+
+    border-top: 4px solid rgba(0,0,0,0.2);
+    border-right: rgba(0,0,0,0);
+    border-bottom: rgba(0,0,0,0);
+    border-left: rgba(0,0,0,0);
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+
+    -webkit-animation: loading 1s infinite linear;
+    -moz-animation: loading 1s infinite linear;
+    -o-animation: loading 1s infinite linear;
+    animation: loading 1s infinite linear;
+}
+@-webkit-keyframes loading {
+    from {
+        -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        -webkit-transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+@-moz-keyframes loading {
+    from {
+        -moz-transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        -moz-transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+@-o-keyframes loading {
+    from {
+        -o-transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        -o-transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+@keyframes loading {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

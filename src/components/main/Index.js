@@ -13,6 +13,7 @@ import userPhotoDefault from '../../images/userPhotoDefault.svg';
 import Carousel from '../swipeTest/Carousel';
 import ArticleSwipeItem from './ArticleSwipeItem';
 
+import loadingGif from "../../images/loadingGif.gif";
 
 class Index extends React.Component{
     constructor(props, context){
@@ -276,7 +277,8 @@ class Index extends React.Component{
                         "numberOfLikes": 0
                     }
                 ]
-            ]
+            ],
+            loadingGifInvisible: ''
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -553,6 +555,7 @@ class Index extends React.Component{
             .then(parsedJSON => {
                 // this.setState({articles: parsedJSON});
                 this.setState({articles: this.state.articlesTempTest});
+                this.setState({loadingGifInvisible: 'invisible'});
                 // console.log(parsedJSON)
                 // console.log(parsedJSON[1][0])
                 // console.log('authorID: ' + parsedJSON[0][0].authorID)
@@ -694,7 +697,9 @@ class Index extends React.Component{
 
         return (
             <div>
-            {/*<div className="articleBackground">*/}
+                {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
+                <div className={'loadingGif '+this.state.loadingGifInvisible}> </div>
+                {/*<div className="articleBackground">*/}
                 <div className="articleBackground"> </div>
                 {/*<div className={invisible}><Navigation /></div>*/}
                 <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>

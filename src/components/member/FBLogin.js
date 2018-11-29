@@ -8,7 +8,9 @@ class FBLogin extends React.Component{
         this.state = {};
     }
 
-    componentDidMount(){}
+    componentDidMount(){
+        checkState();
+    }
 
     render(){
         return (
@@ -100,7 +102,7 @@ const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
                     localStorage.setItem("currentUserID", res.result.userID);
                 }
                 // fetchAvatar(userID, myImg);
-                window.location.assign('http://192.168.0.105:3001/index');
+                window.location.assign('http://140.119.163.194:3001/index');
             }
         });
 };
@@ -131,7 +133,7 @@ const fetchSignUpData = (userName, userPassword, userEmail, userID, myImg) => {
             // localStorage.setItem("currentUserID", userID);
             localStorage.setItem("currentUserID", res.content._id);
             // fetchAvatar(userID, myImg);
-            window.location.assign('http://192.168.0.105:3001/index');
+            window.location.assign('http://140.119.163.194:3001/index');
         });
 
 
@@ -200,21 +202,22 @@ const login = () => {
     let userData;
 
     firebase.auth().getRedirectResult().then(function(result) {
+
         if (result.credential) {
-            let token = result.credential.accessToken;
-            console.log("已經登入 歡迎： "+result.additionalUserInfo.profile.name)
-            console.log(result);
-            userData = result;
-            window.alert("歡迎： "+result.additionalUserInfo.profile.name);
-            console.log(result.additionalUserInfo.profile.name);
-            console.log(result.additionalUserInfo.profile.email);
-            console.log(result.additionalUserInfo.profile.id);
-            console.log(result.additionalUserInfo.profile.picture.data.url);
-            let name = result.additionalUserInfo.profile.name;
-            let email = result.additionalUserInfo.profile.email;
-            let id = result.additionalUserInfo.profile.id;
-            let picture = result.additionalUserInfo.profile.picture.data.url;
-            fetchLoginData(name, id+'hiofw', email, id, picture);
+            // let token = result.credential.accessToken;
+            // console.log("已經登入 歡迎： "+result.additionalUserInfo.profile.name)
+            // console.log(result);
+            // userData = result;
+            // window.alert("歡迎： "+result.additionalUserInfo.profile.name);
+            // console.log(result.additionalUserInfo.profile.name);
+            // console.log(result.additionalUserInfo.profile.email);
+            // console.log(result.additionalUserInfo.profile.id);
+            // console.log(result.additionalUserInfo.profile.picture.data.url);
+            // let name = result.additionalUserInfo.profile.name;
+            // let email = result.additionalUserInfo.profile.email;
+            // let id = result.additionalUserInfo.profile.id;
+            // let picture = result.additionalUserInfo.profile.picture.data.url;
+            // fetchLoginData(name, id+'hiofw', email, id, picture);
         }
         else {
             console.log("尚未登入")
@@ -225,6 +228,29 @@ const login = () => {
         let errorCode = error.code;
         let errorMessage = error.message;
 
+        console.log(error)
+    });
+};
+
+const checkState = () => {
+    let userData;
+
+    firebase.auth().getRedirectResult().then(function(result) {
+        if (result.credential) {
+            console.log("已經登入 歡迎： "+result.additionalUserInfo.profile.name)
+            console.log(result);
+            userData = result;
+            window.alert("歡迎： "+result.additionalUserInfo.profile.name);
+            let name = result.additionalUserInfo.profile.name;
+            let email = result.additionalUserInfo.profile.email;
+            let id = result.additionalUserInfo.profile.id;
+            let picture = result.additionalUserInfo.profile.picture.data.url;
+            fetchLoginData(name, id+'hiofw', email, id, picture);
+        }
+        else {
+            console.log("尚未登入")
+        }
+    }).catch(function(error) {
         console.log(error)
     });
 };
