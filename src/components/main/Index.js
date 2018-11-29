@@ -26,7 +26,249 @@ class Index extends React.Component{
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
             currentUserID: localStorage.getItem("currentUserID"),
-            currentUserAvatarLink: ''
+            currentUserAvatarLink: '',
+
+            articlesTempTest: [
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543407094,
+                            "content": '[{"id":0, "articleContent":"1-1"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe85f5bc00200700a81455",
+                    "delete": false,
+                    "title": "123456789",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "新聞",
+                    "privacy": "public"
+                },
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543406464,
+                            "content": '[{"id":1, "articleContent":"1-2"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe837f8f5c64311c4f03f5",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "新聞",
+                    "privacy": "public"
+                },
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543404842,
+                            "content": '[{"id":1, "articleContent":"1-3"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe7d29c676b23fe8111840",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "新聞",
+                    "privacy": "public"
+                },
+
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543404823,
+                            "content": '[{"id":1, "articleContent":"2-1"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe7d17c676b23fe811183f",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "健康",
+                    "privacy": "public"
+                },
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543404797,
+                            "content": '[{"id":1, "articleContent":"2-2"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe7cfdc676b23fe811183e",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "服飾",
+                    "privacy": "public"
+                },
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543404768,
+                            "content": '[{"id":1, "articleContent":"2-3"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe7cdfc676b23fe811183d",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "保健",
+                    "privacy": "public"
+                },
+
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543404272,
+                            "content": '[{"id":0,"articleContent":"舊的","fontSize":"","quoteAInvisible":"","quoteBInvisible":"","quote":"","paragraphList":""}]'
+                        },
+                        {
+                            "time": 1543404340,
+                            "content": '[{"id":0,"articleContent":"3-1","fontSize":"","quoteAInvisible":"","quoteBInvisible":"","quote":"","paragraphList":""}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542964666/Social_Media/avatar/bgbuh87qqzdm7lcduuza.jpg"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [],
+                    "_id": "5bfe7af002377a2153121160",
+                    "delete": false,
+                    "title": "qq",
+                    "authorID": "5bf7b89fceefe21d453a2633",
+                    "author": "貳貳",
+                    "category": "美容彩妝",
+                    "privacy": "public"
+                },
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543394426,
+                            "content": '[{"id":1, "articleContent":"3-2"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe547942000c1ff40f9646",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "藝術",
+                    "privacy": "public"
+                },
+                {
+                    "listOfContent": [
+                        {
+                            "time": 1543394393,
+                            "content": '[{"id":1, "articleContent":"3-3"}]'
+                        }
+                    ],
+                    "likes": [],
+                    "comment": [],
+                    "avatarLink": [
+                        [
+                            "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
+                        ]
+                    ],
+                    "mediaLink": [],
+                    "hashTags": [
+                        "test"
+                    ],
+                    "_id": "5bfe545842000c1ff40f9645",
+                    "delete": false,
+                    "title": "好好",
+                    "authorID": "5bf7b877ceefe21d453a2631",
+                    "author": "我要我要我要吃",
+                    "category": "時尚",
+                    "privacy": "public",
+                    "numberOfLikes": 0
+                }
+            ]
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -301,7 +543,8 @@ class Index extends React.Component{
         fetch(this.state.apiURL+'search_article')
             .then(response => response.json())
             .then(parsedJSON => {
-                this.setState({articles: parsedJSON})
+                // this.setState({articles: parsedJSON});
+                this.setState({articles: this.state.articlesTempTest});
                 // console.log(parsedJSON)
                 // console.log(parsedJSON[1][0])
                 // console.log('authorID: ' + parsedJSON[0][0].authorID)
@@ -443,12 +686,11 @@ class Index extends React.Component{
 
 
                 {/*🦄️ swipe*/}
-                {/*<div style={{height: '360px'}} className='articleCard'>*/}
-                    {/*<Carousel loop auto axis='x' className="custom-class" frames={articleElements}> </Carousel>*/}
-                {/*</div>*/}
-                {/*<div style={{height: '1000px'}}>*/}
-                    {/*<Carousel frames={articleElements} className='kkk'> </Carousel>*/}
-                {/*</div>*/}
+                <div style={{height: '360px'}}>
+                    <Carousel axis='x' className="custom-class" frames={articleElements}> </Carousel>
+                    <div className='articleCardShadow'> </div>
+                </div>
+                <br/>
 
 
                 <div className={invisible}>

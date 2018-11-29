@@ -47,7 +47,18 @@ div, form {
     opacity: 0;
 }
 
-.kkk {
-    /*height: 1000px;*/
-    /*background-color: red;*/
+.articleCardShadow {
+    z-index: 100;
+    /*border: 1px solid red;*/
+    border-radius: 33px;
+    position: absolute;
+    top: 0;
+    margin: 8% 3%;
+    box-shadow: 0px 0px 20px 7px rgba(0,0,0,0.1);
+    /*padding: 24px 14px;*/
+    /*padding-bottom: 24px;*/
+    max-width: 600px;
+    height: 314px;
+    width: 94%;
+    pointer-events: none;
 }
