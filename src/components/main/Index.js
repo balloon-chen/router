@@ -19,7 +19,7 @@ class Index extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            apiURL: 'http://140.119.163.194/',
+            apiURL: 'http://140.119.163.194:3000/',
             // apiURL: 'http://localhost/',
             articles: [],
             redirectToPost: false,
@@ -278,7 +278,12 @@ class Index extends React.Component{
                     }
                 ]
             ],
-            loadingGifInvisible: ''
+            loadingGifInvisible: '',
+
+            scrollY: '',
+            innerHeight: '',
+            scrollHeight: '',
+            count: 1
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -290,6 +295,8 @@ class Index extends React.Component{
         this.deleteComment = this.deleteComment.bind(this);
         this.articleLike = this.articleLike.bind(this);
         this.commentLike = this.commentLike.bind(this);
+
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
 
@@ -372,7 +379,7 @@ class Index extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/update_comment', {
-        fetch('http://140.119.163.194/update_comment', {
+        fetch('http://140.119.163.194:3000/update_comment', {
         // fetch(this.state.apiURL+'update_comment', {
             method: 'put',
             body: formData
@@ -401,7 +408,7 @@ class Index extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/add_comment', {
-        fetch('http://140.119.163.194/add_comment', {
+        fetch('http://140.119.163.194:3000/add_comment', {
         // fetch('http://192.168.1.32:3000/add_comment', {
         // fetch(this.state.apiURL+'add_comment', {
             method: 'post',
@@ -550,36 +557,72 @@ class Index extends React.Component{
         //     });
 
         // fetch('http://140.119.163.194:3000/search_article')
-        fetch(this.state.apiURL+'search_article')
-            .then(response => response.json())
+
+
+        // 二維結構的文章
+        fetch(this.state.apiURL+'search_articleByCategory', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({count: this.state.count})
+        }).then(res => {
+            console.log(res.headers);
+            return res.json();
+        })
             .then(parsedJSON => {
-                // this.setState({articles: parsedJSON});
-                this.setState({articles: this.state.articlesTempTest});
+                this.setState({articles: parsedJSON});
+                // this.setState({articles: this.state.articlesTempTest});
                 this.setState({loadingGifInvisible: 'invisible'});
-                // console.log(parsedJSON)
-                // console.log(parsedJSON[1][0])
-                // console.log('authorID: ' + parsedJSON[0][0].authorID)
-                // console.log('userName: ' + parsedJSON[0][0].author)
-                // console.log('articleTitle: ' + parsedJSON[0][0].title)
-                // console.log('articleContent: ' + parsedJSON[0][0].listOfContent[0].content)
-                // console.log('articleCategory :' + parsedJSON[0][0].category)
-                // console.log('like :' + parsedJSON[0][0].likes)
-                // console.log('avatarLink: ' + parsedJSON[0][0].avatarLink)
-                // console.log('comment: ' + parsedJSON[0][1].listOfComment[0].content)
                 console.log(parsedJSON[0])
-                console.log('authorID: ' + parsedJSON[0].authorID)
-                console.log('userName: ' + parsedJSON[0].author)
-                console.log('articleTitle: ' + parsedJSON[0].title)
-                console.log('articleContent: ' + parsedJSON[0].listOfContent[0].content)
-                console.log('articleCategory :' + parsedJSON[0].category)
-                console.log('like :' + parsedJSON[0].likes)
-                console.log('avatarLink: ' + parsedJSON[0].avatarLink)
-                console.log('comment: ' + parsedJSON[0].comment)
-                console.log('comment[0]: ' + parsedJSON[0].comment[0])
-                console.log('comment[0].id: ' + parsedJSON[0].comment[0].id)
+                // console.log('authorID: ' + parsedJSON[0].authorID)
+                // console.log('userName: ' + parsedJSON[0].author)
+                // console.log('articleTitle: ' + parsedJSON[0].title)
+                // console.log('articleContent: ' + parsedJSON[0].listOfContent[0].content)
+                // console.log('articleCategory :' + parsedJSON[0].category)
+                // console.log('like :' + parsedJSON[0].likes)
+                // console.log('avatarLink: ' + parsedJSON[0].avatarLink)
+                // console.log('comment: ' + parsedJSON[0].comment)
+                // console.log('comment[0]: ' + parsedJSON[0].comment[0])
+                // console.log('comment[0].id: ' + parsedJSON[0].comment[0].id)
                 // console.log('comment: ' + parsedJSON[1].listOfComment[0].content)
-            })
-            .catch(err => console.log(err));
+            });
+
+
+        // 一維結構的文章
+        // fetch(this.state.apiURL+'search_article')
+        //     .then(response => response.json())
+        //     .then(parsedJSON => {
+        //         // this.setState({articles: parsedJSON});
+        //         this.setState({articles: this.state.articlesTempTest});
+        //         this.setState({loadingGifInvisible: 'invisible'});
+        //         // console.log(parsedJSON)
+        //         // console.log(parsedJSON[1][0])
+        //         // console.log('authorID: ' + parsedJSON[0][0].authorID)
+        //         // console.log('userName: ' + parsedJSON[0][0].author)
+        //         // console.log('articleTitle: ' + parsedJSON[0][0].title)
+        //         // console.log('articleContent: ' + parsedJSON[0][0].listOfContent[0].content)
+        //         // console.log('articleCategory :' + parsedJSON[0][0].category)
+        //         // console.log('like :' + parsedJSON[0][0].likes)
+        //         // console.log('avatarLink: ' + parsedJSON[0][0].avatarLink)
+        //         // console.log('comment: ' + parsedJSON[0][1].listOfComment[0].content)
+        //         console.log(parsedJSON[0])
+        //         console.log('authorID: ' + parsedJSON[0].authorID)
+        //         console.log('userName: ' + parsedJSON[0].author)
+        //         console.log('articleTitle: ' + parsedJSON[0].title)
+        //         console.log('articleContent: ' + parsedJSON[0].listOfContent[0].content)
+        //         console.log('articleCategory :' + parsedJSON[0].category)
+        //         console.log('like :' + parsedJSON[0].likes)
+        //         console.log('avatarLink: ' + parsedJSON[0].avatarLink)
+        //         console.log('comment: ' + parsedJSON[0].comment)
+        //         console.log('comment[0]: ' + parsedJSON[0].comment[0])
+        //         console.log('comment[0].id: ' + parsedJSON[0].comment[0].id)
+        //         // console.log('comment: ' + parsedJSON[1].listOfComment[0].content)
+        //     })
+        //     .catch(err => console.log(err));
+
+
         // 取得個人大頭照
         fetch(this.state.apiURL+'search_profileByUserID', {
             method: 'post',
@@ -595,8 +638,54 @@ class Index extends React.Component{
             });
     }
 
+    // componentDidMount() {
+    //     this.fetchData();
+    // }
     componentDidMount() {
         this.fetchData();
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+    // 參考連結
+    // https://stackoverflow.com/questions/29725828/update-style-of-a-component-onscroll-in-react-js?fbclid=IwAR0UIyP6pWWWiNgZvr7bKSNGKXvr23lidLcJ1VMv80UOcU6FRowjrx2AcAY
+    handleScroll() {
+        // console.log('scrollY: '+window.scrollY);
+        // console.log('innerHeight: '+window.innerHeight);
+        // console.log('scrollHeight: '+document.documentElement.scrollHeight);
+        this.setState({scrollY: window.scrollY});
+        this.setState({innerHeight: window.innerHeight});
+        this.setState({scrollHeight: document.documentElement.scrollHeight});
+        let scrollY = this.state.scrollY;
+        let innerHeight = this.state.innerHeight;
+        let scrollHeight = this.state.scrollHeight;
+        console.log(scrollY);
+        console.log(innerHeight);
+        console.log(scrollHeight);
+        if (scrollY >= (scrollHeight*0.7-innerHeight) ){
+            this.setState({count: this.state.count+1});
+            this.setState({scrollHeight: document.documentElement.scrollHeight});
+            // 二維結構的文章
+            fetch(this.state.apiURL+'search_articleByCategory', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({count: this.state.count})
+            }).then(res => {
+                console.log(res.headers);
+                return res.json();
+            })
+                .then(parsedJSON => {
+                    this.setState({articles: this.state.articles.concat(parsedJSON)});
+                    this.setState({loadingGifInvisible: 'invisible'});
+                    console.log(parsedJSON[0]);
+                    // window.document.body.scrollTop = 0;
+                    // window.document.documentElement.scrollTop = 0;
+                });
+        }
     }
 
     render(){

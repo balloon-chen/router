@@ -38,7 +38,7 @@ class Profile extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            apiURL: 'http://140.119.163.194/',
+            apiURL: 'http://140.119.163.194:3000/',
             // apiURL: 'http://localhost/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
@@ -311,7 +311,11 @@ class Profile extends React.Component{
                     }
                 ]
             ],
-            loadingGifInvisible: ''
+            loadingGifInvisible: '',
+            scrollY: '',
+            innerHeight: '',
+            scrollHeight: '',
+            count: 1
         };
         this.handleChange = this.handleChange.bind(this);
         this.fetchAvatar = this.fetchAvatar.bind(this);
@@ -328,6 +332,8 @@ class Profile extends React.Component{
         this.replyFriend = this.replyFriend.bind(this);
         this.unFriend = this.unFriend.bind(this);
         this.toggleSocialBoardInvisible = this.toggleSocialBoardInvisible.bind(this);
+
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     redirectToProfile(){
@@ -631,14 +637,67 @@ class Profile extends React.Component{
         window.document.documentElement.scrollTop = 0;
 
 
-        // 搜尋文章
-        fetch(this.state.apiURL+'search_article')
-            .then(response => response.json())
+        // // 搜尋文章
+        // fetch(this.state.apiURL+'search_article')
+        //     .then(response => response.json())
+        //     .then(parsedJSON => {
+        //         this.setState({articles: parsedJSON});
+        //         // this.setState({articles: this.state.articlesTempTest});
+        //     })
+        //     .catch(err => console.log(err));
+        // 二維結構的文章
+        fetch(this.state.apiURL+'search_articleByCategory', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({count: this.state.count})
+        }).then(res => {
+            console.log(res.headers);
+            return res.json();
+        })
             .then(parsedJSON => {
-                // this.setState({articles: parsedJSON});
-                this.setState({articles: this.state.articlesTempTest});
+                this.setState({articles: this.state.articles.concat(parsedJSON)});
+                console.log(parsedJSON[0]);
+            });
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+    // 參考連結
+    // https://stackoverflow.com/questions/29725828/update-style-of-a-component-onscroll-in-react-js?fbclid=IwAR0UIyP6pWWWiNgZvr7bKSNGKXvr23lidLcJ1VMv80UOcU6FRowjrx2AcAY
+    handleScroll() {
+        this.setState({scrollY: window.scrollY});
+        this.setState({innerHeight: window.innerHeight});
+        this.setState({scrollHeight: document.documentElement.scrollHeight});
+        let scrollY = this.state.scrollY;
+        let innerHeight = this.state.innerHeight;
+        let scrollHeight = this.state.scrollHeight;
+        console.log(scrollY);
+        console.log(innerHeight);
+        console.log(scrollHeight);
+        if (scrollY >= (scrollHeight*0.7-innerHeight) ){
+            this.setState({count: this.state.count+1});
+            this.setState({scrollHeight: document.documentElement.scrollHeight});
+            // 二維結構的文章
+            fetch(this.state.apiURL+'search_articleByCategory', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({count: this.state.count})
+            }).then(res => {
+                console.log(res.headers);
+                return res.json();
             })
-            .catch(err => console.log(err));
+                .then(parsedJSON => {
+                    this.setState({articles: this.state.articles.concat(parsedJSON)});
+                    console.log(parsedJSON[0]);
+                });
+        }
     }
 
     render(){
