@@ -48,7 +48,7 @@ div, form {
 }
 
 .articleCardShadow {
-    z-index: 100;
+    z-index: 10;
     /*border: 1px solid red;*/
     border-radius: 33px;
     position: absolute;

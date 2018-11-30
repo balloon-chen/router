@@ -70,7 +70,13 @@ class ArticleItem extends React.Component{
         // this.setState({ articleID: event.target.value });
         // this.toggleEditMode();
         // 🦄
-        this.setState({redirectToPost: true})
+        // this.setState({redirectToPost: true})
+        // 🦄
+        localStorage.setItem("articleContents", this.props.content);
+        localStorage.setItem("articleID", this.props.articleID);
+        localStorage.setItem("articleTitle", this.props.title);
+        localStorage.setItem("articleCategory", this.props.category);
+        window.location.assign('http://140.119.163.194:3002/post');
     }
     // 編輯畫面取得輸入值
     handleChange(event) {
@@ -114,14 +120,16 @@ class ArticleItem extends React.Component{
     }
     // 啦啦啦
     commentLikeOrDislike(commentID, articleID, likeOrDislike){
-        this.props.handleCommentLike(commentID, articleID, likeOrDislike)
+        this.props.handleCommentLike(commentID, articleID, likeOrDislike);
     }
 
     redirectToProfile(event){
         switch (event.target.name){
             case 'author':{
                 localStorage.setItem("whichUserID", event.target.value);
-                this.setState({redirectToProfile: true});
+                // this.setState({redirectToProfile: true});
+                // 🦄
+                window.location.assign('http://140.119.163.194:3002/profile');
                 break;
             }
             default: {

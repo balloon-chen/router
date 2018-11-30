@@ -67,7 +67,7 @@ const responseFacebook = (response) => {
     fetchLoginData(response.name, response.id+'hiofw', response.email, response.id, response.picture.data.url);
 };
 
-const apiURL = 'http://140.119.163.194/';
+const apiURL = 'http://140.119.163.194:3000/';
 // const apiURL = 'http://localhost:3000/';
 
 // 連接 API 並填入登入資訊
@@ -102,7 +102,7 @@ const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
                     localStorage.setItem("currentUserID", res.result.userID);
                 }
                 // fetchAvatar(userID, myImg);
-                window.location.assign('http://140.119.163.194:3001/index');
+                window.location.assign('http://140.119.163.194:3002/index');
             }
         });
 };
@@ -133,7 +133,7 @@ const fetchSignUpData = (userName, userPassword, userEmail, userID, myImg) => {
             // localStorage.setItem("currentUserID", userID);
             localStorage.setItem("currentUserID", res.content._id);
             // fetchAvatar(userID, myImg);
-            window.location.assign('http://140.119.163.194:3001/index');
+            window.location.assign('http://140.119.163.194:3002/index');
         });
 
 

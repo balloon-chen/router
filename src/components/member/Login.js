@@ -13,8 +13,8 @@ class Login extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
+            // apiURL: 'http://140.119.163.194:3000/',
             apiURL: 'http://140.119.163.194:3000/',
-            // apiURL: 'http://localhost/',
             userName: "userName",
             userEmail: "userEmail@gmail.com",
             userPassword: "",

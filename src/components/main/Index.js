@@ -1,7 +1,7 @@
 import React from 'react';
 import ArticleItem from './ArticleItem';
 import Navigation from '../Navigation';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import logo from '../../images/logo.svg';
 import iconSearch from '../../images/iconSearch.svg';
@@ -15,12 +15,12 @@ import ArticleSwipeItem from './ArticleSwipeItem';
 
 import loadingGif from "../../images/loadingGif.gif";
 
-class Index extends React.Component{
-    constructor(props, context){
+class Index extends React.Component {
+    constructor(props, context) {
         super(props, context);
         this.state = {
             apiURL: 'http://140.119.163.194:3000/',
-            // apiURL: 'http://localhost/',
+            // apiURL: 'http://localhost:3000/',
             articles: [],
             redirectToPost: false,
             redirectToIndex: false,
@@ -306,7 +306,7 @@ class Index extends React.Component{
     // 共用
 
     // 重新抓資料並重新渲染畫面
-    refetch(){
+    refetch() {
         setTimeout(this.fetchData, 700);
     }
 
@@ -314,22 +314,23 @@ class Index extends React.Component{
     // ArticleItem
 
     // 刪除文章
-    deleteArticle(articleID){
+    deleteArticle(articleID) {
         // fetch('http://140.119.163.194:3000/delete_article', {
-        fetch(this.state.apiURL+'delete_article', {
+        fetch(this.state.apiURL + 'delete_article', {
             method: 'put',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({articleID: articleID})
-        }).then(res=>res.json())
+        }).then(res => res.json())
             .then(res => {
                 console.log(res);
                 this.fetchData();
             });
         // setTimeout(this.fetchData, 500);
     }
+
     // 更新文章
     updateArticle(articleID, newContent) {
         let formData = new FormData();
@@ -337,10 +338,10 @@ class Index extends React.Component{
         formData.append('content', newContent);
 
         // fetch('http://140.119.163.194:3000/update_article', {
-        fetch(this.state.apiURL+'update_article', {
+        fetch(this.state.apiURL + 'update_article', {
             method: 'put',
             body: formData
-        }).then(res=>res.json())
+        }).then(res => res.json())
             .then(res => {
                 console.log(res)
             });
@@ -352,17 +353,17 @@ class Index extends React.Component{
     // ArticleComment
 
     // 刪除留言
-    deleteComment(commentID, articleID){
+    deleteComment(commentID, articleID) {
         // fetch('http://140.119.163.194:3000/delete_comment', {
         // alert('commentID: '+commentID+', articleID: '+articleID)
-        fetch(this.state.apiURL+'delete_comment', {
+        fetch(this.state.apiURL + 'delete_comment', {
             method: 'put',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({articleID: articleID, commentID: commentID})
-        }).then(res=>res.json())
+        }).then(res => res.json())
             .then(res => {
                 console.log(res);
                 this.fetchData();
@@ -370,6 +371,7 @@ class Index extends React.Component{
         // setTimeout(this.fetchData, 700);
         // alert('articleID: '+articleID+'\ncommentID: '+commentID)
     }
+
     // 更新留言
     updateComment(commentID, articleID, newComment) {
         let formData = new FormData();
@@ -380,10 +382,10 @@ class Index extends React.Component{
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/update_comment', {
         fetch('http://140.119.163.194:3000/update_comment', {
-        // fetch(this.state.apiURL+'update_comment', {
+            // fetch(this.state.apiURL+'update_comment', {
             method: 'put',
             body: formData
-        }).then(res=>res.json())
+        }).then(res => res.json())
             .then(res => {
                 console.log(res)
                 console.log('FUck')
@@ -397,8 +399,8 @@ class Index extends React.Component{
     // AddArticleComment
 
     // 新增留言
-    addComment(currentUserID, content, articleID, currentUser){
-        // alert(content+' '+articleID+' '+currentUser);
+    addComment(currentUserID, content, articleID, currentUser) {
+        // alert(content + ' ' + articleID + ' ' + currentUser);
         let formData = new FormData();
 
         formData.append('commenterName', currentUser);
@@ -409,11 +411,11 @@ class Index extends React.Component{
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/add_comment', {
         fetch('http://140.119.163.194:3000/add_comment', {
-        // fetch('http://192.168.1.32:3000/add_comment', {
-        // fetch(this.state.apiURL+'add_comment', {
+            // fetch('http://192.168.1.32:3000/add_comment', {
+            // fetch(this.state.apiURL+'add_comment', {
             method: 'post',
             body: formData
-        }).then(res=>res.json())
+        }).then(res => res.json())
             .then(res => {
                 console.log(res)
                 // this.xxx();
@@ -426,19 +428,21 @@ class Index extends React.Component{
     // articleLike
 
     // 文章按愛心或收回愛心
-    articleLike(articleID, likeOrDislike){
+    articleLike(articleID, likeOrDislike) {
         // alert('articleID: '+articleID+'\nlikesPersonID: '+this.state.currentUser);
-        if (likeOrDislike == false){
+        if (likeOrDislike == false) {
             // fetch('http://140.119.163.194:3000/likes_article', {
-            fetch(this.state.apiURL+'likes_article', {
+            fetch(this.state.apiURL + 'likes_article', {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({articleID: articleID,
-                    likesPersonID: this.state.currentUser})
-            }).then(res=>res.json())
+                body: JSON.stringify({
+                    articleID: articleID,
+                    likesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
                 .then(res => {
                     console.log(res);
                     // this.fetchData();
@@ -447,15 +451,17 @@ class Index extends React.Component{
         }
         else {
             // fetch('http://140.119.163.194:3000/dislikes_article', {
-            fetch(this.state.apiURL+'dislikes_article', {
+            fetch(this.state.apiURL + 'dislikes_article', {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({articleID: articleID,
-                    dislikesPersonID: this.state.currentUser})
-            }).then(res=>res.json())
+                body: JSON.stringify({
+                    articleID: articleID,
+                    dislikesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
                 .then(res => {
                     console.log(res);
                     // this.fetchData();
@@ -463,21 +469,24 @@ class Index extends React.Component{
             // setTimeout(this.fetchData, 500);
         }
     }
+
     // 留言按愛心或收回愛心
-    commentLike(commentID, articleID, likeOrDislike){
-        if (likeOrDislike == false){
+    commentLike(commentID, articleID, likeOrDislike) {
+        if (likeOrDislike == false) {
             // alert(commentID+' '+articleID+' '+likeOrDislike)
             // fetch('http://140.119.163.194:3000/likes_comment', {
-            fetch(this.state.apiURL+'likes_comment', {
+            fetch(this.state.apiURL + 'likes_comment', {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({articleID: articleID,
+                body: JSON.stringify({
+                    articleID: articleID,
                     commentID: commentID,
-                    likesPersonID: this.state.currentUser})
-            }).then(res=>res.json())
+                    likesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
                 .then(res => {
                     console.log(res);
                     // this.fetchData();
@@ -487,16 +496,18 @@ class Index extends React.Component{
         else {
             // alert(commentID+' '+articleID+' '+likeOrDislike)
             // fetch('http://140.119.163.194:3000/dislikes_comment', {
-            fetch(this.state.apiURL+'dislikes_comment', {
+            fetch(this.state.apiURL + 'dislikes_comment', {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({articleID: articleID,
+                body: JSON.stringify({
+                    articleID: articleID,
                     commentID: commentID,
-                    dislikesPersonID: this.state.currentUser})
-            }).then(res=>res.json())
+                    dislikesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
                 .then(res => {
                     console.log(res);
                     // this.fetchData();
@@ -506,12 +517,11 @@ class Index extends React.Component{
     }
 
 
-
     // 此元件函式
 
 
     // 重新導向至發文頁
-    redirectToPost(){
+    redirectToPost() {
         if (localStorage.getItem("articleContents"))
             localStorage.removeItem("articleContents");
         if (localStorage.getItem("articleID"))
@@ -522,7 +532,8 @@ class Index extends React.Component{
             localStorage.removeItem("articleCategory");
         this.setState({redirectToPost: true});
     }
-    redirectToProfile(){
+
+    redirectToProfile() {
         localStorage.removeItem("whichUserID");
         this.setState({redirectToProfile: true});
     }
@@ -560,7 +571,7 @@ class Index extends React.Component{
 
 
         // 二維結構的文章
-        fetch(this.state.apiURL+'search_articleByCategory', {
+        fetch(this.state.apiURL + 'search_articleByCategory', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -624,14 +635,14 @@ class Index extends React.Component{
 
 
         // 取得個人大頭照
-        fetch(this.state.apiURL+'search_profileByUserID', {
+        fetch(this.state.apiURL + 'search_profileByUserID', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({userID: this.state.currentUserID})
-        }).then(res=>res.json())
+        }).then(res => res.json())
             .then(res => {
                 console.log(res);
                 this.setState({currentUserAvatarLink: res.avatarLink});
@@ -645,9 +656,11 @@ class Index extends React.Component{
         this.fetchData();
         window.addEventListener('scroll', this.handleScroll);
     }
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }
+
     // 參考連結
     // https://stackoverflow.com/questions/29725828/update-style-of-a-component-onscroll-in-react-js?fbclid=IwAR0UIyP6pWWWiNgZvr7bKSNGKXvr23lidLcJ1VMv80UOcU6FRowjrx2AcAY
     handleScroll() {
@@ -663,11 +676,11 @@ class Index extends React.Component{
         console.log(scrollY);
         console.log(innerHeight);
         console.log(scrollHeight);
-        if (scrollY >= (scrollHeight*0.7-innerHeight) ){
-            this.setState({count: this.state.count+1});
+        if (scrollY >= (scrollHeight * 0.7 - innerHeight)) {
+            this.setState({count: this.state.count + 1});
             this.setState({scrollHeight: document.documentElement.scrollHeight});
             // 二維結構的文章
-            fetch(this.state.apiURL+'search_articleByCategory', {
+            fetch(this.state.apiURL + 'search_articleByCategory', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -688,17 +701,17 @@ class Index extends React.Component{
         }
     }
 
-    render(){
-        const { articles } = this.state;
-        const { redirectToPost } = this.state;
-        const { redirectToProfile } = this.state;
-        const { currentUserAvatarLink } = this.state;
+    render() {
+        const {articles} = this.state;
+        const {redirectToPost} = this.state;
+        const {redirectToProfile} = this.state;
+        const {currentUserAvatarLink} = this.state;
 
         if (redirectToPost) {
-            return <Redirect push to="/post" />;
+            return <Redirect push to="/post"/>;
         }
         if (redirectToProfile) {
-            return <Redirect push to="/profile" />;
+            return <Redirect push to="/profile"/>;
         }
 
         // const articleElements = articles.map((article) =>
@@ -772,41 +785,55 @@ class Index extends React.Component{
         //     </div>)
         // );
         const articleElements = articles.map((articleGroup) =>
-            (<div key = {articleGroup[0]._id}>
+            (<div key={articleGroup[0]._id}>
                 <ArticleSwipeItem
-                    articleGroup = {articleGroup}
-                    currentUserAvatarLink = {currentUserAvatarLink}
-                    articlesInProfile = {false}
+                    articleGroup={articleGroup}
+                    currentUserAvatarLink={currentUserAvatarLink}
+                    articlesInProfile={false}
+                    refetch = {this.refetch}
+                    onUpdateArticle = {this.updateArticle}
+                    onDeleteArticle = {this.deleteArticle}
+                    handleLike = {this.articleLike}
+                    handleCommentLike = {this.commentLike}
+                    deleteComment = {this.deleteComment}
+                    updateComment = {this.updateComment}
+                    addComment={this.addComment}
                 />
             </div>)
         );
 
         // 在 profile 頁面時隱藏 Nav 和 + 按鈕
-        const { invisible } = this.props;
+        const {invisible} = this.props;
 
         return (
             <div>
                 {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
-                <div className={'loadingGif '+this.state.loadingGifInvisible}> </div>
+                <div className={'loadingGif ' + this.state.loadingGifInvisible}></div>
                 {/*<div className="articleBackground">*/}
-                <div className="articleBackground"> </div>
+                <div className="articleBackground"></div>
                 {/*<div className={invisible}><Navigation /></div>*/}
-                <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
+                <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx"
+                                                       onClick={this.redirectToIndex}/><img src={iconSearch}
+                                                                                            className="navigationIcon"/><img
+                    src={iconNotice} className="navigationIcon"/><img src={icon03} className="navigationIcon"/><img
+                    src={icon04} className="navigationIcon"/><img src={currentUserAvatarLink}
+                                                                  className="navigationIcon ooo"
+                                                                  onClick={this.redirectToProfile}/></div>
                 <br/><br/>
                 <div>{articleElements}</div>
 
 
                 {/*🦄️ swipe*/}
                 {/*<div style={{height: '360px'}}>*/}
-                    {/*<Carousel axis='x' className="custom-class" frames={articleElements}> </Carousel>*/}
-                    {/*<div className='articleCardShadow'> </div>*/}
+                {/*<Carousel axis='x' className="custom-class" frames={articleElements}> </Carousel>*/}
+                {/*<div className='articleCardShadow'> </div>*/}
                 {/*</div>*/}
                 <br/>
 
 
                 <div className={invisible}>
-                        <div onClick={this.redirectToPost}>
-                        <div className="newArticleButton"> </div>
+                    <div onClick={this.redirectToPost}>
+                        <div className="newArticleButton"></div>
                     </div>
                 </div>
             </div>
