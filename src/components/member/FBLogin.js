@@ -102,7 +102,7 @@ const fetchLoginData = (userName, userPassword, userEmail, userID, myImg) => {
                     localStorage.setItem("currentUserID", res.result.userID);
                 }
                 // fetchAvatar(userID, myImg);
-                window.location.assign('http://140.119.163.194:3002/index');
+                window.location.assign('http://140.119.163.194:3001/index');
             }
         });
 };
@@ -133,7 +133,7 @@ const fetchSignUpData = (userName, userPassword, userEmail, userID, myImg) => {
             // localStorage.setItem("currentUserID", userID);
             localStorage.setItem("currentUserID", res.content._id);
             // fetchAvatar(userID, myImg);
-            window.location.assign('http://140.119.163.194:3002/index');
+            window.location.assign('http://140.119.163.194:3001/index');
         });
 
 

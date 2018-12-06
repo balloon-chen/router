@@ -22,11 +22,13 @@
     /*padding: 9% 6%;*/
     /*height: 90vw;*/
     border-bottom: #D3D3D3 1px solid;
+    /*width: 90%;*/
+    /*height: 90%;*/
 }
 
 .articleCategory {
     display: block;
-    font-size: 120%;
+    font-size: 100%;
     font-weight: 300;
     /*color: white;*/
     /*position: relative;*/
@@ -90,6 +92,29 @@
     max-width: 120px;
     max-height: 120px;
 
+    z-index: 100;
+}
+.newArticleButtonImg {
+    transform: translate(-50%, 0%);
+    position: fixed;
+    left: 50%;
+    bottom: 2%;
+    width:  20vw;
+    height: 20vw;
+    max-width: 120px;
+    max-height: 120px;
+    z-index: 100;
+}
+.newArticleButtonImgScrolling {
+    transform: translate(-50%, 0%);
+    position: fixed;
+    left: 50%;
+    bottom: 2%;
+    opacity: 0.3;
+    width:  20vw;
+    height: 20vw;
+    max-width: 120px;
+    max-height: 120px;
     z-index: 100;
 }
 

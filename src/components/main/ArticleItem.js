@@ -76,7 +76,8 @@ class ArticleItem extends React.Component{
         localStorage.setItem("articleID", this.props.articleID);
         localStorage.setItem("articleTitle", this.props.title);
         localStorage.setItem("articleCategory", this.props.category);
-        window.location.assign('http://140.119.163.194:3002/post');
+        localStorage.setItem("myImg", this.props.mediaLink.toString());
+        window.location.assign('http://140.119.163.194:3001/post');
     }
     // 編輯畫面取得輸入值
     handleChange(event) {
@@ -129,7 +130,7 @@ class ArticleItem extends React.Component{
                 localStorage.setItem("whichUserID", event.target.value);
                 // this.setState({redirectToProfile: true});
                 // 🦄
-                window.location.assign('http://140.119.163.194:3002/profile');
+                window.location.assign('http://140.119.163.194:3001/profile');
                 break;
             }
             default: {
@@ -392,11 +393,23 @@ class ArticleItem extends React.Component{
         }
         const { authorID } = this.props;
 
+        // 臨時亂做的圖便上傳
+        let { mediaLink } = this.props;
+        let mediaLinkFixed = ( mediaLink === '') ? "../../images/annihilation.jpg" : mediaLink;
+        // alert(mediaLink)
+
         return (
             <div className={this.state.articlesInProfileDisplay}>
+                {/*臨時亂做的圖便上傳*/}
+                {/*<p style={{wordBreak: 'break-all'}}>{mediaLinkFixed}</p>*/}
                 <div className="articleCard">
-
+                    {/*<div className={'articleImage'}> </div>*/}
+                    {/*<div className={'articleImage'} style={{'backgroundImage': 'url('+mediaLinkFixed+')'}}> </div>*/}
+                    {/*<div className={'articleImage'} style={{'backgroundImage': 'url('+mediaLinkFixed+')'}}>*/}
                     <div className={'articleImage'}>
+                        <div className='test'>
+                            <img src={mediaLinkFixed} alt="" className='test2'/>
+                        </div>
                         <span className="articleCategory">{category}</span>
                         <span className="articleTitle">{title}</span>
                     </div>
@@ -412,7 +425,7 @@ class ArticleItem extends React.Component{
                             </button>
                             <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>
                         </div>
-                        <img src={iconMenu} className={"navigationIcon bbb"} alt="iconMenu"/>
+                        <img src={iconMenu} className={"navigationIcon bbb nonfunctionalOpacity"} alt="iconMenu"/>
                     </div>
 
                     {/*<p className="articleContent">{content}</p>*/}
@@ -440,7 +453,7 @@ class ArticleItem extends React.Component{
                             onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
                             whoLikes = {whoLikes}
                         />
-                        <img src={iconNotTag} className="navigationIcon eee" alt="iconNotTag"/>
+                        <img src={iconNotTag} className="navigationIcon eee nonfunctionalOpacity" alt="iconNotTag"/>
                     </div>
 
                     {/*<ArticleWhoLikes*/}

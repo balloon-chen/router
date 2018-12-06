@@ -694,6 +694,8 @@ class Profile extends React.Component{
                 return res.json();
             })
                 .then(parsedJSON => {
+                    if (parsedJSON[0] === undefined)
+                        window.removeEventListener('scroll', this.handleScroll);
                     this.setState({articles: this.state.articles.concat(parsedJSON)});
                     console.log(parsedJSON[0]);
                 });
@@ -792,7 +794,14 @@ class Profile extends React.Component{
                 {/*<Navigation />*/}
                 <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
                     {/*<div className="frostedGlass"><img src={menu} className="navigationIcon"/><img src={tag} className="navigationIcon" /><span>個人頁面</span><img src={palette} className="navigationIcon" /><img src={exit} className="navigationIcon" /></div>*/}
-                    <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} /><img src={iconSearch} className="navigationIcon" /><img src={iconNotice} className="navigationIcon" /><img src={icon03} className="navigationIcon" /><img src={icon04} className="navigationIcon" /><img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} /></div>
+                    <div className="frostedGlass ddd">
+                        <img src={logo} className="navigationIcon xxx" onClick={this.redirectToIndex} />
+                        <img src={iconSearch} className="navigationIcon nonfunctionalOpacity" />
+                        <img src={iconNotice} className="navigationIcon nonfunctionalOpacity" />
+                        <img src={icon03} className="navigationIcon nonfunctionalOpacity" />
+                        <img src={icon04} className="navigationIcon nonfunctionalOpacity" />
+                        <img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} />
+                    </div>
                     <label className={"uploadUserCoverPhoto "+checkUserForUpdatePhotos}>編輯封面
                         <form encType="multipart/form-data">
                             <input className="invisible" name="uploadBackGroundPhoto" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
@@ -873,7 +882,11 @@ class Profile extends React.Component{
 
                     </div>
                     <div className="separationLine"> </div>
-                    <div className="iconSort"><img src={iconSort01} className="navigationIcon" onClick={this.setSquare01}/><img src={iconSort02} className="navigationIcon" onClick={this.setSquare02} /><img src={iconSort03} className="navigationIcon" /></div>
+                    <div className="iconSort">
+                        <img src={iconSort01} className="navigationIcon nonfunctionalOpacity" onClick={this.setSquare01}/>
+                        <img src={iconSort02} className="navigationIcon nonfunctionalOpacity" onClick={this.setSquare02} />
+                        <img src={iconSort03} className="navigationIcon nonfunctionalOpacity" />
+                    </div>
                 </div>
 
                 <hr className="hrLine" />

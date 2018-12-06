@@ -135,7 +135,10 @@ class PostArticle extends React.Component{
             otherOptions_gray_invisible: '',
             otherOptions_black_invisible: 'otherOptions_black_invisible',
 
-            articleID: localStorage.getItem('articleID') || false
+            articleID: localStorage.getItem('articleID') || false,
+
+            // 臨時亂做的圖便上傳
+            myImg: localStorage.getItem('myImg') || {}
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -842,6 +845,11 @@ class PostArticle extends React.Component{
                 this.setState({articleCategory: event.target.value});
                 break;
             }
+            // 臨時亂做的圖便上傳
+            case 'uploadAvatar':{
+                this.setState({myImg: event.target.files[0]});
+                break;
+            }
             default: {
                 break;
             }
@@ -862,7 +870,7 @@ class PostArticle extends React.Component{
         }
         else
             this.fetch();
-        setTimeout(this.redirectToIndex, 700);
+        // setTimeout(this.redirectToIndex, 7000);
         event.preventDefault();
     }
     fetchConsole(){
@@ -879,6 +887,9 @@ class PostArticle extends React.Component{
         formData.append('content', articleContentsStringify);
         formData.append('title', this.state.articleTitle);
         formData.append('privacy', 'public');
+        // 臨時亂做的圖便上傳
+        formData.append('image', this.state.myImg);
+        formData.append('photoType', 'jpg');
 
         // fetch('http://140.119.163.194:3000/add_article', {
         fetch(this.state.apiURL+'add_article', {
@@ -895,7 +906,10 @@ class PostArticle extends React.Component{
             //                       content: this.state.articleContent})
             body: formData
         }).then(res=>res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res);
+                this.redirectToIndex();
+            });
     }
     // 連接 API 並填入文章內容（更新文章用）
     fetchUpdate(articleID) {
@@ -911,12 +925,18 @@ class PostArticle extends React.Component{
         formData.append('category', this.state.articleCategory);
         formData.append('content', articleContentsStringify);
         formData.append('privacy', 'public');
+        // 臨時亂做的圖便上傳
+        formData.append('image', this.state.myImg);
+        formData.append('photoType', 'jpg');
 
         fetch(this.state.apiURL+'update_article', {
             method: 'put',
             body: formData
         }).then(res=>res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                console.log(res);
+                this.redirectToIndex();
+            });
     }
 
     // 取得個人大頭照
@@ -1055,6 +1075,8 @@ class PostArticle extends React.Component{
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <div className="inputField_title_placeholder">
+                            {/*臨時亂做的圖便上傳*/}
+                            <input name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
                             <input className="inputField_title" type="text" name="標題" placeholder="標題，" onChange={this.handleChange} value={this.state.articleTitle} />
                         </div>
                         {/*<div className="inputField_content_placeholder">*/}
@@ -1128,35 +1150,35 @@ class PostArticle extends React.Component{
                             <span onClick={this.paragraphList} className={list_dot_invisible}><img src={list_dot} alt="list_dot" className={'button_editor_six '}/></span>
                             <span onClick={this.paragraphList} className={list_number_invisible}><img src={list_number} alt="list_number" className={'button_editor_six '}/></span>
                             {/*tag*/}
-                            <span><img src={tag_gray} alt="tag_gray" className='button_editor_six'/></span>
+                            <span><img src={tag_gray} alt="tag_gray" className='button_editor_six nonfunctionalOpacity'/></span>
                             {/*otherOptions*/}
-                            <span onClick={this.toggleOtherOptionsDisplay} className={otherOptions_gray_invisible}><img src={otherOptions_gray} alt="otherOptions_gray" className={'button_editor_six '}/></span>
-                            <span onClick={this.toggleOtherOptionsDisplay} className={otherOptions_black_invisible}><img src={otherOptions_black} alt="otherOptions_black" className={'button_editor_six '}/></span>
+                            <span onClick={this.toggleOtherOptionsDisplay} className={otherOptions_gray_invisible}><img src={otherOptions_gray} alt="otherOptions_gray" className={'button_editor_six nonfunctionalOpacity '}/></span>
+                            <span onClick={this.toggleOtherOptionsDisplay} className={otherOptions_black_invisible}><img src={otherOptions_black} alt="otherOptions_black" className={'button_editor_six nonfunctionalOpacity '}/></span>
                         </div>
                     </div>
 
                     <div className={"postArticle_step2 "+postArticle_step2_invisible}>
                         <hr/>
-                        <div>
+                        <div onClick={this.setCategoryDisplay}>
                             <span>貼文類別</span>
                             <span className="open">{articleCategory}</span>
-                            <span className="arrow" onClick={this.setCategoryDisplay}>></span>
+                            <span className="arrow">></span>
                         </div>
                         <hr/>
-                        <div>
+                        <div className='nonfunctionalOpacity'>
                             <span>分享對象</span>
                             <span className="open">公開</span>
                             <span className="arrow">></span>
                         </div>
                         <hr/>
-                        <div style={{'display':'flex','alignItems':'center'}}>
+                        <div style={{'display':'flex','alignItems':'center'}} className='nonfunctionalOpacity'>
                             <span>分享</span>
                             <div className="iconSocial">
                                 <img src={iconSocial} alt="iconSocial"/>
                                 <img src={iconSocial} alt="iconSocial"/>
                             </div>
                         </div>
-                        <div>
+                        <div className='nonfunctionalOpacity'>
                             <div className="advancedOptionsDiv">
                                 <span className="advancedOptions">進階設定</span>
                                 <span>v</span>

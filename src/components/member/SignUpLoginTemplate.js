@@ -50,7 +50,7 @@ class SignUpLoginTemplate extends React.Component{
                     <hr className="hrShortLine_left" /><div className="textOr">or</div><hr className="hrShortLine_right" />
                     {/*<button style={button_FacebookLogin}>使用 Facebook 帳號登入</button>*/}
                     <FBLogin />
-                    <button style={button_GoogleLogin}>使用 Google+ 帳號登入</button>
+                    <button style={button_GoogleLogin} className='nonfunctionalOpacity'>使用 Google+ 帳號登入</button>
                     <hr className="hrLine" />
                     <p className="textAlreadyHaveAccountOrNot">還沒有帳號嗎？<span className="textAlreadyHaveAccountOrNot_loginOrSignUp" onClick={this.toggleRenderMode}>註冊</span></p>
                 </div>

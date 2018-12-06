@@ -133,7 +133,7 @@ class PostArticleCategory extends React.Component{
                     <span>選擇類別</span>
                     <span> </span>
                 </div>
-                <div className='search'><span>Ｑ</span><span>搜尋</span></div>
+                <div className='search nonfunctionalOpacity'><span>Ｑ</span><span>搜尋</span></div>
                 <div className='categorySelect'>
                     <div onClick={this.categoryDisplay01}>
                         <span className='categoryMain'>創作</span>

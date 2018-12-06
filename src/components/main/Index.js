@@ -9,6 +9,7 @@ import iconNotice from '../../images/iconNotice.svg';
 import icon03 from '../../images/icon03.svg';
 import icon04 from '../../images/icon04.svg';
 import userPhotoDefault from '../../images/userPhotoDefault.svg';
+import newArticleButton from '../../images/newArticleButton.svg';
 
 import Carousel from '../swipeTest/Carousel';
 import ArticleSwipeItem from './ArticleSwipeItem';
@@ -283,7 +284,9 @@ class Index extends React.Component {
             scrollY: '',
             innerHeight: '',
             scrollHeight: '',
-            count: 1
+            count: 1,
+
+            newArticleButtonImg: 'newArticleButtonImg'
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -297,6 +300,8 @@ class Index extends React.Component {
         this.commentLike = this.commentLike.bind(this);
 
         this.handleScroll = this.handleScroll.bind(this);
+        this.handleScrollNewArticleButtonScrolling = this.handleScrollNewArticleButtonScrolling.bind(this);
+        this.handleScrollNewArticleButton = this.handleScrollNewArticleButton.bind(this);
     }
 
 
@@ -654,7 +659,9 @@ class Index extends React.Component {
     // }
     componentDidMount() {
         this.fetchData();
-        window.addEventListener('scroll', this.handleScroll);
+        // window.addEventListener('scroll', this.handleScroll);
+        window.removeEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScrollNewArticleButtonScrolling);
     }
 
     componentWillUnmount() {
@@ -692,6 +699,8 @@ class Index extends React.Component {
                 return res.json();
             })
                 .then(parsedJSON => {
+                    if (parsedJSON[0] === undefined)
+                        window.removeEventListener('scroll', this.handleScroll);
                     this.setState({articles: this.state.articles.concat(parsedJSON)});
                     this.setState({loadingGifInvisible: 'invisible'});
                     console.log(parsedJSON[0]);
@@ -700,12 +709,21 @@ class Index extends React.Component {
                 });
         }
     }
+    handleScrollNewArticleButtonScrolling(){
+        this.setState({newArticleButtonImg: 'newArticleButtonImgScrolling'});
+        setTimeout(this.handleScrollNewArticleButton ,500);
+    }
+    handleScrollNewArticleButton(){
+        this.setState({newArticleButtonImg: 'newArticleButtonImg'});
+    }
 
     render() {
         const {articles} = this.state;
+        console.log(articles)
         const {redirectToPost} = this.state;
         const {redirectToProfile} = this.state;
         const {currentUserAvatarLink} = this.state;
+        const {newArticleButtonImg} = this.state;
 
         if (redirectToPost) {
             return <Redirect push to="/post"/>;
@@ -808,17 +826,20 @@ class Index extends React.Component {
         return (
             <div>
                 {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
-                <div className={'loadingGif ' + this.state.loadingGifInvisible}></div>
+                <div className={'loadingGif ' + this.state.loadingGifInvisible}> </div>
                 {/*<div className="articleBackground">*/}
-                <div className="articleBackground"></div>
+                <div className="articleBackground"> </div>
                 {/*<div className={invisible}><Navigation /></div>*/}
-                <div className="frostedGlass ddd"><img src={logo} className="navigationIcon xxx"
-                                                       onClick={this.redirectToIndex}/><img src={iconSearch}
-                                                                                            className="navigationIcon"/><img
-                    src={iconNotice} className="navigationIcon"/><img src={icon03} className="navigationIcon"/><img
-                    src={icon04} className="navigationIcon"/><img src={currentUserAvatarLink}
-                                                                  className="navigationIcon ooo"
-                                                                  onClick={this.redirectToProfile}/></div>
+                <div className="frostedGlass ddd">
+                    <img src={logo}
+                         className="navigationIcon xxx"
+                         onClick={this.redirectToIndex}
+                    />
+                    <img src={iconSearch} className="navigationIcon nonfunctionalOpacity"/>
+                    <img src={iconNotice} className="navigationIcon nonfunctionalOpacity"/>
+                    <img src={icon03} className="navigationIcon nonfunctionalOpacity"/>
+                    <img src={icon04} className="navigationIcon nonfunctionalOpacity"/>
+                    <img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile}/></div>
                 <br/><br/>
                 <div>{articleElements}</div>
 
@@ -833,7 +854,8 @@ class Index extends React.Component {
 
                 <div className={invisible}>
                     <div onClick={this.redirectToPost}>
-                        <div className="newArticleButton"></div>
+                        {/*<div className="newArticleButton"></div>*/}
+                        <img src={newArticleButton} alt="newArticleButton" className={newArticleButtonImg} />
                     </div>
                 </div>
             </div>

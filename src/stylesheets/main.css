@@ -115,3 +115,37 @@ div, form {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
+/*臨時亂做的圖便上傳*/
+.mediaLink {
+    width: 30%;
+}
+
+.nonfunctionalOpacity {
+    opacity: 0.2;
+}
+
+.test {
+    /*border: 1px solid red;*/
+    /*width: 94vw;*/
+    /*height: 100px;*/
+    /*padding: 24px 14px;*/
+    margin: -24px -14px auto -14px;
+    border-top-left-radius: 33px;
+    border-top-right-radius: 33px;
+    /*border-radius: 33px;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    overflow: hidden;
+
+    /*margin: 8% 3%;*/
+    /*box-shadow: 0px 0px 20px 7px rgba(0,0,0,0.1);*/
+    /*max-width: 600px;*/
+    /*height: 355px;*/
+    /*width: 94%;*/
+    /*pointer-events: none;*/
+}
+.test2 {
+    width: 100%;
+}
