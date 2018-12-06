@@ -286,7 +286,8 @@ class Index extends React.Component {
             scrollHeight: '',
             count: 1,
 
-            newArticleButtonImg: 'newArticleButtonImg'
+            newArticleButtonImg: 'newArticleButtonImg',
+            lazyLoad: true
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -659,8 +660,7 @@ class Index extends React.Component {
     // }
     componentDidMount() {
         this.fetchData();
-        // window.addEventListener('scroll', this.handleScroll);
-        window.removeEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll);
         window.addEventListener('scroll', this.handleScrollNewArticleButtonScrolling);
     }
 
@@ -671,42 +671,47 @@ class Index extends React.Component {
     // 參考連結
     // https://stackoverflow.com/questions/29725828/update-style-of-a-component-onscroll-in-react-js?fbclid=IwAR0UIyP6pWWWiNgZvr7bKSNGKXvr23lidLcJ1VMv80UOcU6FRowjrx2AcAY
     handleScroll() {
-        // console.log('scrollY: '+window.scrollY);
-        // console.log('innerHeight: '+window.innerHeight);
-        // console.log('scrollHeight: '+document.documentElement.scrollHeight);
-        this.setState({scrollY: window.scrollY});
-        this.setState({innerHeight: window.innerHeight});
-        this.setState({scrollHeight: document.documentElement.scrollHeight});
-        let scrollY = this.state.scrollY;
-        let innerHeight = this.state.innerHeight;
-        let scrollHeight = this.state.scrollHeight;
-        console.log(scrollY);
-        console.log(innerHeight);
-        console.log(scrollHeight);
-        if (scrollY >= (scrollHeight * 0.7 - innerHeight)) {
-            this.setState({count: this.state.count + 1});
+        if(this.state.lazyLoad) {
+            // console.log('scrollY: '+window.scrollY);
+            // console.log('innerHeight: '+window.innerHeight);
+            // console.log('scrollHeight: '+document.documentElement.scrollHeight);
+            this.setState({scrollY: window.scrollY});
+            this.setState({innerHeight: window.innerHeight});
             this.setState({scrollHeight: document.documentElement.scrollHeight});
-            // 二維結構的文章
-            fetch(this.state.apiURL + 'search_articleByCategory', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({count: this.state.count})
-            }).then(res => {
-                console.log(res.headers);
-                return res.json();
-            })
-                .then(parsedJSON => {
-                    if (parsedJSON[0] === undefined)
-                        window.removeEventListener('scroll', this.handleScroll);
-                    this.setState({articles: this.state.articles.concat(parsedJSON)});
-                    this.setState({loadingGifInvisible: 'invisible'});
-                    console.log(parsedJSON[0]);
-                    // window.document.body.scrollTop = 0;
-                    // window.document.documentElement.scrollTop = 0;
-                });
+            let scrollY = this.state.scrollY;
+            let innerHeight = this.state.innerHeight;
+            let scrollHeight = this.state.scrollHeight;
+            console.log(scrollY);
+            console.log(innerHeight);
+            console.log(scrollHeight);
+            if (scrollY >= (scrollHeight * 0.7 - innerHeight)) {
+                this.setState({count: this.state.count + 1});
+                this.setState({scrollHeight: document.documentElement.scrollHeight});
+                // 二維結構的文章
+                fetch(this.state.apiURL + 'search_articleByCategory', {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({count: this.state.count})
+                }).then(res => {
+                    console.log(res.headers);
+                    return res.json();
+                })
+                    .then(parsedJSON => {
+                        if (parsedJSON[0] === undefined){
+                            // alert(this.state.lazyLoad);
+                            this.setState({lazyLoad: false});
+                            window.removeEventListener('scroll', this.handleScroll);
+                        }
+                        this.setState({articles: this.state.articles.concat(parsedJSON)});
+                        this.setState({loadingGifInvisible: 'invisible'});
+                        console.log(parsedJSON[0]);
+                        // window.document.body.scrollTop = 0;
+                        // window.document.documentElement.scrollTop = 0;
+                    });
+            }
         }
     }
     handleScrollNewArticleButtonScrolling(){
