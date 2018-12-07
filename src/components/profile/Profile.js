@@ -334,7 +334,236 @@ class Profile extends React.Component{
         this.toggleSocialBoardInvisible = this.toggleSocialBoardInvisible.bind(this);
 
         this.handleScroll = this.handleScroll.bind(this);
+
+
+        this.fetchArticleData = this.fetchArticleData.bind(this);
+        this.refetch = this.refetch.bind(this);
+        this.updateArticle = this.updateArticle.bind(this);
+        this.deleteArticle = this.deleteArticle.bind(this);
+        this.articleLike = this.articleLike.bind(this);
+        this.commentLike = this.commentLike.bind(this);
+        this.deleteComment = this.deleteComment.bind(this);
+        this.updateComment = this.updateComment.bind(this);
+        this.addComment = this.addComment.bind(this);
     }
+
+
+
+    fetchArticleData(){
+        this.setState({count: 1});
+        // 二維結構的文章
+        fetch(this.state.apiURL+'search_articleByCategory', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({count: this.state.count})
+        }).then(res => {
+            console.log(res.headers);
+            return res.json();
+        })
+            .then(parsedJSON => {
+                this.setState({articles: parsedJSON});
+                console.log(parsedJSON[0]);
+            });
+    }
+    // 重新抓資料並重新渲染畫面
+    refetch() {
+        setTimeout(this.fetchArticleData, 700);
+        // 1
+    }
+    // 更新文章
+    updateArticle(articleID, newContent) {
+        let formData = new FormData();
+        formData.append('articleID', articleID);
+        formData.append('content', newContent);
+
+        // fetch('http://140.119.163.194:3000/update_article', {
+        fetch(this.state.apiURL + 'update_article', {
+            method: 'put',
+            body: formData
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+            });
+        // 🦄️
+        // setTimeout(this.xxx, 5000);
+    }
+    // 刪除文章
+    deleteArticle(articleID) {
+        // fetch('http://140.119.163.194:3000/delete_article', {
+        fetch(this.state.apiURL + 'delete_article', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({articleID: articleID})
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.fetchArticleData();
+            });
+        // setTimeout(this.fetchData, 500);
+        // 2
+    }
+    // 文章按愛心或收回愛心
+    articleLike(articleID, likeOrDislike) {
+        // alert('articleID: '+articleID+'\nlikesPersonID: '+this.state.currentUser);
+        if (likeOrDislike == false) {
+            // fetch('http://140.119.163.194:3000/likes_article', {
+            fetch(this.state.apiURL + 'likes_article', {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    articleID: articleID,
+                    likesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    // this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
+        }
+        else {
+            // fetch('http://140.119.163.194:3000/dislikes_article', {
+            fetch(this.state.apiURL + 'dislikes_article', {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    articleID: articleID,
+                    dislikesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    // this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
+        }
+    }
+    // 留言按愛心或收回愛心
+    commentLike(commentID, articleID, likeOrDislike) {
+        if (likeOrDislike == false) {
+            // alert(commentID+' '+articleID+' '+likeOrDislike)
+            // fetch('http://140.119.163.194:3000/likes_comment', {
+            fetch(this.state.apiURL + 'likes_comment', {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    articleID: articleID,
+                    commentID: commentID,
+                    likesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    // this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
+        }
+        else {
+            // alert(commentID+' '+articleID+' '+likeOrDislike)
+            // fetch('http://140.119.163.194:3000/dislikes_comment', {
+            fetch(this.state.apiURL + 'dislikes_comment', {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    articleID: articleID,
+                    commentID: commentID,
+                    dislikesPersonID: this.state.currentUser
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    // this.fetchData();
+                });
+            // setTimeout(this.fetchData, 500);
+        }
+    }
+    // 刪除留言
+    deleteComment(commentID, articleID) {
+        // fetch('http://140.119.163.194:3000/delete_comment', {
+        // alert('commentID: '+commentID+', articleID: '+articleID)
+        fetch(this.state.apiURL + 'delete_comment', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({articleID: articleID, commentID: commentID})
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.fetchArticleData();
+            });
+        // setTimeout(this.fetchData, 700);
+        // alert('articleID: '+articleID+'\ncommentID: '+commentID)
+        // 3
+    }
+    // 更新留言
+    updateComment(commentID, articleID, newComment) {
+        let formData = new FormData();
+        formData.append('commentID', commentID);
+        formData.append('articleID', articleID);
+        formData.append('content', newComment);
+
+        //🦄️ url 無法用變數取代
+        // fetch('http://140.119.163.194:3000/update_comment', {
+        fetch('http://140.119.163.194:3000/update_comment', {
+            // fetch(this.state.apiURL+'update_comment', {
+            method: 'put',
+            body: formData
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+                console.log('FUck')
+                // this.xxx();
+            });
+        // 🦄️
+        // setTimeout(this.fetchData, 700);
+    }
+    // 新增留言
+    addComment(currentUserID, content, articleID, currentUser) {
+        // alert(content + ' ' + articleID + ' ' + currentUser);
+        let formData = new FormData();
+
+        formData.append('commenterName', currentUser);
+        formData.append('commenterID', currentUserID);
+        formData.append('articleID', articleID);
+        formData.append('content', content);
+
+        //🦄️ url 無法用變數取代
+        // fetch('http://140.119.163.194:3000/add_comment', {
+        fetch('http://140.119.163.194:3000/add_comment', {
+            // fetch('http://192.168.1.32:3000/add_comment', {
+            // fetch(this.state.apiURL+'add_comment', {
+            method: 'post',
+            body: formData
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+                // this.xxx();
+            });
+        // 🦄️
+        // setTimeout(this.fetchData, 700);
+    }
+
+
 
     redirectToProfile(){
         this.setState({whichUserID: null});
@@ -783,6 +1012,15 @@ class Profile extends React.Component{
                     articleGroup = {articleGroup}
                     currentUserAvatarLink = {currentUserAvatarLink}
                     articlesInProfile = {true}
+
+                    refetch = {this.refetch}
+                    onUpdateArticle = {this.updateArticle}
+                    onDeleteArticle = {this.deleteArticle}
+                    handleLike = {this.articleLike}
+                    handleCommentLike = {this.commentLike}
+                    deleteComment = {this.deleteComment}
+                    updateComment = {this.updateComment}
+                    addComment={this.addComment}
                 />
             </div>)
         );

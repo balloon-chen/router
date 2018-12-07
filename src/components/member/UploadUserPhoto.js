@@ -111,7 +111,7 @@ class UploadUserPhoto extends React.Component{
                     <hr className="hrShortLine_left" /><div className="textOr">or</div><hr className="hrShortLine_right" />
                     <div className="adjustMargin"> </div>
                     <div className="adjustMargin"> </div>
-                    <input className="inputField inputField_loginOrSignUp" type="button" value="開啟相機" />
+                    <input className="inputField inputField_loginOrSignUp nonfunctionalOpacity" type="button" value="開啟相機" />
                 </div>
             </div>
         );
