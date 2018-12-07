@@ -58,7 +58,7 @@ div, form {
     /*padding: 24px 14px;*/
     /*padding-bottom: 24px;*/
     max-width: 600px;
-    height: 355px;
+    height: 455px;
     width: 94%;
     pointer-events: none;
 }
@@ -148,4 +148,21 @@ div, form {
 }
 .test2 {
     width: 100%;
+}
+.imageText {
+    transition: 0.6s;
+    display: inline-block;
+    width: 120px;
+    padding: 10px 10px;
+    margin: 20px 8%;
+    color: rgba(0,0,0,0.6);
+    border: 1px solid rgba(0,0,0,0.6);
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.imageText:hover{
+    transform: translateX(5px) translateY(5px);
+
 }

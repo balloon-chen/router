@@ -681,9 +681,10 @@ class Index extends React.Component {
             let scrollY = this.state.scrollY;
             let innerHeight = this.state.innerHeight;
             let scrollHeight = this.state.scrollHeight;
-            console.log(scrollY);
-            console.log(innerHeight);
-            console.log(scrollHeight);
+            // 不顯示
+            // console.log(scrollY);
+            // console.log(innerHeight);
+            // console.log(scrollHeight);
             if (scrollY >= (scrollHeight * 0.7 - innerHeight)) {
                 this.setState({count: this.state.count + 1});
                 this.setState({scrollHeight: document.documentElement.scrollHeight});

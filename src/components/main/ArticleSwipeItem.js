@@ -151,7 +151,7 @@ class ArticleSwipeItem extends React.Component {
 
         return (
             <div>
-                <div style={{height: '400px'}}>
+                <div style={{height: '500px'}}>
                     <Carousel axis='x' className="custom-class" frames={articleElements}> </Carousel>
                     <div className='articleCardShadow'> </div>
                 </div>

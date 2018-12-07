@@ -138,7 +138,10 @@ class PostArticle extends React.Component{
             articleID: localStorage.getItem('articleID') || false,
 
             // 臨時亂做的圖便上傳
-            myImg: localStorage.getItem('myImg') || {}
+            myImg: localStorage.getItem('myImg') || {},
+            nonImg: '',
+            hasImg: 'invisible',
+            imgName: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -848,6 +851,9 @@ class PostArticle extends React.Component{
             // 臨時亂做的圖便上傳
             case 'uploadAvatar':{
                 this.setState({myImg: event.target.files[0]});
+                this.setState({imgName :event.target.files[0].name});
+                this.setState({nonImg: 'invisible'});
+                this.setState({hasImg: ''});
                 break;
             }
             default: {
@@ -1076,7 +1082,12 @@ class PostArticle extends React.Component{
                     <form onSubmit={this.handleSubmit}>
                         <div className="inputField_title_placeholder">
                             {/*臨時亂做的圖便上傳*/}
-                            <input name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
+                            <label>
+                                <input style={{display:'none'}} name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
+                                <span className={'imageText '+this.state.nonImg}>上傳照片</span>
+                                <span className={'imageText '+this.state.hasImg}>更換照片</span>
+                                <div style={{marginLeft: '8%'}}>{this.state.imgName}</div>
+                            </label>
                             <input className="inputField_title" type="text" name="標題" placeholder="標題，" onChange={this.handleChange} value={this.state.articleTitle} />
                         </div>
                         {/*<div className="inputField_content_placeholder">*/}
