@@ -9,10 +9,15 @@ class ArticleSwipeItem extends React.Component {
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
             currentUserID: localStorage.getItem("currentUserID"),
+            index: 0,
+            length: this.props.articleGroup.length,
+            buttonLeftOpacity: 'invisible',
+            buttonRightOpacity: '',
         };
         this.deleteArticle = this.deleteArticle.bind(this);
         this.articleLike = this.articleLike.bind(this);
         this.commentLike = this.commentLike.bind(this);
+        this.swipe = this.swipe.bind(this);
     }
 
     deleteArticle(articleID){
@@ -23,6 +28,49 @@ class ArticleSwipeItem extends React.Component {
     }
     commentLike(commentID, articleID, likeOrDislike){
         this.props.handleCommentLike(commentID, articleID, likeOrDislike);
+    }
+
+    swipe(event){
+        const { index } = this.state;
+        const { length } = this.state;
+
+        switch (event.target.name){
+            case 'swipe_left':{
+                if (index > 0){
+                    if (index-1 === 0)
+                        this.setState({buttonLeftOpacity: 'invisible'});
+                    this.setState({index: index-1});
+                    this.setState({buttonRightOpacity: ''});
+                }
+                else {
+                    this.setState({index: index});
+                }
+                break;
+            }
+            case 'swipe_right':{
+                if (index < length - 1){
+                    if (index+1 === (length - 1))
+                        this.setState({buttonRightOpacity: 'invisible'});
+                    this.setState({index: index+1});
+                    this.setState({buttonLeftOpacity: ''});
+                }
+                else {
+                    this.setState({index: index});
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    componentDidMount(){
+        const { length } = this.state;
+
+        if (length === 1){
+            this.setState({buttonRightOpacity: 'invisible'});
+        }
     }
 
     // 渲染個人檔案畫面
@@ -65,21 +113,24 @@ class ArticleSwipeItem extends React.Component {
         //             mediaLink = {article.listOfContent[article.listOfContent.length - 1].mediaLink === undefined ? '' : article.listOfContent[article.listOfContent.length - 1].mediaLink[0].link}/>
         //     </div>)
         // );
+        const { index } = this.state;
+        const { buttonLeftOpacity } = this.state;
+        const { buttonRightOpacity } = this.state;
         const articleElements =
-            (<div key={articleGroup[0]._id}>
+            (<div key={articleGroup[index]._id}>
                 <ArticleItem
-                    author={articleGroup[0].author}
-                    title={articleGroup[0].title}
-                    content={articleGroup[0].listOfContent[articleGroup[0].listOfContent.length - 1].content}
-                    category={articleGroup[0].category}
-                    articleID={articleGroup[0]._id}
-                    numberOfLikes={articleGroup[0].likes.length}
-                    likeOrDislike={articleGroup[0].likes.filter((like) => like === this.state.currentUser).length}
-                    whoLikes={articleGroup[0].likes}
-                    comments={articleGroup[0].comment}
-                    checkUser={articleGroup[0].author !== this.state.currentUser ? ' invisible' : ''}
-                    avatarLink={articleGroup[0].avatarLink}
-                    authorID={articleGroup[0].authorID}
+                    author={articleGroup[index].author}
+                    title={articleGroup[index].title}
+                    content={articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].content}
+                    category={articleGroup[index].category}
+                    articleID={articleGroup[index]._id}
+                    numberOfLikes={articleGroup[index].likes.length}
+                    likeOrDislike={articleGroup[index].likes.filter((like) => like === this.state.currentUser).length}
+                    whoLikes={articleGroup[index].likes}
+                    comments={articleGroup[index].comment}
+                    checkUser={articleGroup[index].author !== this.state.currentUser ? ' invisible' : ''}
+                    avatarLink={articleGroup[index].avatarLink}
+                    authorID={articleGroup[index].authorID}
 
                     refetch={this.props.refetch}
 
@@ -97,12 +148,20 @@ class ArticleSwipeItem extends React.Component {
 
                     // 臨時亂做的圖便上傳
                     // mediaLink = {article.listOfContent[article.listOfContent.length - 1]}
-                    mediaLink = {articleGroup[0].listOfContent[articleGroup[0].listOfContent.length - 1].mediaLink === undefined ? '' : articleGroup[0].listOfContent[articleGroup[0].listOfContent.length - 1].mediaLink[0].link}/>
+                    mediaLink = {articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].mediaLink === undefined ? '' : articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].mediaLink[0].link}
+                    time = {articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].time}
+                />
+
             </div>);
 
         return (
             <div>
                 {articleElements}
+                <div style={{marginTop: '-20px'}}>
+                    <span className='swipeText'>相關文章篇數：{this.state.length}</span>
+                    <button name='swipe_left' className={buttonLeftOpacity + ' swipeButton'} onClick={this.swipe}>左一篇</button>
+                    <button name='swipe_right' className={buttonRightOpacity + ' swipeButton'} onClick={this.swipe}>右一篇</button>
+                </div>
             </div>
         );
     }
@@ -160,7 +219,8 @@ class ArticleSwipeItem extends React.Component {
     }
 
     render() {
-        return this.props.articlesInProfile ? this.renderProfileMode() : this.renderIndexMode();
+        // return this.props.articlesInProfile ? this.renderProfileMode() : this.renderIndexMode();
+        return this.props.articlesInProfile ? this.renderProfileMode() : this.renderProfileMode();
     }
 }
 

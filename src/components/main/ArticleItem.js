@@ -56,6 +56,7 @@ class ArticleItem extends React.Component{
 
         this.toggleCommentInvisible = this.toggleCommentInvisible.bind(this);
         this.redirectToProfile = this.redirectToProfile.bind(this);
+        this.timeConverter = this.timeConverter.bind(this);
     }
 
     toggleCommentInvisible(){
@@ -155,6 +156,19 @@ class ArticleItem extends React.Component{
         }
     }
 
+    timeConverter(UNIX_timestamp){
+        let a = new Date(UNIX_timestamp * 1000);
+        let months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+        let year = a.getFullYear();
+        let month = months[a.getMonth()];
+        let date = a.getDate();
+        let hour = a.getHours();
+        let min = a.getMinutes();
+        let sec = a.getSeconds();
+        // let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        let time = month + date + '日 ' + hour + ':' + min;
+        return time;
+    }
 
     // 渲染編輯畫面
     renderEditMode(){
@@ -397,6 +411,8 @@ class ArticleItem extends React.Component{
         let { mediaLink } = this.props;
         let mediaLinkFixed = ( mediaLink === '') ? "../../images/annihilation.jpg" : mediaLink;
         // alert(mediaLink)
+        const { time } = this.props;
+        const timeForm = this.timeConverter(time);
 
         return (
             <div className={this.state.articlesInProfileDisplay}>
@@ -423,7 +439,7 @@ class ArticleItem extends React.Component{
                             <button name="author" onClick={this.redirectToProfile} value={authorID}  className='buttonNoneStyle'>
                                 <div className="articleAuthor">{author}</div>
                             </button>
-                            <div className={"articleDateAndPosition"}>5月21日 9:31 · 台南市</div>
+                            <div className={"articleDateAndPosition"}>{timeForm} · 台北市</div>
                         </div>
                         <img src={iconMenu} className={"navigationIcon bbb nonfunctionalOpacity"} alt="iconMenu"/>
                     </div>
