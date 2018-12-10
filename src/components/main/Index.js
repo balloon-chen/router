@@ -576,6 +576,8 @@ class Index extends React.Component {
         // fetch('http://140.119.163.194:3000/search_article')
 
 
+        this.setState({count: 1});
+        this.setState({lazyLoad: true});
         // 二維結構的文章
         fetch(this.state.apiURL + 'search_articleByCategory', {
             method: 'post',
@@ -664,9 +666,9 @@ class Index extends React.Component {
         window.addEventListener('scroll', this.handleScrollNewArticleButtonScrolling);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('scroll', this.handleScroll);
+    // }
 
     // 參考連結
     // https://stackoverflow.com/questions/29725828/update-style-of-a-component-onscroll-in-react-js?fbclid=IwAR0UIyP6pWWWiNgZvr7bKSNGKXvr23lidLcJ1VMv80UOcU6FRowjrx2AcAY
@@ -681,10 +683,9 @@ class Index extends React.Component {
             let scrollY = this.state.scrollY;
             let innerHeight = this.state.innerHeight;
             let scrollHeight = this.state.scrollHeight;
-            // 不顯示
-            // console.log(scrollY);
-            // console.log(innerHeight);
-            // console.log(scrollHeight);
+            console.log(scrollY);
+            console.log(innerHeight);
+            console.log(scrollHeight);
             if (scrollY >= (scrollHeight * 0.7 - innerHeight)) {
                 this.setState({count: this.state.count + 1});
                 this.setState({scrollHeight: document.documentElement.scrollHeight});
@@ -704,7 +705,7 @@ class Index extends React.Component {
                         if (parsedJSON[0] === undefined){
                             // alert(this.state.lazyLoad);
                             this.setState({lazyLoad: false});
-                            window.removeEventListener('scroll', this.handleScroll);
+                            // window.removeEventListener('scroll', this.handleScroll);
                         }
                         this.setState({articles: this.state.articles.concat(parsedJSON)});
                         this.setState({loadingGifInvisible: 'invisible'});

@@ -172,17 +172,18 @@ class ArticleComment extends React.Component{
                                 <div className="articleCommentCommenterID">{commenterName}</div>
                             </button>
                             <div className="articleCommentComment">{comment}</div>
-                            <div className="articleCommentLike">
-                                <ArticleLike
-                                    // 啦啦啦
-                                    articleID = {commentID}
-                                    numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
-                                    likeOrDislike = {!!likeOrDislike}
-                                    // onHandleLike = {() => handleCommentLike && handleCommentLike(numberOfLikes, likeOrDislike)}
-                                    onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(commentID, articleID, likeOrDislike)}
-                                    whoLikes = {whoLikes}
-                                />
-                            </div>
+                            {/*like 先拿掉*/}
+                            {/*<div className="articleCommentLike">*/}
+                                {/*<ArticleLike*/}
+                                    {/*// 啦啦啦*/}
+                                    {/*articleID = {commentID}*/}
+                                    {/*numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}*/}
+                                    {/*likeOrDislike = {!!likeOrDislike}*/}
+                                    {/*// onHandleLike = {() => handleCommentLike && handleCommentLike(numberOfLikes, likeOrDislike)}*/}
+                                    {/*onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(commentID, articleID, likeOrDislike)}*/}
+                                    {/*whoLikes = {whoLikes}*/}
+                                {/*/>*/}
+                            {/*</div>*/}
 
                             <div>
                                 <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateComment} value={commentID}>編輯</button>
