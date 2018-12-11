@@ -31,7 +31,8 @@ class App extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            isUnderMaintenance: false
+            apiURL: 'http://140.119.163.194:3000/',
+            isUnderMaintenance: 'false'
         };
         this.toggleRenderMode = this.toggleRenderMode.bind(this);
     }
@@ -42,7 +43,17 @@ class App extends Component {
     }
 
     componentDidMount(){
-        this.setState({isUnderMaintenance: false});
+        fetch(this.state.apiURL + 'get_searchMaintainStatus', {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.setState({isUnderMaintenance: (res.status).toString()});
+            });
     }
 
     renderNormalMode() {
@@ -105,7 +116,7 @@ class App extends Component {
     }
     render() {
         const { isUnderMaintenance } = this.state;
-        return (isUnderMaintenance) ? this.renderUnderMaintenanceMode() : this.renderNormalMode();
+        return (isUnderMaintenance === 'true') ? this.renderUnderMaintenanceMode() : this.renderNormalMode();
     }
 }
 

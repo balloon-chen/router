@@ -460,16 +460,16 @@ class ArticleItem extends React.Component{
                         <img src={iconComment} className="navigationIcon" alt="iconComment" onClick={this.toggleCommentInvisible} />
                         <span className="numOfArticleComment">{numOfArticleComment}</span>
                         {/*like 先拿掉*/}
-                        {/*<ArticleLike*/}
-                            {/*numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}*/}
-                            {/*// 啦啦啦*/}
-                            {/*likeOrDislike = {!!likeOrDislike}*/}
-                            {/*articleID = {articleID}*/}
-                            {/*// 啦啦啦*/}
-                            {/*// onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}*/}
-                            {/*onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}*/}
-                            {/*whoLikes = {whoLikes}*/}
-                        {/*/>*/}
+                        <ArticleLike
+                            numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
+                            // 啦啦啦
+                            likeOrDislike = {!!likeOrDislike}
+                            articleID = {articleID}
+                            // 啦啦啦
+                            // onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
+                            onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
+                            whoLikes = {whoLikes}
+                        />
                         <img src={iconNotTag} className="navigationIcon eee nonfunctionalOpacity" alt="iconNotTag"/>
                     </div>
 

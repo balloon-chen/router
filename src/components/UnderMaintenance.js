@@ -8,7 +8,9 @@ class UnderMaintenance extends React.Component {
         this.state = {
             state: 1,
             stateMessage: '.',
-            password: ''
+            password: '',
+            apiURL: 'http://140.119.163.194:3000/',
+            isUnderMaintenance: 'false'
         };
         this.changeState = this.changeState.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -44,8 +46,25 @@ class UnderMaintenance extends React.Component {
     }
     handleSubmit(event){
         const { password } = this.state;
+        const { isUnderMaintenance } = this.state;
         if (password === 'toggle'){
-            alert('Toggle!');
+            fetch(this.state.apiURL + 'put_updateMaintainStatus', {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({status: (!isUnderMaintenance).toString()})
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    let status = (!isUnderMaintenance).toString();
+                    if (status === 'false')
+                        alert('open!');
+                    else {
+                        alert('close!');
+                    }
+                });
         }
         else {
             alert('Wrong password!');
@@ -55,6 +74,17 @@ class UnderMaintenance extends React.Component {
 
     componentDidMount(){
         setInterval(this.changeState, 800);
+        fetch(this.state.apiURL + 'get_searchMaintainStatus', {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.setState({isUnderMaintenance: res.status});
+            });
     }
 
     render() {
