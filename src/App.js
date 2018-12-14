@@ -69,14 +69,14 @@ class App extends Component {
                         {/*<Route path='/profile' component={ProfileIndex} />*/}
                         <Route path='/UploadUserPhoto' component={UploadUserPhoto} />
                         <Route path='/logout' component={Logout} />
-                        <Route path='/upload' component={upload} />
+                        {/*<Route path='/upload' component={upload} />*/}
 
-                        <Route path='/todo' component={TodoApp} />
-                        <Route path='/home' component={Home} exact />
-                        <Route path='/about' component={About} />
-                        <Route path='/contact' component={Contact} />
+                        {/*<Route path='/todo' component={TodoApp} />*/}
+                        {/*<Route path='/home' component={Home} exact />*/}
+                        {/*<Route path='/about' component={About} />*/}
+                        {/*<Route path='/contact' component={Contact} />*/}
 
-                        <Route path='/swipe' component={Swipe} />
+                        {/*<Route path='/swipe' component={Swipe} />*/}
                         <Route path='/shutdown' component={UnderMaintenance} />
 
                         <Route component={Error} />

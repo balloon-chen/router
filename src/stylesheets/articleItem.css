@@ -46,7 +46,7 @@
 .userPhoto {
     height: 60px;
     width: 60px;
-    background-image: url("../images/userPhoto.jpg");
+    background-image: url("../images/userPhotoDefault.svg");
     background-size: cover;
     border-radius: 100%;
     display: inline-block;

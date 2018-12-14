@@ -388,7 +388,7 @@ class ArticleItem extends React.Component{
                         refetch={this.props.refetch}
 
                         numberOfLikes = {comment.numberOfLikes}
-                        likeOrDislike={ comment.likes.filter( (like) => like==this.state.currentUser ).length }
+                        likeOrDislike={ comment.likes.filter( (like) => like.userID === this.state.currentUserID ).length }
                         // handleCommentLike = {() => handleCommentLike && handleCommentLike(comment._id, comment.likes.filter( (like) => like==this.state.currentUser ).length)}
                         handleCommentLike={this.commentLikeOrDislike}
                         whoLikes = {comment.likes}
@@ -469,6 +469,7 @@ class ArticleItem extends React.Component{
                             // onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
                             onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
                             whoLikes = {whoLikes}
+                            abc = {likeOrDislike}
                         />
                         <img src={iconNotTag} className="navigationIcon eee nonfunctionalOpacity" alt="iconNotTag"/>
                     </div>

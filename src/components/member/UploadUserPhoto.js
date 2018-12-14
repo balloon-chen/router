@@ -15,6 +15,8 @@ class UploadUserPhoto extends React.Component{
             myImg: {},
             skipMessage: '略過',
             redirectToIndex: false,
+
+            redirectToSignUpLoginTemplate: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.fetchAvatar = this.fetchAvatar.bind(this);
@@ -80,7 +82,15 @@ class UploadUserPhoto extends React.Component{
         this.setState({redirectToIndex: true});
     }
 
+    componentDidMount(){
+        this.setState({redirectToSignUpLoginTemplate: (localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined)});
+    }
+
     render(){
+        const { redirectToSignUpLoginTemplate } = this.state;
+        if (redirectToSignUpLoginTemplate)
+            return <Redirect push to="/" />;
+
         const { avatarLink } = this.state;
         const { skipMessage } = this.state;
         const { redirectToIndex } = this.state;

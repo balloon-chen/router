@@ -287,7 +287,9 @@ class Index extends React.Component {
             count: 1,
 
             newArticleButtonImg: 'newArticleButtonImg',
-            lazyLoad: true
+            lazyLoad: true,
+
+            redirectToSignUpLoginTemplate: false
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -435,9 +437,9 @@ class Index extends React.Component {
 
     // 文章按愛心或收回愛心
     articleLike(articleID, likeOrDislike) {
-        // alert('articleID: '+articleID+'\nlikesPersonID: '+this.state.currentUser);
-        if (likeOrDislike == false) {
-            // fetch('http://140.119.163.194:3000/likes_article', {
+        // alert('articleID: '+articleID+'\nlikesPersonID: '+this.state.currentUser+'\nlikeOrDislike: '+likeOrDislike);
+        if (likeOrDislike === false || likeOrDislike === 0) {
+            // alert('有');
             fetch(this.state.apiURL + 'likes_article', {
                 method: 'put',
                 headers: {
@@ -446,7 +448,7 @@ class Index extends React.Component {
                 },
                 body: JSON.stringify({
                     articleID: articleID,
-                    likesPersonID: this.state.currentUser
+                    likesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -456,7 +458,7 @@ class Index extends React.Component {
             // setTimeout(this.fetchData, 500);
         }
         else {
-            // fetch('http://140.119.163.194:3000/dislikes_article', {
+            // alert('沒有');
             fetch(this.state.apiURL + 'dislikes_article', {
                 method: 'put',
                 headers: {
@@ -465,7 +467,7 @@ class Index extends React.Component {
                 },
                 body: JSON.stringify({
                     articleID: articleID,
-                    dislikesPersonID: this.state.currentUser
+                    dislikesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -490,7 +492,7 @@ class Index extends React.Component {
                 body: JSON.stringify({
                     articleID: articleID,
                     commentID: commentID,
-                    likesPersonID: this.state.currentUser
+                    likesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -511,7 +513,7 @@ class Index extends React.Component {
                 body: JSON.stringify({
                     articleID: articleID,
                     commentID: commentID,
-                    dislikesPersonID: this.state.currentUser
+                    dislikesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -662,6 +664,7 @@ class Index extends React.Component {
     // }
     componentDidMount() {
         this.fetchData();
+        this.setState({redirectToSignUpLoginTemplate: (localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined)});
         window.addEventListener('scroll', this.handleScroll);
         window.addEventListener('scroll', this.handleScrollNewArticleButtonScrolling);
     }
@@ -725,6 +728,10 @@ class Index extends React.Component {
     }
 
     render() {
+        const { redirectToSignUpLoginTemplate } = this.state;
+        if (redirectToSignUpLoginTemplate)
+            return <Redirect push to="/" />;
+
         const {articles} = this.state;
         console.log(articles)
         const {redirectToPost} = this.state;

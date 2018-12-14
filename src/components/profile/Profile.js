@@ -57,7 +57,9 @@ class Profile extends React.Component{
             requestFriendByMyselfButton: '',
             unFriendButtonInvisible: '',
 
-            socialBoardInvisible: 'invisible',
+            fansSocialBoardInvisible: 'invisible',
+            followingsSocialBoardInvisible: 'invisible',
+            friendsSocialBoardInvisible: 'invisible',
             fans: [],
             followings: [],
             friends: [],
@@ -315,7 +317,16 @@ class Profile extends React.Component{
             scrollY: '',
             innerHeight: '',
             scrollHeight: '',
-            count: 1
+            count: 1,
+
+            redirectToSignUpLoginTemplate: false,
+
+            userName: '',
+            aboutMe: '',
+            profileEditingOpacityZero: 'opacity-zero',
+            nonProfileEditingOpacityZero: '',
+            profileEditingInvisible: 'invisible',
+            nonProfileEditingInvisible: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.fetchAvatar = this.fetchAvatar.bind(this);
@@ -331,7 +342,9 @@ class Profile extends React.Component{
         this.takeBackFriend = this.takeBackFriend.bind(this);
         this.replyFriend = this.replyFriend.bind(this);
         this.unFriend = this.unFriend.bind(this);
-        this.toggleSocialBoardInvisible = this.toggleSocialBoardInvisible.bind(this);
+        this.toggleFansSocialBoardInvisible = this.toggleFansSocialBoardInvisible.bind(this);
+        this.toggleFollowingsSocialBoardInvisible = this.toggleFollowingsSocialBoardInvisible.bind(this);
+        this.toggleFriendsSocialBoardInvisible = this.toggleFriendsSocialBoardInvisible.bind(this);
 
         this.handleScroll = this.handleScroll.bind(this);
 
@@ -345,9 +358,53 @@ class Profile extends React.Component{
         this.deleteComment = this.deleteComment.bind(this);
         this.updateComment = this.updateComment.bind(this);
         this.addComment = this.addComment.bind(this);
+
+        this.profile_setting = this.profile_setting.bind(this);
+        this.start_profile_setting = this.start_profile_setting.bind(this);
+        this.end_profile_setting = this.end_profile_setting.bind(this);
     }
 
-
+    profile_setting(event) {
+        switch (event.target.name){
+            case 'userName':{
+                this.setState({userName: event.target.value});
+                break;
+            }
+            case 'aboutMe':{
+                this.setState({aboutMe: event.target.value});
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+    start_profile_setting(){
+        this.setState({profileEditingOpacityZero: ''});
+        this.setState({nonProfileEditingOpacityZero: 'opacity-zero'});
+        this.setState({profileEditingInvisible: ''});
+        this.setState({nonProfileEditingInvisible: 'invisible'});
+    }
+    end_profile_setting(){
+        const { userName } = this.state;
+        const { aboutMe } = this.state;
+        this.setState({profileEditingOpacityZero: 'opacity-zero'});
+        this.setState({nonProfileEditingOpacityZero: ''});
+        this.setState({profileEditingInvisible: 'invisible'});
+        this.setState({nonProfileEditingInvisible: ''});
+        fetch(this.state.apiURL + 'profile_setting', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userID: this.state.currentUserID, userName: userName, aboutMe: aboutMe, colorOfTheme: 'default'})
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.fetchData(this.state.currentUserID);
+            });
+    }
 
     fetchArticleData(){
         this.setState({count: 1});
@@ -421,7 +478,7 @@ class Profile extends React.Component{
                 },
                 body: JSON.stringify({
                     articleID: articleID,
-                    likesPersonID: this.state.currentUser
+                    likesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -440,7 +497,7 @@ class Profile extends React.Component{
                 },
                 body: JSON.stringify({
                     articleID: articleID,
-                    dislikesPersonID: this.state.currentUser
+                    dislikesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -464,7 +521,7 @@ class Profile extends React.Component{
                 body: JSON.stringify({
                     articleID: articleID,
                     commentID: commentID,
-                    likesPersonID: this.state.currentUser
+                    likesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -485,7 +542,7 @@ class Profile extends React.Component{
                 body: JSON.stringify({
                     articleID: articleID,
                     commentID: commentID,
-                    dislikesPersonID: this.state.currentUser
+                    dislikesPersonID: this.state.currentUserID
                 })
             }).then(res => res.json())
                 .then(res => {
@@ -668,6 +725,8 @@ class Profile extends React.Component{
                 this.setState({fans: res.fans});
                 this.setState({followings: res.following});
                 this.setState({friends: res.friends});
+                this.setState({userName: res.userName});
+                this.setState({aboutMe: res.aboutMe});
                 // this.setState({numberOfFans: res.fans.length});
                 // this.setState({numberOfFollowing: res.following.length});
                 console.log('a:'+res);
@@ -847,19 +906,43 @@ class Profile extends React.Component{
             .then(res => console.log(res));
     }
 
-    toggleSocialBoardInvisible(){
-        if (this.state.socialBoardInvisible === 'invisible')
-            this.setState({socialBoardInvisible: ''});
+    toggleFansSocialBoardInvisible(){
+        if (this.state.fansSocialBoardInvisible === 'invisible'){
+            this.setState({fansSocialBoardInvisible: ''});
+            this.setState({followingsSocialBoardInvisible: 'invisible'});
+            this.setState({friendsSocialBoardInvisible: 'invisible'});
+        }
         else
-            this.setState({socialBoardInvisible: 'invisible'});
+            this.setState({fansSocialBoardInvisible: 'invisible'});
+    }
+    toggleFollowingsSocialBoardInvisible(){
+        if (this.state.followingsSocialBoardInvisible === 'invisible'){
+            this.setState({followingsSocialBoardInvisible: ''});
+            this.setState({fansSocialBoardInvisible: 'invisible'});
+            this.setState({friendsSocialBoardInvisible: 'invisible'});
+        }
+        else
+            this.setState({followingsSocialBoardInvisible: 'invisible'});
+    }
+    toggleFriendsSocialBoardInvisible(){
+        if (this.state.friendsSocialBoardInvisible === 'invisible'){
+            this.setState({friendsSocialBoardInvisible: ''});
+            this.setState({fansSocialBoardInvisible: 'invisible'});
+            this.setState({followingsSocialBoardInvisible: 'invisible'});
+        }
+        else
+            this.setState({friendsSocialBoardInvisible: 'invisible'});
     }
 
     componentDidMount(){
-        if (this.state.whichUserID === null){
-            this.fetchData(this.state.currentUserID);
-        }
-        else {
-            this.fetchData(this.state.whichUserID);
+        this.setState({redirectToSignUpLoginTemplate: (localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined)});
+        if (!(localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined)){
+            if (this.state.whichUserID === null){
+                this.fetchData(this.state.currentUserID);
+            }
+            else {
+                this.fetchData(this.state.whichUserID);
+            }
         }
         // this.fetchData();
         window.document.body.scrollTop = 0;
@@ -932,6 +1015,10 @@ class Profile extends React.Component{
     }
 
     render(){
+        const { redirectToSignUpLoginTemplate } = this.state;
+        if (redirectToSignUpLoginTemplate)
+            return <Redirect push to="/" />;
+
         const { currentUser } = this.state;
         const { currentUserID } = this.state;
         const { whichUserID } = this.state;
@@ -959,13 +1046,29 @@ class Profile extends React.Component{
         const { requestFriendByMyselfButton } = this.state;
         const { unFriendButtonInvisible } = this.state;
         const { numberOfFriends } = this.state;
-        const { socialBoardInvisible } = this.state;
+        const { fansSocialBoardInvisible } = this.state;
+        const { friendsSocialBoardInvisible } = this.state;
+        const { followingsSocialBoardInvisible } = this.state;
 
         const { fans } = this.state;
         const { followings } = this.state;
         const { friends } = this.state;
 
-        const socialListCardsElements = fans.map((element) =>
+        const fansSocialListCardsElements = fans.map((element) =>
+            (<div key={element}>
+                <SocialListCard
+                    element = {element}
+                />
+            </div>)
+        );
+        const followingsSocialListCardsElements = followings.map((element) =>
+            (<div key={element}>
+                <SocialListCard
+                    element = {element}
+                />
+            </div>)
+        );
+        const friendsSocialListCardsElements = friends.map((element) =>
             (<div key={element}>
                 <SocialListCard
                     element = {element}
@@ -1025,8 +1128,16 @@ class Profile extends React.Component{
             </div>)
         );
 
+        const { userName } = this.state;
+        const { aboutMe } = this.state;
+        const { profileEditingOpacityZero } = this.state;
+        const { nonProfileEditingOpacityZero } = this.state;
+        const { profileEditingInvisible } = this.state;
+        const { nonProfileEditingInvisible } = this.state;
+
         return (
             <div>
+                {/*<button style={{height:'100px'}} onClick={this.profile_setting}>按我</button>*/}
                 {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
                 <div className={'loadingGif '+this.state.loadingGifInvisible}> </div>
                 {/*<Navigation />*/}
@@ -1053,6 +1164,8 @@ class Profile extends React.Component{
                             <input className="invisible" name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
                         </form>
                     </label>
+                    <label className={"uploadUserCoverPhoto uploadUserCoverPhotoooppp "+checkUserForUpdatePhotos+' '+nonProfileEditingInvisible} onClick={this.start_profile_setting}>編輯資訊</label>
+                    <label className={"uploadUserCoverPhoto uploadUserCoverPhotoooppp "+checkUserForUpdatePhotos+' '+profileEditingInvisible} onClick={this.end_profile_setting}>完成</label>
 
 
 
@@ -1085,7 +1198,10 @@ class Profile extends React.Component{
                             <span>追蹤中</span>
                         </div>
                     </div>
-                    <p className="userName">{currentUser}</p>
+                    <div>
+                        <p className={"userName "+nonProfileEditingOpacityZero}>{currentUser}</p>
+                        <input className={"userNameInput "+profileEditingOpacityZero} type="text" name='userName' value={userName} onChange={this.profile_setting}/>
+                    </div>
 
 
 
@@ -1093,29 +1209,49 @@ class Profile extends React.Component{
                         <table className="infoTable">
                             <tbody>
                                 <tr>
-                                    <td colSpan="3" className="mottoTd">對於吃貨來說，吃與不吃和飽了沒飽是沒有關係的！</td>
+                                    <td colSpan="3" className="mottoTd">
+                                        <div className={"mottoDiv "+nonProfileEditingOpacityZero}>{aboutMe}</div>
+                                        <textarea className={"mottoTextarea "+profileEditingOpacityZero} name='aboutMe' value={aboutMe} onChange={this.profile_setting}>
+
+                                        </textarea>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td className="infoNumberTd" onClick={this.toggleSocialBoardInvisible}>{numberOfFriends}</td>
-                                    <td className="infoNumberTd">{numberOfFans}</td>
-                                    <td className="infoNumberTd">{numberOfFollowing}</td>
+                                    <td className="infoNumberTd" onClick={this.toggleFriendsSocialBoardInvisible}>{numberOfFriends}</td>
+                                    <td className="infoNumberTd" onClick={this.toggleFansSocialBoardInvisible}>{numberOfFans}</td>
+                                    <td className="infoNumberTd" onClick={this.toggleFollowingsSocialBoardInvisible}>{numberOfFollowing}</td>
                                 </tr>
                                 <tr>
-                                    <td className="infoTextTd" onClick={this.toggleSocialBoardInvisible}>好友</td>
-                                    <td className="infoTextTd">粉絲</td>
-                                    <td className="infoTextTd">追蹤</td>
+                                    <td className="infoTextTd" onClick={this.toggleFriendsSocialBoardInvisible}>好友</td>
+                                    <td className="infoTextTd" onClick={this.toggleFansSocialBoardInvisible}>粉絲</td>
+                                    <td className="infoTextTd" onClick={this.toggleFollowingsSocialBoardInvisible}>追蹤</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <div className={"articleWhoLikesBackground"+socialBoardInvisible} onClick={this.toggleSocialBoardInvisible}> </div>
-                        <div className={"socialListCard "+socialBoardInvisible}>
+                        <div className={"articleWhoLikesBackground"+friendsSocialBoardInvisible} onClick={this.toggleFriendsSocialBoardInvisible}> </div>
+                        <div className={"socialListCard "+friendsSocialBoardInvisible}>
                             <div className="flex justify-content">
-                                {/*<img src={iconLike} className="navigationIcon" alt="iconLike"/>*/}
-                                <span>喜歡</span>
-                                <img src={iconCross} className="navigationIcon position-right" alt="iconCross" onClick={this.toggleSocialBoardInvisible}/>
+                                <span>好友</span>
+                                <img src={iconCross} className="navigationIcon position-right" alt="iconCross" onClick={this.toggleFriendsSocialBoardInvisible}/>
                             </div>
-                            {/*<span>{socialListCardsElements}</span>*/}
+                            <span>{friendsSocialListCardsElements}</span>
+                        </div>
+                        <div className={"articleWhoLikesBackground"+fansSocialBoardInvisible} onClick={this.toggleFansSocialBoardInvisible}> </div>
+                        <div className={"socialListCard "+fansSocialBoardInvisible}>
+                            <div className="flex justify-content">
+                                <span>粉絲</span>
+                                <img src={iconCross} className="navigationIcon position-right" alt="iconCross" onClick={this.toggleFansSocialBoardInvisible}/>
+                            </div>
+                            <span>{fansSocialListCardsElements}</span>
+                        </div>
+                        <div className={"articleWhoLikesBackground"+followingsSocialBoardInvisible} onClick={this.toggleFollowingsSocialBoardInvisible}> </div>
+                        <div className={"socialListCard "+followingsSocialBoardInvisible}>
+                            <div className="flex justify-content">
+                                <span>追蹤</span>
+                                <img src={iconCross} className="navigationIcon position-right" alt="iconCross" onClick={this.toggleFollowingsSocialBoardInvisible}/>
+                            </div>
+                            <span>{followingsSocialListCardsElements}</span>
                         </div>
 
                     </div>

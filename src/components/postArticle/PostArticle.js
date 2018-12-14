@@ -141,7 +141,9 @@ class PostArticle extends React.Component{
             myImg: localStorage.getItem('myImg') || {},
             nonImg: '',
             hasImg: 'invisible',
-            imgName: ''
+            imgName: '',
+
+            redirectToSignUpLoginTemplate: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -972,6 +974,7 @@ class PostArticle extends React.Component{
     }
 
     componentDidMount() {
+        this.setState({redirectToSignUpLoginTemplate: (localStorage.getItem("currentUser") === null || localStorage.getItem("currentUser") === undefined)});
         this.fetchData();
     }
 
@@ -992,6 +995,10 @@ class PostArticle extends React.Component{
     }
 
     render(){
+        const { redirectToSignUpLoginTemplate } = this.state;
+        if (redirectToSignUpLoginTemplate)
+            return <Redirect push to="/" />;
+
         const { redirectToIndex } = this.state;
         if (redirectToIndex) {
             return <Redirect push to="/index" />;
