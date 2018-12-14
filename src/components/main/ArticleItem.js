@@ -39,7 +39,9 @@ class ArticleItem extends React.Component{
             redirectToPost: false,
 
             articlesInProfile: this.props.articlesInProfile,
-            articlesInProfileDisplay: 'invisible'
+            articlesInProfileDisplay: 'invisible',
+
+            isArticleMenu: 'invisible'
         };
         this.updateArticle = this.updateArticle.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -57,7 +59,18 @@ class ArticleItem extends React.Component{
         this.toggleCommentInvisible = this.toggleCommentInvisible.bind(this);
         this.redirectToProfile = this.redirectToProfile.bind(this);
         this.timeConverter = this.timeConverter.bind(this);
+
+        this.toggleMenuInvisible = this.toggleMenuInvisible.bind(this);
     }
+
+
+    toggleMenuInvisible(){
+        if (this.state.isArticleMenu === 'invisible')
+            this.setState({isArticleMenu: ''});
+        else
+            this.setState({isArticleMenu: 'invisible'});
+    }
+
 
     toggleCommentInvisible(){
         if (this.state.invisible === 'invisible')
@@ -414,6 +427,8 @@ class ArticleItem extends React.Component{
         const { time } = this.props;
         const timeForm = this.timeConverter(time);
 
+        const { isArticleMenu } = this.state;
+
         return (
             <div className={this.state.articlesInProfileDisplay}>
                 {/*臨時亂做的圖便上傳*/}
@@ -425,23 +440,42 @@ class ArticleItem extends React.Component{
                     <div className={'articleImage'}>
                         <div className='test'>
                             <img src={mediaLinkFixed} alt="" className='test2'/>
+                            <div className="text-group">
+                                <span className="articleCategory">{category}</span>
+                                <br/>
+                                <span className="articleTitle">{title}</span>
+                            </div>
+
                         </div>
-                        <span className="articleCategory">{category}</span>
-                        <span className="articleTitle">{title}</span>
+
+
                     </div>
 
                     <div className={"aaa"}>
-                        <button name="author" onClick={this.redirectToProfile} value={authorID} className='buttonNoneStyle'>
-                            <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}} onClick={this.redirectToProfile}> </div>
-                        </button>
-                        <div>
-                            {/*<div className="articleAuthor"><input type="button" onClick={this.redirectToProfile} value={author}/>{author}</div>*/}
-                            <button name="author" onClick={this.redirectToProfile} value={authorID}  className='buttonNoneStyle'>
-                                <div className="articleAuthor">{author}</div>
+
+                        <div className="left">
+                            <button name="author" onClick={this.redirectToProfile} value={authorID} className='buttonNoneStyle'>
+                                <div className="userPhoto" style={{'backgroundImage': 'url('+avatarLink+')'}} onClick={this.redirectToProfile}> </div>
                             </button>
-                            <div className={"articleDateAndPosition"}>{timeForm} · 台北市</div>
+                            <div className={"nameLabel"}>
+                                {/*<div className="articleAuthor"><input type="button" onClick={this.redirectToProfile} value={author}/>{author}</div>*/}
+                                <button name="author" onClick={this.redirectToProfile} value={authorID}  className='buttonNoneStyle'>
+                                    <div className="articleAuthor">{author}</div>
+                                </button>
+                                <div className={"articleDateAndPosition"}>{timeForm} · 台北市</div>
+                            </div>
                         </div>
-                        <img src={iconMenu} className={"navigationIcon bbb nonfunctionalOpacity"} alt="iconMenu"/>
+
+
+
+                        <img src={iconMenu} className={"navigationIcon"} alt="iconMenu" onClick={this.toggleMenuInvisible} />
+
+                        <div className={isArticleMenu + " popOutFuntionMenu"}>
+                            <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
+                            <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
+                            {/*文章格式壞掉可用*/}
+                            {/*<button className={'updateDeleteSubmit'} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>*/}
+                        </div>
                     </div>
 
                     {/*<p className="articleContent">{content}</p>*/}
@@ -449,29 +483,35 @@ class ArticleItem extends React.Component{
                     <div>{contentToObjectsElements}</div>
                     {/*文章格式壞掉可用*/}
                     {/*<div>{content}</div>*/}
-                    <div>
-                        <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
-                        <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
-                        {/*文章格式壞掉可用*/}
-                        {/*<button className={'updateDeleteSubmit'} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>*/}
-                    </div>
 
-                    <div>
-                        <img src={iconComment} className="navigationIcon" alt="iconComment" onClick={this.toggleCommentInvisible} />
-                        <span className="numOfArticleComment">{numOfArticleComment}</span>
-                        {/*like 先拿掉*/}
-                        <ArticleLike
-                            numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
-                            // 啦啦啦
-                            likeOrDislike = {!!likeOrDislike}
-                            articleID = {articleID}
-                            // 啦啦啦
-                            // onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
-                            onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
-                            whoLikes = {whoLikes}
-                            abc = {likeOrDislike}
-                        />
-                        <img src={iconNotTag} className="navigationIcon eee nonfunctionalOpacity" alt="iconNotTag"/>
+
+                    <div className={"interactionGroup"}>
+
+                        <div className="left">
+
+                            <div className="commentCroup">
+                                <img src={iconComment} className="navigationIcon" alt="iconComment" onClick={this.toggleCommentInvisible} />
+                                <span className="numOfArticleComment">{numOfArticleComment}</span>
+                            </div>
+
+
+
+                            {/*like 先拿掉*/}
+                            <ArticleLike
+                                numberOfLikes = {numberOfLikes + this.state.numberOfLikesTemp}
+                                // 啦啦啦
+                                likeOrDislike = {!!likeOrDislike}
+                                articleID = {articleID}
+                                // 啦啦啦
+                                // onHandleLike = {() => handleLike && handleLike(articleID, likeOrDislike)}
+                                onHandleLike = {() => this.handleLikekkk && this.handleLikekkk(articleID, likeOrDislike)}
+                                whoLikes = {whoLikes}
+                                abc = {likeOrDislike}
+                            />
+
+                        </div>
+
+                        <img src={iconNotTag} className="navigationIcon nonfunctionalOpacity" alt="iconNotTag"/>
                     </div>
 
                     {/*<ArticleWhoLikes*/}
@@ -479,7 +519,7 @@ class ArticleItem extends React.Component{
                     {/*/>*/}
 
                     <div className={invisible}>
-                        <hr className="hrLine" />
+                        <hr className="hrLine-article" />
 
                         <AddArticleComment
                             articleID = {articleID}

@@ -25,7 +25,6 @@ class AddArticleComment extends React.Component{
     handleSubmit(event) {
         this.props.onAddComment(this.state.currentUserID, this.state.content, this.props.articleID, this.state.currentUser);
         this.setState({ content: '' });
-        // 🦄️
         this.props.refetch();
         event.preventDefault();
     }

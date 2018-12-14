@@ -10,6 +10,7 @@
     resize: none;
     margin-right: 20px;
     word-break: break-all;
+    line-height: 2.5;
 }
 .postArticleList_inputField_top {
     position: absolute;
@@ -18,7 +19,7 @@
 }
 .postArticleList_inputField_bottom {
     /*border: 1px black solid;*/
-    min-height: 22px;
+    /*min-height: 22px;*/
 }
 .postArticleList_separationLine {
     width: 35vw;

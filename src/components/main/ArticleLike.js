@@ -41,10 +41,13 @@ class ArticleLike extends React.Component{
         let likeOrDislike = false;
 
         return (
-            <span>
+            <span className={'likeGroup'}>
+
                 <img src={iconDislike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIcon" alt="iconComment"/>
                 {/*<div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike navigationIcon"> </div>*/}
                 <span className="numOfArticleLike" onClick={this.toggleWhoLikesInvisible}>{numberOfLikes}</span>
+
+
                 <div className={"articleWhoLikesBackground"+invisible} onClick={this.toggleWhoLikesInvisible}> </div>
                 {/*<div className={"articleWhoLikesCard "+invisible}>*/}
                     {/*按讚的人：{whoLikesElements}*/}
@@ -79,7 +82,7 @@ class ArticleLike extends React.Component{
         let likeOrDislike = true;
 
         return (
-            <span>
+            <span className={'likeGroup'}>
                 <img src={iconLike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIcon" alt="iconComment"/>
                 {/*<div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike navigationIcon"> </div>*/}
                 <span className="numOfArticleLike" onClick={this.toggleWhoLikesInvisible}>{numberOfLikes}</span>
