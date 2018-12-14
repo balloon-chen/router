@@ -3,17 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cc1cdf3b-64af-47d7-aa04-2e8f63fec70b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/ArticleItem.js" afterPath="$PROJECT_DIR$/src/components/main/ArticleItem.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/ArticleSwipeItem.js" afterPath="$PROJECT_DIR$/src/components/main/ArticleSwipeItem.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/ArticleWhoLikes.js" afterPath="$PROJECT_DIR$/src/components/main/ArticleWhoLikes.js" />
       <change beforePath="$PROJECT_DIR$/src/components/main/Index.js" afterPath="$PROJECT_DIR$/src/components/main/Index.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/member/UploadUserPhoto.js" afterPath="$PROJECT_DIR$/src/components/member/UploadUserPhoto.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/postArticle/PostArticle.js" afterPath="$PROJECT_DIR$/src/components/postArticle/PostArticle.js" />
       <change beforePath="$PROJECT_DIR$/src/components/profile/Profile.js" afterPath="$PROJECT_DIR$/src/components/profile/Profile.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/profile/SocialListCard.js" afterPath="$PROJECT_DIR$/src/components/profile/SocialListCard.js" />
-      <change beforePath="$PROJECT_DIR$/src/stylesheets/articleItem.css" afterPath="$PROJECT_DIR$/src/stylesheets/articleItem.css" />
-      <change beforePath="$PROJECT_DIR$/src/stylesheets/profile.css" afterPath="$PROJECT_DIR$/src/stylesheets/profile.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,78 +24,28 @@
       <file leaf-file-name="Profile.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="473" column="30" lean-forward="true" selection-start-line="473" selection-start-column="30" selection-end-line="473" selection-end-column="30" />
+            <state relative-caret-position="128">
+              <caret line="787" column="92" lean-forward="false" selection-start-line="787" selection-start-column="92" selection-end-line="787" selection-end-column="92" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/main/Index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="859" column="0" lean-forward="true" selection-start-line="859" selection-start-column="0" selection-end-line="859" selection-end-column="0" />
+            <state relative-caret-position="43">
+              <caret line="652" column="14" lean-forward="true" selection-start-line="652" selection-start-column="14" selection-end-line="652" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ArticleSwipeItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/main/ArticleSwipeItem.js">
+      <file leaf-file-name="profile.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/stylesheets/profile.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="269" column="40" lean-forward="false" selection-start-line="269" selection-start-column="40" selection-end-line="269" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/main/ArticleItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="390" column="88" lean-forward="false" selection-start-line="390" selection-start-column="88" selection-end-line="390" selection-end-column="88" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleLike.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/main/ArticleLike.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="57" column="51" lean-forward="true" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="articleWhoLikes.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stylesheets/articleWhoLikes.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="1" lean-forward="true" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleWhoLikes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/main/ArticleWhoLikes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="articleItem.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stylesheets/articleItem.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="48" column="59" lean-forward="true" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="59" />
+            <state relative-caret-position="65">
+              <caret line="79" column="53" lean-forward="false" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -122,11 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>aboutMe</find>
-      <find>update</find>
-      <find>switch</find>
-      <find>編輯大頭</find>
-      <find>uploadUserCoverPhotooo</find>
       <find>profile_setting</find>
       <find>opa</find>
       <find>userName</find>
@@ -152,6 +88,11 @@
       <find>wholike</find>
       <find>ArticleWhoLikes</find>
       <find>whoLikesElements</find>
+      <find>userPhotoInProfile</find>
+      <find>avatarLink</find>
+      <find>backgroundLink</find>
+      <find>ooo</find>
+      <find>currentUserAvatarLink</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -203,14 +144,14 @@
         <option value="$PROJECT_DIR$/src/components/member/UploadUserPhoto.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/profile/SocialListCard.js" />
-        <option value="$PROJECT_DIR$/src/stylesheets/profile.css" />
-        <option value="$PROJECT_DIR$/src/components/main/Index.js" />
-        <option value="$PROJECT_DIR$/src/components/profile/Profile.js" />
         <option value="$PROJECT_DIR$/src/components/main/ArticleSwipeItem.js" />
         <option value="$PROJECT_DIR$/src/components/main/ArticleItem.js" />
         <option value="$PROJECT_DIR$/src/stylesheets/articleItem.css" />
         <option value="$PROJECT_DIR$/src/components/main/ArticleWhoLikes.js" />
         <option value="$PROJECT_DIR$/src/components/main/ArticleLike.js" />
+        <option value="$PROJECT_DIR$/src/stylesheets/profile.css" />
+        <option value="$PROJECT_DIR$/src/components/profile/Profile.js" />
+        <option value="$PROJECT_DIR$/src/components/main/Index.js" />
       </list>
     </option>
   </component>
@@ -417,18 +358,17 @@
       <workItem from="1544497702316" duration="3159000" />
       <workItem from="1544503928481" duration="362000" />
       <workItem from="1544669282301" duration="12512000" />
-      <workItem from="1544755823785" duration="8455000" />
+      <workItem from="1544755823785" duration="11101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="693149000" />
+    <option name="totallyTimeSpent" value="695795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="105" y="86" width="1284" height="695" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26128265" sideWeight="0.8280423" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26128265" sideWeight="0.8280423" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37" sideWeight="0.4750594" order="0" side_tool="true" content_ui="tabs" />
@@ -727,34 +667,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stylesheets/profile.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="148" column="15" lean-forward="false" selection-start-line="148" selection-start-column="15" selection-end-line="148" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="473" column="30" lean-forward="true" selection-start-line="473" selection-start-column="30" selection-end-line="473" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/main/ArticleSwipeItem.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="269" column="40" lean-forward="false" selection-start-line="269" selection-start-column="40" selection-end-line="269" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/main/ArticleItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="390" column="88" lean-forward="false" selection-start-line="390" selection-start-column="88" selection-end-line="390" selection-end-column="88" />
           <folding />
         </state>
       </provider>
@@ -771,14 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="48" column="59" lean-forward="true" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/main/Index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="859" column="0" lean-forward="true" selection-start-line="859" selection-start-column="0" selection-end-line="859" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -801,8 +709,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/main/ArticleLike.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="57" column="51" lean-forward="true" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+        <state relative-caret-position="173">
+          <caret line="66" column="21" lean-forward="false" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/main/ArticleItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="390" column="88" lean-forward="false" selection-start-line="390" selection-start-column="88" selection-end-line="390" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stylesheets/profile.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="79" column="53" lean-forward="false" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/profile/Profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="787" column="92" lean-forward="false" selection-start-line="787" selection-start-column="92" selection-end-line="787" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/main/Index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="652" column="14" lean-forward="true" selection-start-line="652" selection-start-column="14" selection-end-line="652" selection-end-column="14" />
           <folding />
         </state>
       </provider>

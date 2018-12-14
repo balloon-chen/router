@@ -716,8 +716,8 @@ class Profile extends React.Component{
             body: JSON.stringify({userID: userID})
         }).then(res=>res.json())
             .then(res => {
-                this.setState({avatarLink: res.avatarLink});
-                this.setState({backgroundLink: res.backgroundLink});
+                this.setState({avatarLink: res.avatarLink[res.avatarLink.length-1]});
+                this.setState({backgroundLink: res.backgroundLink[res.backgroundLink.length-1]});
                 this.setState({currentUser: res.userName});
                 this.setState({numberOfFans: res.totalOfFans});
                 this.setState({numberOfFollowing: res.totalOfFollowings});
@@ -785,7 +785,7 @@ class Profile extends React.Component{
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
-                this.setState({currentUserAvatarLink: res.avatarLink});
+                this.setState({currentUserAvatarLink: res.avatarLink[res.avatarLink.length-1]});
             });
     }
 

@@ -655,7 +655,7 @@ class Index extends React.Component {
         }).then(res => res.json())
             .then(res => {
                 console.log(res);
-                this.setState({currentUserAvatarLink: res.avatarLink});
+                this.setState({currentUserAvatarLink: res.avatarLink[res.avatarLink.length-1]});
             });
     }
 
