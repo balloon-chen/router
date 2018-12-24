@@ -1,6 +1,7 @@
 import React from 'react';
 import ArticleItem from './ArticleItem';
 import Carousel from '../swipeTest/Carousel';
+import ProfileArticle from "../profile/ProfileArticle";
 
 class ArticleSwipeItem extends React.Component {
     constructor(props, context) {
@@ -116,9 +117,46 @@ class ArticleSwipeItem extends React.Component {
         const { index } = this.state;
         const { buttonLeftOpacity } = this.state;
         const { buttonRightOpacity } = this.state;
+        // const articleElements =
+        //     (<div key={articleGroup[index]._id}>
+        //         <ArticleItem
+        //             author={articleGroup[index].author}
+        //             title={articleGroup[index].title}
+        //             content={articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].content}
+        //             category={articleGroup[index].category}
+        //             articleID={articleGroup[index]._id}
+        //             numberOfLikes={articleGroup[index].likes.length}
+        //             likeOrDislike={articleGroup[index].likes.filter((like) => like.userID === this.state.currentUserID).length}
+        //             whoLikes={articleGroup[index].likes}
+        //             comments={articleGroup[index].comment}
+        //             checkUser={articleGroup[index].author !== this.state.currentUser ? ' invisible' : ''}
+        //             avatarLink={articleGroup[index].avatarLink}
+        //             authorID={articleGroup[index].authorID}
+        //
+        //             refetch={this.props.refetch}
+        //
+        //             onUpdateArticle={this.props.updateArticle}
+        //             onDeleteArticle={this.deleteArticle}
+        //             handleLike={this.articleLike}
+        //             handleCommentLike={this.commentLike}
+        //             deleteComment={this.props.deleteComment}
+        //             updateComment={this.props.updateComment}
+        //             addComment={this.props.addComment}
+        //
+        //             currentUserAvatarLink={currentUserAvatarLink}
+        //
+        //             articlesInProfile={articlesInProfile}
+        //
+        //             // 臨時亂做的圖便上傳
+        //             // mediaLink = {article.listOfContent[article.listOfContent.length - 1]}
+        //             mediaLink = {articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].mediaLink === undefined ? '' : articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].mediaLink[0].link}
+        //             time = {articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].time}
+        //         />
+        //
+        //     </div>);
         const articleElements =
             (<div key={articleGroup[index]._id}>
-                <ArticleItem
+                <ProfileArticle
                     author={articleGroup[index].author}
                     title={articleGroup[index].title}
                     content={articleGroup[index].listOfContent[articleGroup[index].listOfContent.length - 1].content}

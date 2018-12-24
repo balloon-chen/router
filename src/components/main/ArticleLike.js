@@ -41,9 +41,9 @@ class ArticleLike extends React.Component{
         let likeOrDislike = false;
 
         return (
-            <span className={'likeGroup'}>
+            <span className='likeGroup'>
 
-                <img src={iconDislike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIcon" alt="iconComment"/>
+                <img src={iconDislike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIconSmall" alt="iconComment"/>
                 {/*<div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike navigationIcon"> </div>*/}
                 <span className="numOfArticleLike" onClick={this.toggleWhoLikesInvisible}>{numberOfLikes}</span>
 
@@ -83,7 +83,7 @@ class ArticleLike extends React.Component{
 
         return (
             <span className={'likeGroup'}>
-                <img src={iconLike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIcon" alt="iconComment"/>
+                <img src={iconLike} onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="navigationIconSmall" alt="iconComment"/>
                 {/*<div onClick={() => onHandleLike && onHandleLike(articleID, likeOrDislike)} className="articleDislike navigationIcon"> </div>*/}
                 <span className="numOfArticleLike" onClick={this.toggleWhoLikesInvisible}>{numberOfLikes}</span>
                 <div className={"articleWhoLikesBackground"+invisible} onClick={this.toggleWhoLikesInvisible}> </div>

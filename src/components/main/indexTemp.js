@@ -21,7 +21,7 @@ class Index extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            apiURL: 'http://140.119.163.194:3000/',
+            apiURL: 'http://140.119.163.194:3002/',
             // apiURL: 'http://localhost:3000/',
             articles: [],
             redirectToPost: false,
@@ -582,13 +582,13 @@ class Index extends React.Component {
         this.setState({count: 1});
         this.setState({lazyLoad: true});
         // 二維結構的文章
-        fetch(this.state.apiURL + 'search_articleByCategory', {
+        fetch(this.state.apiURL + 'search_articleByCategoryAndTheSameAuthor', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({count: this.state.count})
+            body: JSON.stringify({count: this.state.count, userID: this.state.currentUserID})
         }).then(res => {
             console.log(res.headers);
             return res.json();
@@ -597,7 +597,7 @@ class Index extends React.Component {
                 this.setState({articles: parsedJSON});
                 // this.setState({articles: this.state.articlesTempTest});
                 this.setState({loadingGifInvisible: 'invisible'});
-                console.log(parsedJSON[0])
+                // console.log(parsedJSON[0].centerArticle._id);
                 // console.log('authorID: ' + parsedJSON[0].authorID)
                 // console.log('userName: ' + parsedJSON[0].author)
                 // console.log('articleTitle: ' + parsedJSON[0].title)
@@ -818,7 +818,7 @@ class Index extends React.Component {
         //     </div>)
         // );
         const articleElements = articles.map((articleGroup) =>
-            (<div key={articleGroup[0]._id}>
+            (<div key={articleGroup.centerArticle._id}>
                 <ArticleSwipeItem
                     articleGroup={articleGroup}
                     currentUserAvatarLink={currentUserAvatarLink}

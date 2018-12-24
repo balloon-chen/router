@@ -32,7 +32,14 @@ import ArticleItem from '../main/ArticleItem';
 import ArticleSwipeItem from '../main/ArticleSwipeItem';
 
 import loadingGif from "../../images/loadingGif.gif";
+// 資源：https://kyleamathews.github.io/react-spinkit/
+import Spinner from 'react-spinkit';
 
+import iconMenuWhite from "../../images/iconMenuWhite.svg";
+import iconTagWhite from "../../images/iconTagWhite.svg";
+import editProfileButton from "../../images/editProfileButton.svg";
+import uploadUserPhotoButton from "../../images/uploadUserPhotoButton.svg";
+import paletteIcon from "../../images/paletteIcon.svg";
 
 class Profile extends React.Component{
     constructor(props, context){
@@ -323,10 +330,13 @@ class Profile extends React.Component{
 
             userName: '',
             aboutMe: '',
+            aboutMeStatic: '',
             profileEditingOpacityZero: 'opacity-zero',
             nonProfileEditingOpacityZero: '',
             profileEditingInvisible: 'invisible',
-            nonProfileEditingInvisible: ''
+            nonProfileEditingInvisible: '',
+
+            editable: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.fetchAvatar = this.fetchAvatar.bind(this);
@@ -362,6 +372,12 @@ class Profile extends React.Component{
         this.profile_setting = this.profile_setting.bind(this);
         this.start_profile_setting = this.start_profile_setting.bind(this);
         this.end_profile_setting = this.end_profile_setting.bind(this);
+
+        this.toggleRenderMode = this.toggleRenderMode.bind(this);
+    }
+
+    toggleRenderMode(){
+        this.setState({ editable: !this.state.editable });
     }
 
     profile_setting(event) {
@@ -388,10 +404,10 @@ class Profile extends React.Component{
     end_profile_setting(){
         const { userName } = this.state;
         const { aboutMe } = this.state;
-        this.setState({profileEditingOpacityZero: 'opacity-zero'});
-        this.setState({nonProfileEditingOpacityZero: ''});
-        this.setState({profileEditingInvisible: 'invisible'});
-        this.setState({nonProfileEditingInvisible: ''});
+        // this.setState({profileEditingOpacityZero: 'opacity-zero'});
+        // this.setState({nonProfileEditingOpacityZero: ''});
+        // this.setState({profileEditingInvisible: 'invisible'});
+        // this.setState({nonProfileEditingInvisible: ''});
         fetch(this.state.apiURL + 'profile_setting', {
             method: 'put',
             headers: {
@@ -403,6 +419,7 @@ class Profile extends React.Component{
             .then(res => {
                 console.log(res);
                 this.fetchData(this.state.currentUserID);
+                this.toggleRenderMode();
             });
     }
 
@@ -727,6 +744,7 @@ class Profile extends React.Component{
                 this.setState({friends: res.friends});
                 this.setState({userName: res.userName});
                 this.setState({aboutMe: res.aboutMe});
+                this.setState({aboutMeStatic: res.aboutMe});
                 // this.setState({numberOfFans: res.fans.length});
                 // this.setState({numberOfFollowing: res.following.length});
                 console.log('a:'+res);
@@ -1014,7 +1032,7 @@ class Profile extends React.Component{
         }
     }
 
-    render(){
+    renderViewMode(){
         const { redirectToSignUpLoginTemplate } = this.state;
         if (redirectToSignUpLoginTemplate)
             return <Redirect push to="/" />;
@@ -1130,6 +1148,7 @@ class Profile extends React.Component{
 
         const { userName } = this.state;
         const { aboutMe } = this.state;
+        const { aboutMeStatic } = this.state;
         const { profileEditingOpacityZero } = this.state;
         const { nonProfileEditingOpacityZero } = this.state;
         const { profileEditingInvisible } = this.state;
@@ -1139,8 +1158,12 @@ class Profile extends React.Component{
             <div>
                 {/*<button style={{height:'100px'}} onClick={this.profile_setting}>按我</button>*/}
                 {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
-                <div className={'loadingGif '+this.state.loadingGifInvisible}> </div>
-                {/*<Navigation />*/}
+                {/*<div className={'loadingGif '+this.state.loadingGifInvisible}> </div>*/}
+                <div className={'loadingGif2 ' + this.state.loadingGifInvisible}><Spinner name='ball-spin-fade-loader' /></div>
+                <div className='flex justify-content-space-between profileButtonPosition'>
+                    <img src={iconTagWhite} className='navigationIcon opacity-zero' />
+                    <img src={iconMenuWhite} className='navigationIcon' />
+                </div>
                 <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
                     {/*<div className="frostedGlass"><img src={menu} className="navigationIcon"/><img src={tag} className="navigationIcon" /><span>個人頁面</span><img src={palette} className="navigationIcon" /><img src={exit} className="navigationIcon" /></div>*/}
                     <div className="frostedGlass ddd">
@@ -1151,25 +1174,10 @@ class Profile extends React.Component{
                         <img src={icon04} className="navigationIcon nonfunctionalOpacity" />
                         <img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile} />
                     </div>
-                    <label className={"uploadUserCoverPhoto "+checkUserForUpdatePhotos}>編輯封面
-                        <form encType="multipart/form-data">
-                            <input className="invisible" name="uploadBackGroundPhoto" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
-                        </form>
-                    </label>
-                    <div className="userPhotoInProfile" style={{'backgroundImage': 'url('+avatarLink+')'}}> </div>
+                    <div className="userPhotoInProfile" style={{'backgroundImage': 'url('+avatarLink+')'}}>
+                        <img src={editProfileButton} className='navigationIcon editProfileButtonPosition' onClick={this.toggleRenderMode} />
+                    </div>
                     <div className="userPhotoInProfileBorder"> </div>
-                    {/*<label className="uploadUserPhotoIcon">*/}
-                    <label className={"uploadUserCoverPhoto uploadUserCoverPhotooo "+checkUserForUpdatePhotos}>編輯大頭
-                        <form encType="multipart/form-data">
-                            <input className="invisible" name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
-                        </form>
-                    </label>
-                    <label className={"uploadUserCoverPhoto uploadUserCoverPhotoooppp "+checkUserForUpdatePhotos+' '+nonProfileEditingInvisible} onClick={this.start_profile_setting}>編輯資訊</label>
-                    <label className={"uploadUserCoverPhoto uploadUserCoverPhotoooppp "+checkUserForUpdatePhotos+' '+profileEditingInvisible} onClick={this.end_profile_setting}>完成</label>
-
-
-
-
 
                     <div className={'flex justify-content'}>
                         <div className={addFriendButtonInvisible+' '+checkUser+' profile_friendAndFollowButton addFriendButton'} onClick={this.friend}>
@@ -1199,8 +1207,7 @@ class Profile extends React.Component{
                         </div>
                     </div>
                     <div>
-                        <p className={"userName "+nonProfileEditingOpacityZero}>{currentUser}</p>
-                        <input className={"userNameInput "+profileEditingOpacityZero} type="text" name='userName' value={userName} onChange={this.profile_setting}/>
+                        <p className="userName">{currentUser}</p>
                     </div>
 
 
@@ -1210,10 +1217,7 @@ class Profile extends React.Component{
                             <tbody>
                                 <tr>
                                     <td colSpan="3" className="mottoTd">
-                                        <div className={"mottoDiv "+nonProfileEditingOpacityZero}>{aboutMe}</div>
-                                        <textarea className={"mottoTextarea "+profileEditingOpacityZero} name='aboutMe' value={aboutMe} onChange={this.profile_setting}>
-
-                                        </textarea>
+                                        <div className="mottoDiv">{aboutMeStatic}</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1257,12 +1261,21 @@ class Profile extends React.Component{
                     </div>
                     <div className="separationLine"> </div>
                     <div className="iconSort">
-                        <img src={iconSort01} className="navigationIcon nonfunctionalOpacity" onClick={this.setSquare01}/>
+                        <img src={iconSort01} className="navigationIcon" onClick={this.setSquare01}/>
                         <img src={iconSort02} className="navigationIcon nonfunctionalOpacity" onClick={this.setSquare02} />
                         <img src={iconSort03} className="navigationIcon nonfunctionalOpacity" />
                     </div>
                 </div>
 
+                <div className='profileArticleSortBox'>
+                    <div className='flex justify-content-space-between profileArticleSort'>
+                        <div>全部</div>
+                        <div>貼文</div>
+                        <div>相片/影片</div>
+                        <div>被標記</div>
+                        <div>收藏</div>
+                    </div>
+                </div>
                 <hr className="hrLine" />
 
                 {articleElements}
@@ -1283,6 +1296,123 @@ class Profile extends React.Component{
 
             </div>
         )
+    }
+    renderEditMode(){
+        const { redirectToSignUpLoginTemplate } = this.state;
+        if (redirectToSignUpLoginTemplate)
+            return <Redirect push to="/" />;
+
+        const { currentUser } = this.state;
+        const { avatarLink } = this.state;
+        const { backgroundLink } = this.state;
+        const { redirectToIndex } = this.state;
+        const { currentUserAvatarLink } = this.state;
+        const checkUserForUpdatePhotos = (this.state.whichUserID === null || this.state.whichUserID === this.state.currentUserID) ? '' : 'invisible';
+
+        if (redirectToIndex) {
+            return <Redirect push to="/index" />;
+        }
+
+        const { articles } = this.state;
+        const articleElements = articles.map((articleGroup) =>
+            (<div key = {articleGroup[0]._id}>
+                <ArticleSwipeItem
+                    articleGroup = {articleGroup}
+                    currentUserAvatarLink = {currentUserAvatarLink}
+                    articlesInProfile = {true}
+
+                    refetch = {this.refetch}
+                    onUpdateArticle = {this.updateArticle}
+                    onDeleteArticle = {this.deleteArticle}
+                    handleLike = {this.articleLike}
+                    handleCommentLike = {this.commentLike}
+                    deleteComment = {this.deleteComment}
+                    updateComment = {this.updateComment}
+                    addComment={this.addComment}
+                />
+            </div>)
+        );
+
+        const { userName } = this.state;
+        const { aboutMe } = this.state;
+        const { profileEditingOpacityZero } = this.state;
+        const { nonProfileEditingOpacityZero } = this.state;
+        const { profileEditingInvisible } = this.state;
+        const { nonProfileEditingInvisible } = this.state;
+
+        return (
+            <div>
+                <div className={'loadingGif2 ' + this.state.loadingGifInvisible}><Spinner name='ball-spin-fade-loader' /></div>
+                <div className='flex justify-content-space-between profileButtonPosition opacity-zero'>
+                    <img src={iconTagWhite} className='navigationIcon' />
+                    <img src={iconMenuWhite} className='navigationIcon' />
+                </div>
+                <div className="coverPhoto" style={{'backgroundImage': 'url('+backgroundLink+')'}}>
+                    <div className="flex justify-content-space-between frostedGlassEditProfile">
+                        <span onClick={this.toggleRenderMode}>取消</span>
+                        <span style={{width: 'auto'}}>編輯個人頁面</span>
+                        <span onClick={this.end_profile_setting}>完成</span>
+                    </div>
+                    <div className="userPhotoInProfile" style={{'backgroundImage': 'url('+avatarLink+')'}}>
+                        <label>
+                            <img src={uploadUserPhotoButton} className='navigationIcon editProfileButtonPosition' />
+                            <form encType="multipart/form-data">
+                                <input className="invisible" name="uploadAvatar" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
+                            </form>
+                        </label>
+                    </div>
+                    <div className="userPhotoInProfileBorder"> </div>
+
+                    <div className='flex justify-content coverColorDivPosition'>
+                        <label className={checkUserForUpdatePhotos}>
+                            <div className="coverColorButton">編輯背景</div>
+                            <form encType="multipart/form-data">
+                                <input className="invisible" name="uploadBackGroundPhoto" type="file" accept="image/gif, image/jpeg, image/png" onChange={this.handleChange} />
+                            </form>
+                        </label>
+                        <label className={checkUserForUpdatePhotos}>
+                            <div className="coverColorButton"><img src={paletteIcon} className='paletteIcon'/><span>主 色</span></div>
+                        </label>
+                    </div>
+
+                    <div>
+                        <p className="userName opacity-zero">{currentUser}</p>
+                        <input className="userNameInput" type="text" name='userName' value={userName} onChange={this.profile_setting}/>
+                    </div>
+
+                    <table className="infoTable">
+                        <tbody>
+                        <tr>
+                            <td colSpan="3" className="mottoTd">
+                                <div className="mottoDiv opacity-zero">{aboutMe}</div>
+                                <textarea className="mottoTextarea" name='aboutMe' value={aboutMe} onChange={this.profile_setting}>
+
+                                </textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className='profileArticleSortBox'>
+                    <div className='flex justify-content-space-between profileArticleSort'>
+                        <div>全部</div>
+                        <div>貼文</div>
+                        <div>相片/影片</div>
+                        <div>被標記</div>
+                        <div>收藏</div>
+                    </div>
+                </div>
+                <hr className="hrLine" />
+
+                {articleElements}
+
+            </div>
+        )
+    }
+    // 判斷渲染一般畫面或編輯畫面
+    render(){
+        return this.state.editable ? this.renderEditMode() : this.renderViewMode();
     }
 }
 

@@ -422,6 +422,7 @@ class ArticleItem extends React.Component{
 
         // 臨時亂做的圖便上傳
         let { mediaLink } = this.props;
+        let blackTitle = ( mediaLink === '') ? "blackTitle" : '';
         let mediaLinkFixed = ( mediaLink === '') ? "../../images/annihilation.jpg" : mediaLink;
         // alert(mediaLink)
         const { time } = this.props;
@@ -441,9 +442,9 @@ class ArticleItem extends React.Component{
                         <div className='test'>
                             <img src={mediaLinkFixed} alt="" className='test2'/>
                             <div className="text-group">
-                                <span className="articleCategory">{category}</span>
+                                <span className={"articleCategory "+blackTitle}>{category}</span>
                                 <br/>
-                                <span className="articleTitle">{title}</span>
+                                <span className={"articleTitle "+blackTitle}>{title}</span>
                             </div>
 
                         </div>
@@ -468,11 +469,11 @@ class ArticleItem extends React.Component{
 
 
 
-                        <img src={iconMenu} className={"navigationIcon"} alt="iconMenu" onClick={this.toggleMenuInvisible} />
+                        <img src={iconMenu} className='navigationIconSmall' alt="iconMenu" onClick={this.toggleMenuInvisible} />
 
                         <div className={isArticleMenu + " popOutFuntionMenu"}>
-                            <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</button>
-                            <button className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>
+                            <div className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</div>
+                            <div className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</div>
                             {/*文章格式壞掉可用*/}
                             {/*<button className={'updateDeleteSubmit'} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>*/}
                         </div>
@@ -490,7 +491,7 @@ class ArticleItem extends React.Component{
                         <div className="left">
 
                             <div className="commentCroup">
-                                <img src={iconComment} className="navigationIcon" alt="iconComment" onClick={this.toggleCommentInvisible} />
+                                <img src={iconComment} className="navigationIconSmall" alt="iconComment" onClick={this.toggleCommentInvisible} />
                                 <span className="numOfArticleComment">{numOfArticleComment}</span>
                             </div>
 
@@ -511,7 +512,7 @@ class ArticleItem extends React.Component{
 
                         </div>
 
-                        <img src={iconNotTag} className="navigationIcon nonfunctionalOpacity" alt="iconNotTag"/>
+                        <img src={iconNotTag} className="navigationIconSmall nonfunctionalOpacity" alt="iconNotTag"/>
                     </div>
 
                     {/*<ArticleWhoLikes*/}

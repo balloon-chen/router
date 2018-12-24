@@ -115,6 +115,12 @@ div, form {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+.loadingGif2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+}
 
 /*臨時亂做的圖便上傳*/
 .mediaLink {
@@ -148,6 +154,24 @@ div, form {
 }
 .test2 {
     width: 100%;
+    height: 100%;
+    /*object-fit: contain;*/
+}
+.square01_img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-image: url("https://res.cloudinary.com/dzzdz1kvr/image/upload/v1544314816/Social_Media/mediaLink/y9fy1wbtyfcwl9fs2qy7.jpg");
+}
+.square01_imgMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1;
+    opacity: 0.4;
 }
 .imageText {
     transition: 0.6s;

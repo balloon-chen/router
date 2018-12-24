@@ -224,7 +224,9 @@ class PostArticleList extends React.Component{
                     {/*paragraphListNumber*/}
                     <div className={'paragraphListNumberDiv'+' '+paragraphListNumberInvisible}>{paragraphListNumber}. </div>
 
-                    <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+fontSize+' '+quote+' '+paragraphList}>
+                    <div className = {'postArticleList_inputField postArticleList_inputField_bottom '+fontSize+' '+quote+' '+paragraphList}
+                         style={{minHeight: '30px'}}
+                    >
                         {articleContent}
                         <textarea
                             // rows={1}

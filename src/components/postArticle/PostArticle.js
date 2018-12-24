@@ -959,7 +959,7 @@ class PostArticle extends React.Component{
         }).then(res=>res.json())
             .then(res => {
                 console.log(res);
-                this.setState({currentUserAvatarLink: res.avatarLink});
+                this.setState({currentUserAvatarLink: res.avatarLink[res.avatarLink.length-1]});
                 if (this.state.articleID) {
                     this.setState({nextStepColor: 'black'});
                     this.setState({nextStepPointerEvents: 'auto'});
