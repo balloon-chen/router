@@ -245,9 +245,10 @@ class ArticleItem extends React.Component{
         } );
         const { avatarLink } = this.props;
         const { authorID } = this.props;
+        const { swipeDirection } = this.props;
 
         return (
-            <div className="articleCard">
+            <div className={"articleCard "+swipeDirection}>
                 {/*<form onSubmit={this.handleSubmit}>*/}
                 {/*<span className="articleCategory">{category}</span>*/}
                 {/*<span className="articleTitle">{title}</span>*/}
@@ -361,19 +362,14 @@ class ArticleItem extends React.Component{
         const { handleLike } = this.props;
         const { handleCommentLike } = this.props;
 
-
         // 啦啦啦
         const { numberOfLikes } = this.props;
         // const { likeOrDislike }=this.props;
         // const { numberOfLikes } = this.state;
         const { likeOrDislike }=this.state;
 
-
-
-
-
-
         const { checkUser } = this.props;
+        let notUser = checkUser === '' ? ' invisible' : '';
 
         const { whoLikes } = this.props;
 
@@ -429,12 +425,13 @@ class ArticleItem extends React.Component{
         const timeForm = this.timeConverter(time);
 
         const { isArticleMenu } = this.state;
+        const { swipeDirection } = this.props;
 
         return (
             <div className={this.state.articlesInProfileDisplay}>
                 {/*臨時亂做的圖便上傳*/}
                 {/*<p style={{wordBreak: 'break-all'}}>{mediaLinkFixed}</p>*/}
-                <div className="articleCard">
+                <div className={"articleCard "+swipeDirection}>
                     {/*<div className={'articleImage'}> </div>*/}
                     {/*<div className={'articleImage'} style={{'backgroundImage': 'url('+mediaLinkFixed+')'}}> </div>*/}
                     {/*<div className={'articleImage'} style={{'backgroundImage': 'url('+mediaLinkFixed+')'}}>*/}
@@ -474,6 +471,8 @@ class ArticleItem extends React.Component{
                         <div className={isArticleMenu + " popOutFuntionMenu"}>
                             <div className={'updateDeleteSubmit'+checkUser} type='submit' onClick={this.updateArticle} value={articleID}>編輯</div>
                             <div className={'updateDeleteSubmit'+checkUser} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</div>
+                            <div className={'updateDeleteSubmit'+notUser} type='submit'>收藏</div>
+                            <div className={'updateDeleteSubmit'+notUser} type='submit'>檢舉</div>
                             {/*文章格式壞掉可用*/}
                             {/*<button className={'updateDeleteSubmit'} type='submit' onClick={() => onDeleteArticle && onDeleteArticle(articleID)}>刪除</button>*/}
                         </div>

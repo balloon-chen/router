@@ -17,6 +17,72 @@
     background-color: #fffffff1;
 
     box-shadow: 0px 0px 14px rgba(0,0,0,0.2);
+
+    /*position: relative;*/
+    animation: slide 1s; /*IE*/
+    -moz-animation: slide 1s; /*FireFox*/
+    -webkit-animation: slide 1s; /*Chrome, Safari*/
+}
+@keyframes slide{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-moz-keyframes slide{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-webkit-keyframes slide{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.articleCardSwipeRight {
+    position: relative;
+    animation: swipeRight 1s; /*IE*/
+    -moz-animation: swipeRight 1s; /*FireFox*/
+    -webkit-animation: swipeRight 1s; /*Chrome, Safari*/
+}
+@keyframes swipeRight{
+    from {left: 200px;}
+    to {left: 0;}
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-moz-keyframes swipeRight{
+    from {left: 200px;}
+    to {left: 0;}
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-webkit-keyframes swipeRight{
+    from {left: 200px;}
+    to {left: 0;}
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.articleCardSwipeLeft {
+    position: relative;
+    animation: swipeLeft 1s; /*IE*/
+    -moz-animation: swipeLeft 1s; /*FireFox*/
+    -webkit-animation: swipeLeft 1s; /*Chrome, Safari*/
+}
+@keyframes swipeLeft{
+    from {left: -200px;}
+    to {left: 0;}
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-moz-keyframes swipeLeft{
+    from {left: -200px;}
+    to {left: 0;}
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-webkit-keyframes swipeLeft{
+    from {left: -200px;}
+    to {left: 0;}
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 .articleImage {
@@ -31,8 +97,9 @@
 }
 
 .articleImage .test{
-    min-height: 120px;
-    max-height: 45vh;
+    /*min-height: 120px;*/
+    /*max-height: 45vh;*/
+    /*改到 main.css 的 test2*/
 }
 
 
@@ -233,7 +300,7 @@
 
 .aaa {
     /*margin-top: 14%;*/
-    margin-top: 3%;
+    margin-top: 6px;
     display: flex;
     align-items: center;
     justify-content: space-between;

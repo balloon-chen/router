@@ -45,7 +45,7 @@ class Profile extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            apiURL: 'http://140.119.163.194:3000/',
+            apiURL: 'http://140.119.163.194:3002/',
             // apiURL: 'http://localhost/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
@@ -426,20 +426,20 @@ class Profile extends React.Component{
     fetchArticleData(){
         this.setState({count: 1});
         // 二維結構的文章
-        fetch(this.state.apiURL+'search_articleByCategory', {
+        fetch(this.state.apiURL+'search_articleByCategoryAndTheSameAuthor', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({count: this.state.count})
+            body: JSON.stringify({count: this.state.count, userID: this.state.currentUserID})
         }).then(res => {
             console.log(res.headers);
             return res.json();
         })
             .then(parsedJSON => {
                 this.setState({articles: parsedJSON});
-                console.log(parsedJSON[0]);
+                console.log(parsedJSON);
             });
     }
     // 重新抓資料並重新渲染畫面
@@ -598,7 +598,7 @@ class Profile extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/update_comment', {
-        fetch('http://140.119.163.194:3000/update_comment', {
+        fetch('http://140.119.163.194:3002/update_comment', {
             // fetch(this.state.apiURL+'update_comment', {
             method: 'put',
             body: formData
@@ -623,7 +623,7 @@ class Profile extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/add_comment', {
-        fetch('http://140.119.163.194:3000/add_comment', {
+        fetch('http://140.119.163.194:3002/add_comment', {
             // fetch('http://192.168.1.32:3000/add_comment', {
             // fetch(this.state.apiURL+'add_comment', {
             method: 'post',
@@ -976,20 +976,20 @@ class Profile extends React.Component{
         //     })
         //     .catch(err => console.log(err));
         // 二維結構的文章
-        fetch(this.state.apiURL+'search_articleByCategory', {
+        fetch(this.state.apiURL+'search_articleByCategoryAndTheSameAuthor', {
             method: 'post',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({count: this.state.count})
+            body: JSON.stringify({count: this.state.count, userID: this.state.currentUserID})
         }).then(res => {
             console.log(res.headers);
             return res.json();
         })
             .then(parsedJSON => {
                 this.setState({articles: this.state.articles.concat(parsedJSON)});
-                console.log(parsedJSON[0]);
+                console.log(parsedJSON);
             });
         window.addEventListener('scroll', this.handleScroll);
     }
@@ -1012,22 +1012,22 @@ class Profile extends React.Component{
             this.setState({count: this.state.count+1});
             this.setState({scrollHeight: document.documentElement.scrollHeight});
             // 二維結構的文章
-            fetch(this.state.apiURL+'search_articleByCategory', {
+            fetch(this.state.apiURL+'search_articleByCategoryAndTheSameAuthor', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({count: this.state.count})
+                body: JSON.stringify({count: this.state.count, userID: this.state.currentUserID})
             }).then(res => {
                 console.log(res.headers);
                 return res.json();
             })
                 .then(parsedJSON => {
-                    if (parsedJSON[0] === undefined)
+                    if (parsedJSON === undefined)
                         window.removeEventListener('scroll', this.handleScroll);
                     this.setState({articles: this.state.articles.concat(parsedJSON)});
-                    console.log(parsedJSON[0]);
+                    console.log(parsedJSON);
                 });
         }
     }
@@ -1128,12 +1128,11 @@ class Profile extends React.Component{
         //     </div>)
         // );
         const articleElements = articles.map((articleGroup) =>
-            (<div key = {articleGroup[0]._id}>
+            (<div key = {articleGroup.centerArticle._id}>
                 <ArticleSwipeItem
                     articleGroup = {articleGroup}
                     currentUserAvatarLink = {currentUserAvatarLink}
                     articlesInProfile = {true}
-
                     refetch = {this.refetch}
                     onUpdateArticle = {this.updateArticle}
                     onDeleteArticle = {this.deleteArticle}
@@ -1315,12 +1314,11 @@ class Profile extends React.Component{
 
         const { articles } = this.state;
         const articleElements = articles.map((articleGroup) =>
-            (<div key = {articleGroup[0]._id}>
+            (<div key = {articleGroup.centerArticle._id}>
                 <ArticleSwipeItem
                     articleGroup = {articleGroup}
                     currentUserAvatarLink = {currentUserAvatarLink}
                     articlesInProfile = {true}
-
                     refetch = {this.refetch}
                     onUpdateArticle = {this.updateArticle}
                     onDeleteArticle = {this.deleteArticle}

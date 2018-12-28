@@ -1,6 +1,6 @@
 html, body {
     /*border: solid 1px;*/
-    font-family: 微軟正黑體;
+    font-family: 微軟正黑體, Microsoft JhengHei, DFKai-sb ;
     position: relative;
     width: 100%;
     height: 100%;
@@ -154,8 +154,10 @@ div, form {
 }
 .test2 {
     width: 100%;
-    height: 100%;
-    /*object-fit: contain;*/
+    /*height: 100%;*/
+    min-height: 120px;
+    max-height: 45vh;
+    object-fit: cover;
 }
 .square01_img {
     width: 100%;

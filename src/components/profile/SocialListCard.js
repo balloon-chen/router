@@ -8,8 +8,9 @@ class SocialListCard extends React.Component{
         this.state = {
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
-            apiURL: 'http://140.119.163.194:3000/',
-            userData: []
+            apiURL: 'http://140.119.163.194:3002/',
+            userData: [],
+            avatarLink: ''
         };
     }
 
@@ -27,6 +28,7 @@ class SocialListCard extends React.Component{
                     return user._id === element;
                 });
                 this.setState({userData: userData[0]});
+                this.setState({avatarLink: this.state.userData.avatarLink[this.state.userData.avatarLink.length-1]});
             });
     }
 
@@ -34,7 +36,7 @@ class SocialListCard extends React.Component{
         const { userData } = this.state;
         let _id = userData._id;
         let userName = userData.userName;
-        let avatarLink = userData.avatarLink;
+        const { avatarLink } = this.state;
 
         return (
             <div>

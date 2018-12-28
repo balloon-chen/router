@@ -67,7 +67,7 @@ const responseFacebook = (response) => {
     fetchLoginData(response.name, response.id+'hiofw', response.email, response.id, response.picture.data.url);
 };
 
-const apiURL = 'http://140.119.163.194:3000/';
+const apiURL = 'http://140.119.163.194:3002/';
 // const apiURL = 'http://localhost:3000/';
 
 // 連接 API 並填入登入資訊

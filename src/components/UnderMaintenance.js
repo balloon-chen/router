@@ -9,7 +9,7 @@ class UnderMaintenance extends React.Component {
             state: 1,
             stateMessage: '.',
             password: '',
-            apiURL: 'http://140.119.163.194:3000/',
+            apiURL: 'http://140.119.163.194:3002/',
             isUnderMaintenance: 'false'
         };
         this.changeState = this.changeState.bind(this);
