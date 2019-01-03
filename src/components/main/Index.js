@@ -16,6 +16,7 @@ import ArticleSwipeItem from './ArticleSwipeItem';
 
 import loadingGif from "../../images/loadingGif.gif";
 import Spinner from 'react-spinkit';
+import Notification from "../notification/Notification";
 
 class Index extends React.Component {
     constructor(props, context) {
@@ -31,255 +32,6 @@ class Index extends React.Component {
             currentToken: localStorage.getItem("currentToken"),
             currentUserID: localStorage.getItem("currentUserID"),
             currentUserAvatarLink: '',
-
-            articlesTempTest: [
-                // 第一組
-                [
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543407094,
-                                "content": '[{"id":0, "articleContent":"1-1"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe85f5bc00200700a81455",
-                        "delete": false,
-                        "title": "123456789",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "新聞",
-                        "privacy": "public"
-                    },
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543406464,
-                                "content": '[{"id":1, "articleContent":"1-2"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe837f8f5c64311c4f03f5",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "新聞",
-                        "privacy": "public"
-                    },
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543404842,
-                                "content": '[{"id":1, "articleContent":"1-3"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe7d29c676b23fe8111840",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "新聞",
-                        "privacy": "public"
-                    }
-                ],
-                // 第二組
-                [
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543404823,
-                                "content": '[{"id":1, "articleContent":"2-1"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe7d17c676b23fe811183f",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "健康",
-                        "privacy": "public"
-                    },
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543404797,
-                                "content": '[{"id":1, "articleContent":"2-2"},{"id":2, "articleContent":"2-2"},{"id":3, "articleContent":"2-2"},{"id":4, "articleContent":"2-2"},{"id":5, "articleContent":"2-2"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe7cfdc676b23fe811183e",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "服飾",
-                        "privacy": "public"
-                    },
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543404768,
-                                "content": '[{"id":1, "articleContent":"2-3"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe7cdfc676b23fe811183d",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "保健",
-                        "privacy": "public"
-                    }
-                ],
-                // 第三組
-                [
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543404272,
-                                "content": '[{"id":0,"articleContent":"舊的","fontSize":"","quoteAInvisible":"","quoteBInvisible":"","quote":"","paragraphList":""}]'
-                            },
-                            {
-                                "time": 1543404340,
-                                "content": '[{"id":0,"articleContent":"3-1","fontSize":"","quoteAInvisible":"","quoteBInvisible":"","quote":"","paragraphList":""}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542964666/Social_Media/avatar/bgbuh87qqzdm7lcduuza.jpg"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [],
-                        "_id": "5bfe7af002377a2153121160",
-                        "delete": false,
-                        "title": "qq",
-                        "authorID": "5bf7b89fceefe21d453a2633",
-                        "author": "貳貳",
-                        "category": "美容彩妝",
-                        "privacy": "public"
-                    },
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543394426,
-                                "content": '[{"id":1, "articleContent":"3-2"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe547942000c1ff40f9646",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "藝術",
-                        "privacy": "public"
-                    },
-                    {
-                        "listOfContent": [
-                            {
-                                "time": 1543394393,
-                                "content": '[{"id":1, "articleContent":"3-3"}]'
-                            }
-                        ],
-                        "likes": [],
-                        "comment": [],
-                        "avatarLink": [
-                            [
-                                "https://res.cloudinary.com/dzzdz1kvr/image/upload/v1542961272/gvc6phwy2tgy92udkcn0.png"
-                            ]
-                        ],
-                        "mediaLink": [],
-                        "hashTags": [
-                            "test"
-                        ],
-                        "_id": "5bfe545842000c1ff40f9645",
-                        "delete": false,
-                        "title": "好好",
-                        "authorID": "5bf7b877ceefe21d453a2631",
-                        "author": "我要我要我要吃",
-                        "category": "時尚",
-                        "privacy": "public",
-                        "numberOfLikes": 0
-                    }
-                ]
-            ],
             loadingGifInvisible: '',
 
             scrollY: '',
@@ -290,7 +42,10 @@ class Index extends React.Component {
             newArticleButtonImg: 'newArticleButtonImg',
             lazyLoad: true,
 
-            redirectToSignUpLoginTemplate: false
+            redirectToSignUpLoginTemplate: false,
+
+            articleInvisible: '',
+            notificationInvisible: 'invisible'
         };
 
         this.fetchData = this.fetchData.bind(this);
@@ -306,6 +61,7 @@ class Index extends React.Component {
         this.handleScroll = this.handleScroll.bind(this);
         this.handleScrollNewArticleButtonScrolling = this.handleScrollNewArticleButtonScrolling.bind(this);
         this.handleScrollNewArticleButton = this.handleScrollNewArticleButton.bind(this);
+        this.toggleNoticeInvisible = this.toggleNoticeInvisible.bind(this);
     }
 
 
@@ -727,6 +483,17 @@ class Index extends React.Component {
     handleScrollNewArticleButton(){
         this.setState({newArticleButtonImg: 'newArticleButtonImg'});
     }
+    toggleNoticeInvisible(){
+        const { notificationInvisible } = this.state;
+        if (notificationInvisible === 'invisible'){
+            this.setState({articleInvisible: 'invisible'});
+            this.setState({notificationInvisible: ''});
+        }
+        else {
+            this.setState({articleInvisible: ''});
+            this.setState({notificationInvisible: 'invisible'});
+        }
+    }
 
     render() {
         const { redirectToSignUpLoginTemplate } = this.state;
@@ -838,6 +605,9 @@ class Index extends React.Component {
         // 在 profile 頁面時隱藏 Nav 和 + 按鈕
         const {invisible} = this.props;
 
+        const { articleInvisible } = this.state;
+        const { notificationInvisible } = this.state;
+
         return (
             <div>
                 {/*<img src={loadingGif} alt="loadingGif" className={'loadingGif '+this.state.loadingGifInvisible}/>*/}
@@ -852,28 +622,36 @@ class Index extends React.Component {
                          onClick={this.redirectToIndex}
                     />
                     <img src={iconSearch} className="navigationIcon nonfunctionalOpacity"/>
-                    <img src={iconNotice} className="navigationIcon nonfunctionalOpacity"/>
+                    <img src={iconNotice} className="navigationIcon" onClick={this.toggleNoticeInvisible}/>
                     <img src={icon03} className="navigationIcon nonfunctionalOpacity"/>
                     <img src={icon04} className="navigationIcon nonfunctionalOpacity"/>
-                    <img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile}/></div>
-                <br/><br/>
-                <div>{articleElements}</div>
+                    <img src={currentUserAvatarLink} className="navigationIcon ooo" onClick={this.redirectToProfile}/>
+                </div>
+                <div className={notificationInvisible}>
+                    <Notification />
+                </div>
+
+                <div className={articleInvisible}>
+                    <br/><br/>
+                    <div>{articleElements}</div>
 
 
-                {/*🦄️ swipe*/}
-                {/*<div style={{height: '360px'}}>*/}
-                {/*<Carousel axis='x' className="custom-class" frames={articleElements}> </Carousel>*/}
-                {/*<div className='articleCardShadow'> </div>*/}
-                {/*</div>*/}
-                <br/>
+                    {/*🦄️ swipe*/}
+                    {/*<div style={{height: '360px'}}>*/}
+                    {/*<Carousel axis='x' className="custom-class" frames={articleElements}> </Carousel>*/}
+                    {/*<div className='articleCardShadow'> </div>*/}
+                    {/*</div>*/}
+                    <br/>
 
 
-                <div className={invisible}>
-                    <div onClick={this.redirectToPost}>
-                        {/*<div className="newArticleButton"></div>*/}
-                        <img src={newArticleButton} alt="newArticleButton" className={newArticleButtonImg} />
+                    <div className={invisible}>
+                        <div onClick={this.redirectToPost}>
+                            {/*<div className="newArticleButton"></div>*/}
+                            <img src={newArticleButton} alt="newArticleButton" className={newArticleButtonImg} />
+                        </div>
                     </div>
                 </div>
+
             </div>
         );
     }

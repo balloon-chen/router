@@ -36,5 +36,54 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
+
+    <!-- Add additional servicsdes that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-functions.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        let config = {
+            apiKey: "AIzaSyB5DwR8wzthXesdk14wsiMzEqyUnXBChL4",
+            authDomain: "chunfung-b9a99.firebaseapp.com",
+            databaseURL: "https://chunfung-b9a99.firebaseio.com",
+            projectId: "chunfung-b9a99",
+            storageBucket: "chunfung-b9a99.appspot.com",
+            messagingSenderId: "758087152148"
+        };
+        firebase.initializeApp(config);
+        const messaging = firebase.messaging();
+        messaging.requestPermission()
+            .then(res => {
+                // 若允許通知 -> 向 firebase 拿 token
+                return messaging.getToken();
+            }, err => {
+                // 若拒絕通知
+                console.log(err);
+            })
+            .then(token => {
+                // 成功取得 token
+                // postToken(token); // 打給後端 api
+                console.log(token);
+            });
+
+        messaging.onMessage(function(payload) {
+            console.log('Message received. ', payload);
+            alert(payload)
+            // ...
+        });
+    </script>
+
+
+
   </body>
 </html>

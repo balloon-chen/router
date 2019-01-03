@@ -28,7 +28,8 @@ class SocialListCard extends React.Component{
                     return user._id === element;
                 });
                 this.setState({userData: userData[0]});
-                this.setState({avatarLink: this.state.userData.avatarLink[this.state.userData.avatarLink.length-1]});
+                let avatarLink = this.state.userData.avatarLink === undefined ? '' : this.state.userData.avatarLink[this.state.userData.avatarLink.length-1];
+                this.setState({avatarLink: avatarLink});
             });
     }
 
