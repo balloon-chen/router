@@ -8,7 +8,7 @@ class SocialListCard extends React.Component{
         this.state = {
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
-            apiURL: 'http://140.119.163.194:3002/',
+            apiURL: 'http://140.119.163.194:3004/',
             userData: [],
             avatarLink: ''
         };

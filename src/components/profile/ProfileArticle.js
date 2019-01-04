@@ -29,7 +29,7 @@ class ProfileArticle extends React.Component{
                 localStorage.setItem("whichUserID", event.target.value);
                 // this.setState({redirectToProfile: true});
                 // 🦄
-                window.location.assign('http://140.119.163.194:3001/profile');
+                window.location.assign('https://dingdong-60a19.firebaseapp.com/profile');
                 break;
             }
             default: {

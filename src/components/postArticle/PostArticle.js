@@ -45,7 +45,7 @@ class PostArticle extends React.Component{
             articleCategory: localStorage.getItem("articleCategory") || "",
             redirectToIndex: false,
             // apiURL: 'http://140.119.163.194:3000/',
-            apiURL: 'http://140.119.163.194:3002/',
+            apiURL: 'http://140.119.163.194:3004/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
             currentUserID: localStorage.getItem("currentUserID"),

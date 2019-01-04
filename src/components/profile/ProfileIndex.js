@@ -5,7 +5,7 @@ class ProfileIndex extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            apiURL: 'http://140.119.163.194:3002/',
+            apiURL: 'http://140.119.163.194:3004/',
             // apiURL: 'http://localhost/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),

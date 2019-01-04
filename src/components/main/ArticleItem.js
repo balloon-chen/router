@@ -91,7 +91,7 @@ class ArticleItem extends React.Component{
         localStorage.setItem("articleTitle", this.props.title);
         localStorage.setItem("articleCategory", this.props.category);
         localStorage.setItem("myImg", this.props.mediaLink.toString());
-        window.location.assign('http://140.119.163.194:3001/post');
+        window.location.assign('https://dingdong-60a19.firebaseapp.com/post');
     }
     // 編輯畫面取得輸入值
     handleChange(event) {
@@ -144,7 +144,7 @@ class ArticleItem extends React.Component{
                 localStorage.setItem("whichUserID", event.target.value);
                 // this.setState({redirectToProfile: true});
                 // 🦄
-                window.location.assign('http://140.119.163.194:3001/profile');
+                window.location.assign('https://dingdong-60a19.firebaseapp.com/profile');
                 break;
             }
             default: {

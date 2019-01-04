@@ -47,7 +47,7 @@ class Profile extends React.Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            apiURL: 'http://140.119.163.194:3002/',
+            apiURL: 'http://140.119.163.194:3004/',
             // apiURL: 'http://localhost/',
             currentUser: localStorage.getItem("currentUser"),
             currentToken: localStorage.getItem("currentToken"),
@@ -357,7 +357,7 @@ class Profile extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/update_comment', {
-        fetch('http://140.119.163.194:3002/update_comment', {
+        fetch('http://140.119.163.194:3004/update_comment', {
             // fetch(this.state.apiURL+'update_comment', {
             method: 'put',
             body: formData
@@ -382,7 +382,7 @@ class Profile extends React.Component{
 
         //🦄️ url 無法用變數取代
         // fetch('http://140.119.163.194:3000/add_comment', {
-        fetch('http://140.119.163.194:3002/add_comment', {
+        fetch('http://140.119.163.194:3004/add_comment', {
             // fetch('http://192.168.1.32:3000/add_comment', {
             // fetch(this.state.apiURL+'add_comment', {
             method: 'post',
